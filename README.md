@@ -1,12 +1,111 @@
-# React + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# Little Lemon Website — Advanced React Project
 
-Currently, two official plugins are available:
+> Portfolio project for the **Advanced React Course**.  
+> This web app implements core React concepts and patterns, featuring a menu, feedback forms, and modern UI/UX best practices.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## 🚀 Overview
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+This project is a **front-end React web app** for the fictional Mediterranean bistro, *Little Lemon*.  
+It demonstrates advanced React component patterns, state management, and modern development workflow using **Vite**, **ESLint**, and a scalable folder structure.
+
+---
+
+## 🧩 Features
+
+- 🟢 **Menu Listing:** Dynamically renders desserts and other menu items, with calorie filtering and sorting logic.
+- 🟢 **Sign-Up & Feedback Forms:** Includes interactive forms with validation and controlled components.
+- 🟢 **Reusable Components:** Modular, maintainable React components (e.g., `DessertsList`, `SignUpForm`).
+- 🟢 **Modern React Patterns:** Functional components, hooks, prop drilling, and data flow management.
+- 🟢 **Clean Styling:** Responsive CSS, consistent theming, and separation of styles.
+
+---
+
+## 🗂️ Folder Structure
+
+```
+little_lemon_website/
+  ├── public/
+  ├── src/
+  │   ├── App.jsx
+  │   ├── DessertsList.jsx
+  │   ├── SignUpForm.jsx
+  │   ├── assets/
+  │   ├── styles/
+  │   └── ...
+  ├── package.json
+  ├── README.md
+  └── ...
+```
+
+---
+
+## ⚙️ How to Run Locally
+
+```bash
+git clone https://github.com/pokrhitman/little_lemon_website.git
+cd little_lemon_website
+npm install
+npm run dev
+```
+- Visit [http://localhost:5173](http://localhost:5173) in your browser.
+
+---
+
+## 📝 Course Assignments Covered
+
+- Dessert List: Filtering, sorting, and mapping array data to JSX.
+- Sign-Up Form: Building and validating a controlled form in React.
+- More assignments coming as the course progresses!
+
+---
+
+## 📚 Tech Stack
+
+- **React 18**
+- **Vite** (build tool)
+- **ESLint** (linting)
+- **Modern JavaScript (ES6+)**
+
+---
+
+## 📖 Lessons & Clean Code Practices
+
+- Clear comments and documentation for all components and features
+- Component-first structure for scalable apps
+- DRY, SRP, and clean function/component naming
+- Consistent commit messages and version control hygiene
+
+---
+
+## 🗂️ Project Folder Structure
+
+- `/public`: Static assets and HTML entry point
+- `/assets`: Images, logos, etc.
+- `/components`: Reusable layout/UI components
+- `/data`: Static data (e.g. menu items)
+- `/pages`: Main site pages for routing (Home, Desserts, Signup, etc.)
+- `/styles`: CSS stylesheets
+- `/utils`: Utility/helper functions
+- `App.jsx`: Main app logic (routing, layout)
+- `main.jsx`: App entry point
+
+
+
+## 🖼️ Screenshots
+
+*(Add screenshots here as the project develops for visual portfolio appeal!)*
+
+---
+
+## 📝 License
+
+This project is open-source and available under the [MIT License](LICENSE).
+
+---
+
+## 🤝 Connect
+
+For questions or collaboration, connect with me via [GitHub](https://github.com/pokrhitman).

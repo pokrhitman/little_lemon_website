@@ -1,0 +1,36 @@
+.home-welcome-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+    background: #fffbe9;
+    min-height: 70vh;
+}
+
+.home-welcome-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.home-logo {
+    width: 120px;
+    height: auto;
+    margin-bottom: 12px;
+}
+
+.home-title {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #333;
+    margin: 0;
+}
+
+.home-subtitle {
+    font-size: 1.1rem;
+    color: #555;
+    text-align: center;
+    max-width: 520px;
+    line-height: 1.6;
+}

@@ -1,35 +1,60 @@
-import "./App.css";
-import DessertsList from "./DessertsList";
+import { BrowserRouter as Router, Routes, Route} from "react-router-dom";
+import Navbar from "./components/Navbar";
+import Footer from "./components/LittleLemonFooter";
+import Home from "./pages/Home";
+import Menu from "./pages/Menu";
+import MenuDetail from "./pages/MenuDetail";
+import Desserts from "./pages/Desserts";
+import DessertDetail from "./pages/DessertDetail";
+import Drinks from "./pages/Drinks";
+import Feedback from "./pages/Feedback";
+import Login from "./pages/Login";
+import SignUp from "./pages/SignUp";
 
-const desserts = [
-  {
-    name: "Chocolate Cake",
-    calories: 400,
-    createdAt: "2022-09-01",
-  },
-  {
-    name: "Ice Cream",
-    calories: 200,
-    createdAt: "2022-01-02",
-  },
-  {
-    name: "Tiramisu",
-    calories: 300,
-    createdAt: "2021-10-03",
-  },
-  {
-    name: "Cheesecake",
-    calories: 600,
-    createdAt: "2022-01-04",
-  },
-];
+import "./styles/App.css";
 
 function App() {
+
   return (
-    <div className="App">
-      <h2>List of low calorie desserts:</h2>
-      <DessertsList data={desserts} />
-    </div>
+    <Router>
+      {/*Navbar appears on every page */}
+      <Navbar />
+
+      {/*Main content switches based on route */}
+      <main>
+        <Routes>
+          {/*Landing or welcome page */}
+          <Route path="/" element={<Home />} />
+
+          {/* Menu list */}
+          <Route path="/menu" element={<Menu />} />
+
+          {/* Single Menu details */}
+          <Route path="/menu/:id" element={<MenuDetail />} />
+
+          {/* Desserts list */}
+          <Route path="/desserts" element={<Desserts />} />
+
+          {/* Single dessert details (optional, dynamic route) */}
+          <Route path="/desserts/:id" element={<DessertDetail />} />
+
+          {/* Drinks list */}
+          <Route path="/drinks" element={<Drinks />} />
+
+          {/* Feedback Form */}
+          <Route path="/feedback" element={<Feedback />} />
+
+          {/* Login Form */}
+          <Route path="/login" element={<Login />} />
+
+          {/* Sign up Form */}
+          <Route path="/signup" element={<SignUp />} />
+     
+        </Routes>
+      </main>
+
+      <Footer />
+    </Router>
   );
 }
 

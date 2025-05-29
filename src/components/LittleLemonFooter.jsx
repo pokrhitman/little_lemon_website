@@ -1,12 +1,14 @@
-import GlobalStyles from '../styles/GlobalStyles';
+import "../styles/Footer.css";
 
 
-export default function LittleLemonFooter() { 
+function LittleLemonFooter() { 
     return ( 
-    <View style={GlobalStyles.footerContainer}> 
-        <Text style={GlobalStyles.footerText}> 
-                All rights reserved by Little Lemon, 2025{' '} 
-        </Text> 
-    </View> 
+    <footer className="footer-container">
+        <p className="footer-text">
+            All rights reserved by Little Lemon, 2025
+        </p>
+    </footer>
     ); 
 };
+
+export default LittleLemonFooter;

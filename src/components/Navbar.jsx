@@ -1,5 +1,6 @@
 import {NavLink} from "react-router-dom";
-import ".styles/Navbar.css";
+import Switch from "../switch/Switch";
+import "../styles/Navbar.css";
 
 function Navbar() {
     return (
@@ -9,9 +10,9 @@ function Navbar() {
             <NavLink to="desserts" className="nav-link">Desserts</NavLink>
             <NavLink to="drinks" className="nav-link">Drinks</NavLink>
             <NavLink to="feedback" className="nav-link">Feedback</NavLink>
-            <NavLink to="login" className="nav-link">login</NavLink>
+            <NavLink to="login" className="nav-link">Login</NavLink>
             <NavLink to="signup" className="nav-link">Sign Up</NavLink>
-
+            <Switch />
         </nav>
     );
 }

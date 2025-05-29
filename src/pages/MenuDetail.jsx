@@ -1,33 +1,30 @@
-import { View, Text, Image } from 'react-native';
-import GlobalStyles from '../styles/GlobalStyles';
+import "../styles/MenuDetail.css";
 
-export default function MenuItemDetail({ route }) {
-    const { item } = route.params || {};
-
+function MenuDetail({ item }) {
     if (!item) {
-
         return (
-            <View style={GlobalStyles.menuDetailCard}>
-                <Text style={GlobalStyles.menuDetailError}>No menu items selected.</Text>
-            </View>
+            <div className="menu-detail-card">
+                <p className="menu-detail-error">No menu item selected.</p>
+            </div>
         );
     }
 
     return (
-        <View style={GlobalStyles.menuDetailCard}>
+        <div className="menu-detail-card">
             {item.image && (
-                <Image
-                    source={typeof item.image === 'string' ? { uri: item.image } : item.image}
-                    style={GlobalStyles.menuDetailImage}
-                    resizeMode="cover"
+                <img
+                src={item.image}
+                className="menu-detail-image"
+                alt={item.name}
                 />
             )}
-
-            <Text style={GlobalStyles.menuDetailTitle}>{item.name}</Text>
-            <Text style={GlobalStyles.menuDetailPrice}>Price: {item.price}</Text>
+            <h2 className="menu-detail-title">{item.name}</h2>
+            <p className="menu-detail-price">Price: {item.price}</p>
             {item.description && (
-                <Text style={GlobalStyles.menuDetailDescription}>{item.description}</Text>
+                <p className="menu-detail-description">{item.description}</p>
             )}
-        </View>
+        </div>
     );
 }
+
+export default MenuDetail;

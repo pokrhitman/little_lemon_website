@@ -1,0 +1,33 @@
+.menu-detail-card {
+    background: var(--card-bg, #fff);
+    padding: 28px 18px;
+    margin: 24px auto;
+    border-radius: 10px;
+    box-shadow: 0 spx, 16px 2px #0001;
+    max-width: 480px;
+}
+
+.menu-detail-title {
+    font-size: 1.35rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: var(--foreground, #232323);
+}
+
+.menu-detail-price {
+    color: #27781e;
+    margin-bottom: 6px;
+    font-weight: 500;
+}
+
+.menu-detail-description {
+    color: #666;
+    font-size: 1.04.rem;
+    margin-top: 12px;
+}
+
+.menu-detail-error {
+    color: #b40000;
+    text-align: center;
+    font-weight: 600;
+}

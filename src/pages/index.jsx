@@ -1,0 +1,9 @@
+export { default as Home } from "./Home";
+export { default as Menu } from "./Menu";
+export { default as MenuDetail } from "./MenuDetail";
+export { default as Desserts } from "./Desserts";
+export { default as DessertsDetail } from "./DessertsDetail";
+export { default as Drinks } from "./Drinks";
+export { default as Feedback } from "./Feedback";
+export { default as Login } from "./Login";
+export { default as SignUp } from "./SignUp";

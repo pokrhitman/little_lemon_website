@@ -1,29 +1,29 @@
 import { useState } from "react";
-import GlobalStyles from "../styles/GlobalStyles";
+import "../styles/Feedback.css";
 
-
-export default function FeedbackScreen() {
-
-    const [firstName, onChangeFirstName] = useState('');
-    const [lastName, onChangeLastName] = useState('');
-    const [phoneNumber, onChangePhoneNumber] = useState('');
-    const [message, onChangeMessage] = useState('');
+function Feedback() {
+    const [firstName, setFirstName] = useState("");
+    const [lastName, setLastName] = useState("");
+    const [phoneNumber, setPhoneNumber] = useState("");
+    const [message, setMessage] = useState("");
     const [submitted, setSubmitted] = useState(false);
 
-    const handleSubmit = () => {
+    const handleSubmit = (e) => {
+        e.preventDefault();
         if (!firstName || !lastName || !phoneNumber || !message) {
-            alert('Please fill in all fields.');
+            alert("Please fill in all the fields.");
             return;
         }
 
-        console.log('Feedback submitted!');
+        //Handle feedback logic (could be API call)
+        console.log("Feedback submitted!");
         console.log({ firstName, lastName, phoneNumber, message });
 
-        setSubmitted(true);
-        onChangeFirstName('');
-        onChangeLastName('');
-        onChangePhoneNumber('');
-        onChangeMessage('');
+        setSubmitted("true");
+        setFirstName("");
+        setLastName("");
+        setPhoneNumber("");
+        setMessage("");
 
         setTimeout(() => {
             setSubmitted(false);
@@ -31,86 +31,74 @@ export default function FeedbackScreen() {
     };
 
     return (
-        <View style={{ flex: 1, backgroundColor: '#FFF' }}>
-            <KeyboardAvoidingView
-                style={{ flex: 1}}
-                behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-            >
+        <main className="feedback-main">
+            <section className="feedback-intro">
+                <h2 className="feedback-heading">
+                    Little Lemon is a charming neighborhood bistro that served simple food and classic cocktails in a lively but casual environment. We would to hear your experience with us!
+                </h2>
+            </section>
+            <section className="feedback-form-section">
+                <form className="feeback-form" onSubmit={handleSubmit}>
+                    <h3 className="feedback-subheading">How was your visit to Little Lemon?</h3>
+                    {submitted && (
+                        <div className="feedback-success-message">
+                            Thank you for your feedback!
+                        </div>
+                    )}
 
-                <ScrollView contentContainerStyle={{ flexGrow: 1, justifyContent: 'center'}}
-                keyboardShouldPersistTaps="handled"
-                >
+                <label className="feedback-label">
+                    First Name
+                    <input
+                    className="feedback-input"
+                    value={firstName}
+                    onChange={e => setFirstName(e.target.value)}
+                    placeholder="Enter your first name"
+                    required
+                    />
+                </label>
 
+                <label className="feeeback-label">
+                    Last Name 
+                    <input
+                    className="feedback-input"
+                    value={lastName}
+                    onChange={e => setFirstName(e.target.value)}
+                    placeholder="Enter your last name"
+                    required
+                    />
+                </label>
 
-                    <View style={GlobalStyles.introContainer}>
-                        <Text style={GlobalStyles.sectionHeading}>
-                            Little Lemon is a charming neighborhood bistro that serves simple food and classic cocktails in a lively but casual environment. We would love to hear your experience with us!
-                        </Text>
-                    </View>
+                <label className="feeeback-label">
+                    Phone Number
+                    <input
+                    className="feedback-input"
+                    value={phoneNumber}
+                    onChange={e => setPhoneNumber(e.target.value)}
+                    placeholder="Enter your phone name"
+                    type="tel"
+                    required
+                    />
+                </label>
 
-                    <View style={GlobalStyles.formContainer}>
-                        <Text style={GlobalStyles.sectionSubheading}>
-                            How was your visit to Little Lemon?
-                        </Text>
+                <label className="feeeback-label">
+                    Your Message
+                    <textarea
+                    className="feedback-message-input"
+                    value={message}
+                    onChange={e => setMessage(e.target.value)}
+                    placeholder="Leave your feedback here"
+                    maxLength={250}
+                    required
+                    />
+                </label>
 
-                        {submitted && (
-                            <Text style={GlobalStyles.loginSuccessMessage}>
-                                Thank you for your feedback!
-                            </Text>
-                        )}
-
-                        <Text style={GlobalStyles.label}>First Name</Text>
-                        <TextInput
-                            style={[GlobalStyles.inputBase, GlobalStyles.input]}
-                            value={firstName}
-                            onChangeText={onChangeFirstName}
-                            placeholder="Enter your first name"
-                            placeholderTextColor='#888'
-                        />
-
-                        <Text style={GlobalStyles.label}>Last Name</Text>
-                        <TextInput
-                            style={[GlobalStyles.inputBase, GlobalStyles.input]}
-                            value={lastName}
-                            onChangeText={onChangeLastName}
-                            placeholder="Enter your last name"
-                            placeholderTextColor='#888'
-                        />
-
-                        <Text style={GlobalStyles.label}>Phone Number</Text>
-                        <TextInput
-                            style={[GlobalStyles.inputBase, GlobalStyles.input]}
-                            value={phoneNumber}
-                            onChangeText={onChangePhoneNumber}
-                            placeholder="Enter your phone number"
-                            keyboardType="phone-pad"
-                            placeholderTextColor='#888'
-                        />
-
-                        <Text style={GlobalStyles.label}>Your Message</Text>
-                        <TextInput
-                            style={[GlobalStyles.inputBase, GlobalStyles.messageInput]}
-                            value={message}
-                            onChangeText={onChangeMessage}
-                            placeholder="Leave your feedback here"
-                            multiline={true}
-                            maxLength={250}
-                            placeholderTextColor='#888'
-                        />
-
-                        <Pressable
-                            onPress={handleSubmit}
-                            style={({ pressed }) => [
-                                GlobalStyles.submitButton,
-                                pressed && GlobalStyles.submitButtonPressed,
-                            ]}
-                        >
-                            <Text style={GlobalStyles.submitButtonText}>Submit</Text>
-                        </Pressable>
-                    </View>
-                </ScrollView>
-            </KeyboardAvoidingView>
-        </View>
+                <button className="feedback-submit-button" tpye="submit">
+                    Submit
+                </button>
+                </form>
+            </section>
+        </main>
     );
-};
+}
 
+export default Feedback;

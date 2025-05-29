@@ -1,87 +1,73 @@
 import { useState } from "react";
-import GlobalStyles from '../styles/GlobalStyles';
+import "../styles/Login.css";
 
-export default function LoginScreen() {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+function Login() {
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
     const [submitted, setSubmitted] = useState(false);
 
-    const handleLogin = () => {
+    const handleLogin = (e) => {
+        e.preventDefault();
         if (!email || !password) {
-            alert('Please enter both email and password.');
+            alert("Please enter both email and passowrd.");
             return;
         }
 
         setSubmitted(true);
-        setEmail('');
-        setPassword('');
+        setEmail("");
+        setPassword("");
         setTimeout(() => {
             setSubmitted(false);
         }, 3000);
     };
 
     return (
-        <View style={{ flex: 1, backgroundColor: '#FFF' }}>
-            <KeyboardAvoidingView
-                style={{ flex: 1 }}
-                behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-            >
+        <main className="login-main">
+            <section className="login-container">
+                <h2 className="login-header">Welcome to Little Lemon</h2>
+                <p className="login-subheader">Login to continue</p>
 
-                <ScrollView 
-                contentContainerStyle={{ flexGrow: 1, justifyContent: 'center' }}
-                keyboardShouldPersistTaps="handled"
-                >
+                (submitted ? (
+                    <div className="login-success-message">
+                        You are logged in!
+                    </div>
+                ) : (
+                    <form className="login-form" onSubmit={handleLogin}>
+                        <label className="login-label">
+                            Email 
+                            <input
+                            className="login-input"
+                            type="email"
+                            onChange={e => setEmail(e.target.value)}
+                            placeholder="Enter your email"
+                            required
+                            autoComplete="username"
+                            />
+                        </label>
 
-                    <View style={GlobalStyles.loginContainer}>
-                        <Text style={GlobalStyles.loginHeaderText}>Welcome to Little Lemon</Text>
-                        <Text style={GlobalStyles.regularText}>Login to continue</Text>
+                        <label className="login-label">
+                            <input
+                            className="login-input"
+                            type="password"
+                            value={password}
+                            onChange={e => setPassword(e.target.value)}
+                            placeholder="Enter your password"
+                            required
+                            autoComplete="current-password"
+                            />
+                        </label>
 
-                        {submitted ? (
-                            <Text style={GlobalStyles.loginSuccessMessage}>
-                                You are logged in!
-                            </Text>
-                        ) : (
-
-                            <>
-                                <Text style={GlobalStyles.label}>Email</Text>
-                                <TextInput
-                                    style={[GlobalStyles.inputBase, GlobalStyles.input]}
-                                    value={email}
-                                    onChangeText={setEmail}
-                                    placeholder='Enter your email'
-                                    keyboardType='email-address'
-                                    autoCapitalize='none'
-                                    placeholderTextColor='#666'
-                                    clearButtonMode='while-editing'
-                                />
-
-                                <Text style={GlobalStyles.label}>Password</Text>
-                                <TextInput
-                                    style={[GlobalStyles.inputBase, GlobalStyles.input]}
-                                    value={password}
-                                    onChangeText={setPassword}
-                                    placeholder='Enter your password'
-                                    secureTextEntry={true}
-                                    placeholderTextColor='#666'
-                                />
-
-                                <Pressable
-                                    onPress={handleLogin}
-                                    style={({ pressed }) => [
-                                        GlobalStyles.loginButton,
-                                        pressed && GlobalStyles.loginButtonPressed,
-                                    ]}
-                                >
-                                    <Text style={GlobalStyles.loginButtonText}>Login</Text>
-                                </Pressable>
-                            </>
-                        )}
-                    </View>
-                </ScrollView>
-            </KeyboardAvoidingView>
-        </View>
+                        <button className="login-button" type="submit">
+                            Login
+                        </button>
+                    </form>
+                ))
+            </section>
+        </main>
     );
-};
+}
+
+export default Login;
 
 
 

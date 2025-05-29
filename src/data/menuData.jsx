@@ -1,5 +1,5 @@
 
-export const menuItemsToDisplay = [
+const menuItemsToDisplay = [
     {
         title: 'Appetizers',
         data: [
@@ -45,3 +45,5 @@ export const menuItemsToDisplay = [
         ],
     },
 ];
+
+export default menuItemsToDisplay;

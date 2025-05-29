@@ -2,9 +2,11 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 40px 20px;
+    justify-content: center;
+    min-height: 100vh;
     background: #fffbe9;
-    min-height: 70vh;
+    padding: 0;
+    margin: 0;
 }
 
 .home-welcome-header {
@@ -15,9 +17,19 @@
 }
 
 .home-logo {
-    width: 120px;
+    max-width: 120px;
+    width: 60vwa;
     height: auto;
-    margin-bottom: 12px;
+}
+
+@media (max-width: 600px) {
+    .home-welcome-header {
+        padding: 24px 8px;
+    }
+    .home-subtitle {
+        font-size: 1rem;
+        max-width: 98vw;
+    }
 }
 
 .home-title {

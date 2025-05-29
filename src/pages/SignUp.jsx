@@ -1,6 +1,6 @@
-import "./App.css";
+import "../styles/Signup.css";
 import { useState } from "react";
-import { validateEmail } from "./utils";
+import { validateEmail } from "../utils/utils";
 
 const PasswordErrorMessage = () => {
   return (
@@ -8,7 +8,8 @@ const PasswordErrorMessage = () => {
   );
 };
 
-function App() {
+function SignUp() {
+  //State hooks for form fields
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -17,65 +18,125 @@ function App() {
     isTouched: false,
   });
   const [role, setRole] = useState("role");
+  const [submitted, setSubmitted] = useState(false);
 
+  // Returns true if the form is valid
   const getIsFormValid = () => {
     // Implement this function
-    return true;
+    return (
+      firstName &&
+      validateEmail(email) &&
+      password.value.length >= 8 &&
+      (role === "individual" || role === "business")
+    );
   };
 
+  //Resets all form fields to initial values
   const clearForm = () => {
-    // Implement this function
+    setFirstName ("");
+    setLastName("");
+    setEmail("");
+    setPassword({ value: "", isTouched: false });
+    setRole("role");
   };
 
-  const handleSubmit = () => {
-    alert("Account created!");
-    clearForm();
+  // Handles form submit
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (getIsFormValid()) {
+      alert("Account created!");
+      clearForm();
+      setTimeout(() =>setSubmitted(false), 3000);
+    }
   };
 
   return (
-    <div className="App">
-      <form onSubmit={handleSubmit}>
-        <fieldset>
-          <h2>Sign Up</h2>
-          <div className="Field">
-            <label>
-              First name <sup>*</sup>
-            </label>
-            <input placeholder="First name" />
+
+    <main className="signup-main">
+      <section className="signup-container">
+        <h2 className="signup-header">Sign Up</h2>
+        <p className="signup-subheader">
+          Create your account to join Little Lemon!
+        </p>
+        {submitted && (
+          <div className="signup-success-message">
+            Account created! Welcome!
           </div>
-          <div className="Field">
-            <label>Last name</label>
-            <input placeholder="Last name" />
-          </div>
-          <div className="Field">
-            <label>
-              Email address <sup>*</sup>
+        )}
+        <form className="signup-form" onSubmit={handleSubmit} autoComplete="off">
+          <label className="signup-label">
+            First Name <sup>*</sup>
+            <input
+            className="signup-input"
+            type="text"
+            placeholder="First Name"
+            value={firstName}
+            onChange={e => setFirstName(e.target.value)}
+            required
+            />
+          </label>
+          <label className="signup-label">
+            Last Name <sup>*</sup>
+            <input
+            className="signup-input"
+            type="text"
+            placeholder="Last Name"
+            value={lastName}
+            onChange={e => setLastName(e.target.value)}
+            required
+            />
+          </label>
+          <label className="signup-label">
+            Email address <sup>*</sup>
+            <input
+            className="signup-input"
+            type="email"
+            placeholder="Email address"
+            value={email}
+            onChange={e => setEmail(e.target.value)}
+            required
+            />
             </label>
-            <input placeholder="Email address" />
-          </div>
-          <div className="Field">
-            <label>
-              Password <sup>*</sup>
+            <label className="signup-label">
+            Password <sup>*</sup>
+            <input
+            className="signup-input"
+            type="password"
+            placeholder="Email address"
+            value={password.value}
+            onChange={e => setPassword({...password, value: e.target.value})}
+            onBlur={() => setPassword({ ...password, isTouched: true})}
+            required
+            />
+            {/* Show password error only if touched and too short */}
+            {password.isTouched && password.value.length < 8 && (
+              <PasswordErrorMessage />
+            )}
             </label>
-            <input placeholder="Password" />
-          </div>
-          <div className="Field">
-            <label>
-              Role <sup>*</sup>
-            </label>
-            <select>
+            <label className="signup-label">
+            Role <sup>*</sup>
+            <select
+            className="signup-select"
+            value={role}
+            onChange={e => setRole(e.target.value)}
+            required
+            >
               <option value="role">Role</option>
               <option value="individual">Individual</option>
               <option value="business">Business</option>
             </select>
-          </div>
-          <button type="submit" disabled={!getIsFormValid()}>
-            Create account
-          </button>
-        </fieldset>
-      </form>
-    </div>
+          </label>
+          <button
+          className="signup-submit-button"
+          type="submit"
+          disabled={!getIsFormValid()}
+          >
+            Create Account
+          </button>       
+        </form>
+      </section>
+    </main>
   );
 }
 
-export default Signup;
+export default SignUp; 

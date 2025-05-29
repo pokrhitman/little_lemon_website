@@ -1,19 +1,30 @@
-import { BrowserRouter as Router, Routes, Route} from "react-router-dom";
-import Navbar from "./components/Navbar";
-import Footer from "./components/LittleLemonFooter";
-import Home from "./pages/Home";
-import Menu from "./pages/Menu";
-import MenuDetail from "./pages/MenuDetail";
-import Desserts from "./pages/Desserts";
-import DessertDetail from "./pages/DessertDetail";
-import Drinks from "./pages/Drinks";
-import Feedback from "./pages/Feedback";
-import Login from "./pages/Login";
-import SignUp from "./pages/SignUp";
-
+import { useEffect } from "react";
+import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import { useTheme } from "./ThemeContext";
+import {
+  Desserts,
+  DessertsDetail,
+  Drinks,
+  Feedback,
+  Home,
+  Login,
+  Menu,
+  MenuDetail,
+  SignUp
+} from "./pages";
 import "./styles/App.css";
 
+import LittleLemonFooter from "./components/LittleLemonFooter";
+import Navbar from "./components/Navbar";
+
+
 function App() {
+  const { theme } = useTheme();
+
+  useEffect(() => {
+    document.body.classList.remove("light", "dark");
+    document.body.classList.add(theme);
+  }, [theme]);
 
   return (
     <Router>
@@ -36,7 +47,7 @@ function App() {
           <Route path="/desserts" element={<Desserts />} />
 
           {/* Single dessert details (optional, dynamic route) */}
-          <Route path="/desserts/:id" element={<DessertDetail />} />
+          <Route path="/desserts/:id" element={<DessertsDetail />} />
 
           {/* Drinks list */}
           <Route path="/drinks" element={<Drinks />} />
@@ -49,11 +60,11 @@ function App() {
 
           {/* Sign up Form */}
           <Route path="/signup" element={<SignUp />} />
-     
+
         </Routes>
       </main>
 
-      <Footer />
+      <LittleLemonFooter />
     </Router>
   );
 }

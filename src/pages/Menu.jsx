@@ -1,72 +1,27 @@
-import { useContext } from 'react';
-import GlobalStyles from '../styles/GlobalStyles';
-import { ThemeContext } from '../theme/ThemeContext';
-import { menuItemsToDisplay } from '../data/menuData';
+import menuItemsToDisplay from '../data/menuData';
+import "../styles/Menu.css";
 
-
-export default function MenuScreen() {
-    const navigation = useNavigation();
-    const { theme } = useContext(ThemeContext);
-    const { colors } = theme;
-
-
-    const renderItem = ({ item, index, section }) => {
-        const isLast = index === section.data.length - 1;
-
-        return (
-            <Pressable
-                onPress={() => navigation.navigate('MenuItemDetail', { item })}
-                style={({ pressed }) => [
-                    GlobalStyles.itemWrapper,
-                    pressed && { opacity: 0.6 }
-                ]}
-            >
-                <View style={GlobalStyles.itemContainer}>
-                    <Text style={GlobalStyles.itemText}>{item.name}</Text>
-                    <Text style={GlobalStyles.itemText}>{item.price}</Text>
-                </View>
-                {!isLast && <View style={GlobalStyles.separator} />}
-            </Pressable>
-        );
-    };
-
-    const renderSectionHeader = ({ section: { title } }) => (
-        <Text style={GlobalStyles.sectionHeader}>{title}</Text>
-    );
-
+function Menu() {
     return (
-        <View
-            style={{ 
-                flex: 1,
-                alignItems: 'center',
-                backgroundColor: colors.background,
-                paddingVertical: 20
-            }}>
-            <View
-                style={[
-                    GlobalStyles.menuContainer,
-                    {
-                        backgroundColor: colors.background,
-                        width: '100%',
-                        maxWidth: 600,
-                        flex: 1,
-                    },
-                ]}
-            >
-                <SectionList
-                    sections={menuItemsToDisplay}
-                    keyExtractor={(item, idx) => item.name + idx}
-                    renderItem={renderItem}
-                    renderSectionHeader={renderSectionHeader}
-                    contentContainerStyle={{
-                        paddingTop: 0,
-                        paddingBottom: 40,
-                    }}
-                    style={{ flex: 1}}
-                />
-            </View>
-        </View>
+        <div className="menu-page">
+            <h1 className="menu-title">Our Menu</h1>
+            <div className="menu-sections">
+                {menuItemsToDisplay.map((section, sectionIdx) => (
+                    <section key={section.title + sectionIdx} className="menu-section">
+                        <h2 className="menu-section-title">{section.title}</h2>
+                        <ul className="menu-items-list">
+                            {section.data.map((item, itemIdx) => (
+                                <li key={item.name + itemIdx} className="menu-item">
+                                    <span className="menu-item-name">{item.name}</span>
+                                    <span className="menu-item-price">{item.price}</span>
+                                </li>
+                            ))}
+                        </ul>
+                    </section>
+                ))}
+            </div>
+        </div>
     );
 }
 
-
+export default Menu;

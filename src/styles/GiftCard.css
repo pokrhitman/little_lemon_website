@@ -1,0 +1,77 @@
+.giftcard-container {
+    padding: 40px;
+    max-width: 420px;
+    margin: 40px auto;
+    background: #fff7e6;
+    border-radius: 1.5rem;
+    box-shadow: 0 2px 16px rgba(52, 38, 19, 0.1);
+}
+
+.giftcard-title {
+    text-align: center;
+    margin-bottom: 24px;
+    color: #b8772a;
+}
+
+.giftcard-load,
+.giftcard-details {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 14px;
+}
+
+.giftcard-input {
+    padding: 10px 12px;
+    border: 1px solid #ffe0b2;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+}
+
+.giftcard-btn {
+    padding: 10px 0;
+    margin-top: 8px;
+    border: none;
+    border-radius: 0.5rem;
+    background: #b8772a;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.18s;
+}
+
+.giftcard-btn.secondary {
+    background: #eee;
+    color: #b8772a;
+    margin-left: 6px;
+}
+
+-giftcard-btn:hover {
+    background: #db9600;
+}
+
+.giftcard-message {
+    margin-top: 8px;
+    padding: 8px;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+}
+
+.giftcard-message-error {
+    color: #a94442;
+    background: #fff0ee;
+    border: 1px solid #f5c6cb;
+}
+
+.giftcard-message-success {
+    color: #14560e;
+    background: #efffe9;
+    border: 1px solid #b6ecc9;
+}
+
+.giftcard-history {
+    margin: 10px 0 0 0;
+    padding-left: 18px;
+    color: #6e5425;
+    font-size: 0.96rem;
+}

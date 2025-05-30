@@ -7,3 +7,4 @@ export { default as Drinks } from "./Drinks";
 export { default as Feedback } from "./Feedback";
 export { default as Login } from "./Login";
 export { default as SignUp } from "./SignUp";
+export { default as GiftCard} from "./GiftCard";

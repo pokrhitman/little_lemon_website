@@ -1,0 +1,29 @@
+.navbar {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem; /* Space between links */
+    padding: 0.5rem 2rem;
+    background-color: #ffe066;
+    border-radius: 0.5rem;
+    font-family: inherit;
+    margin-top: 2.5rem;
+    width: fit-content; /* Only as wide as content */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.nav-link {
+    color: #936a18;
+    text-decoration: none;
+    font-size: 1.15rem;
+    font-weight: 600;
+    transition: color 0.16s;
+    padding: 0.15rem 0.4rem;
+    border-radius: 0.3rem;
+}
+
+.nav-link.active, .nav-link:focus, .nav-link:hover {
+    color: #fff;
+    background: #b8772a;
+    text-decoration: underline;
+}

@@ -27,7 +27,7 @@ function Login() {
                 <h2 className="login-header">Welcome to Little Lemon</h2>
                 <p className="login-subheader">Login to continue</p>
 
-                (submitted ? (
+                {submitted ? (
                     <div className="login-success-message">
                         You are logged in!
                     </div>
@@ -46,6 +46,7 @@ function Login() {
                         </label>
 
                         <label className="login-label">
+                            Password
                             <input
                             className="login-input"
                             type="password"
@@ -61,7 +62,7 @@ function Login() {
                             Login
                         </button>
                     </form>
-                ))
+                )}
             </section>
         </main>
     );

@@ -6,6 +6,7 @@ import {
   DessertsDetail,
   Drinks,
   Feedback,
+  GiftCard,
   Home,
   Login,
   Menu,
@@ -60,6 +61,9 @@ function App() {
 
           {/* Sign up Form */}
           <Route path="/signup" element={<SignUp />} />
+
+          {/* Gift Card */}
+          <Route path="/giftcard" element={<GiftCard />} />
 
         </Routes>
       </main>

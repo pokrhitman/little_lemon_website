@@ -19,7 +19,7 @@ function Feedback() {
         console.log("Feedback submitted!");
         console.log({ firstName, lastName, phoneNumber, message });
 
-        setSubmitted("true");
+        setSubmitted(true);
         setFirstName("");
         setLastName("");
         setPhoneNumber("");
@@ -34,11 +34,11 @@ function Feedback() {
         <main className="feedback-main">
             <section className="feedback-intro">
                 <h2 className="feedback-heading">
-                    Little Lemon is a charming neighborhood bistro that served simple food and classic cocktails in a lively but casual environment. We would to hear your experience with us!
+                    Little Lemon is a charming neighborhood bistro that served simple food and classic cocktails in a lively but casual environment. We would love to hear your experience with us!
                 </h2>
             </section>
             <section className="feedback-form-section">
-                <form className="feeback-form" onSubmit={handleSubmit}>
+                <form className="feedback-form" onSubmit={handleSubmit}>
                     <h3 className="feedback-subheading">How was your visit to Little Lemon?</h3>
                     {submitted && (
                         <div className="feedback-success-message">
@@ -57,18 +57,18 @@ function Feedback() {
                     />
                 </label>
 
-                <label className="feeeback-label">
+                <label className="feedback-label">
                     Last Name 
                     <input
                     className="feedback-input"
                     value={lastName}
-                    onChange={e => setFirstName(e.target.value)}
+                    onChange={e => setLastName(e.target.value)}
                     placeholder="Enter your last name"
                     required
                     />
                 </label>
 
-                <label className="feeeback-label">
+                <label className="feedback-label">
                     Phone Number
                     <input
                     className="feedback-input"
@@ -80,7 +80,7 @@ function Feedback() {
                     />
                 </label>
 
-                <label className="feeeback-label">
+                <label className="feedback-label">
                     Your Message
                     <textarea
                     className="feedback-message-input"
@@ -92,7 +92,7 @@ function Feedback() {
                     />
                 </label>
 
-                <button className="feedback-submit-button" tpye="submit">
+                <button className="feedback-submit-button" type="submit">
                     Submit
                 </button>
                 </form>

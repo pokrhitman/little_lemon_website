@@ -76,3 +76,17 @@ button[disabled] {
   color: #666666;
   cursor: not-allowed;
 }
+
+.app-shell {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1 0 auto;
+}
+
+footer {
+  flex-shrink: 0;
+}

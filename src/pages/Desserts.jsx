@@ -1,11 +1,9 @@
-//import DessertsList from "../components/DessertsList";
-//import { desserts } from "../data/dessertsData";
-
+import "../styles/Desserts.css";
 
 function Desserts() {
   return (
     <main className="desserts-page">
-      <h1 className="desserts-title">Our Desserts</h1>
+      <h1 className="section-title-center">Our Desserts</h1>
     </main>
   );
 }

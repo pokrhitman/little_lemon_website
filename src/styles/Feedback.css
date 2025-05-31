@@ -22,6 +22,7 @@
     display: flex;
     justify-content: center;
     width: 100%;
+    margin-top: 1.8rem;
 }
 
 .feedback-form {
@@ -34,6 +35,7 @@
     padding: 28px 22px;
     border-radius: 8px;
     box-shadow: 0 2px 18px 2px #0001;
+    margin-bottom: 2.4rem;
 }
 
 .feedback-subheading {
@@ -43,7 +45,7 @@
     margin-bottom: 12px;
 }
 
-.feedback-success-manager {
+.feedback-success-message {
     background: #daf5d5;
     color: #27781e;
     padding: 10px;
@@ -69,7 +71,7 @@
     background: #fafaf7;
 }
 
-.feeback-message-input {
+.feedback-message-input {
     min-height: 80px;
     resize: vertical;
 }
@@ -87,6 +89,6 @@
     transition: background 0.2s;
 }
 
-.feeback-submit-button:hover {
+.feedback-submit-button:hover {
     background: #ffd942;
 }

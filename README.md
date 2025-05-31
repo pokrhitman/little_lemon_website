@@ -94,9 +94,10 @@ npm run dev
 
 
 
-## 🖼️ Screenshots
+## 🚀 Live Demo
 
-*(Add screenshots here as the project develops for visual portfolio appeal!)*
+Check out the deployed site here: [Live Demo](https://pokrhitman.github.io/little_lemon_website/)
+
 
 ---
 

@@ -1,16 +1,14 @@
 import { useEffect } from "react";
-import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import { HashRouter as Router, Route, Routes } from "react-router-dom";
 import { useTheme } from "./ThemeContext";
 import {
   Desserts,
-  DessertsDetail,
   Drinks,
   Feedback,
   GiftCard,
   Home,
   Login,
   Menu,
-  MenuDetail,
   SignUp
 } from "./pages";
 import "./styles/App.css";
@@ -28,48 +26,46 @@ function App() {
   }, [theme]);
 
   return (
-    <Router>
-      {/*Navbar appears on every page */}
-      <Navbar />
+    <div className="app-shell">
+      <Router>
+        {/*Navbar appears on every page */}
+        <Navbar />
 
-      {/*Main content switches based on route */}
-      <main>
-        <Routes>
-          {/*Landing or welcome page */}
-          <Route path="/" element={<Home />} />
+        {/*Main content switches based on route */}
+        <main>
+          <Routes>
+            {/*Landing or welcome page */}
+            <Route path="/" element={<Home />} />
+            <Route path="" element={<Home />} />
+            <Route path="*" element={<Home />} />
 
-          {/* Menu list */}
-          <Route path="/menu" element={<Menu />} />
+            {/* Menu list */}
+            <Route path="/menu" element={<Menu />} />
 
-          {/* Single Menu details */}
-          <Route path="/menu/:id" element={<MenuDetail />} />
+            {/* Desserts list */}
+            <Route path="/desserts" element={<Desserts />} />
 
-          {/* Desserts list */}
-          <Route path="/desserts" element={<Desserts />} />
+            {/* Drinks list */}
+            <Route path="/drinks" element={<Drinks />} />
 
-          {/* Single dessert details (optional, dynamic route) */}
-          <Route path="/desserts/:id" element={<DessertsDetail />} />
+            {/* Feedback Form */}
+            <Route path="/feedback" element={<Feedback />} />
 
-          {/* Drinks list */}
-          <Route path="/drinks" element={<Drinks />} />
+            {/* Login Form */}
+            <Route path="/login" element={<Login />} />
 
-          {/* Feedback Form */}
-          <Route path="/feedback" element={<Feedback />} />
+            {/* Sign up Form */}
+            <Route path="/signup" element={<SignUp />} />
 
-          {/* Login Form */}
-          <Route path="/login" element={<Login />} />
+            {/* Gift Card */}
+            <Route path="/giftcard" element={<GiftCard />} />
 
-          {/* Sign up Form */}
-          <Route path="/signup" element={<SignUp />} />
+          </Routes>
+        </main>
 
-          {/* Gift Card */}
-          <Route path="/giftcard" element={<GiftCard />} />
-
-        </Routes>
-      </main>
-
-      <LittleLemonFooter />
-    </Router>
+        <LittleLemonFooter />
+      </Router>
+    </div>
   );
 }
 

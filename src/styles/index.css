@@ -20,6 +20,7 @@ body.light {
   --card-bg: #fff;
   --success: #daf5d5;
   --primary: #fec90c;
+  background: var(--background);
 }
 
 body.dark {
@@ -30,6 +31,7 @@ body.dark {
   --card-bg: #292929;
   --success: #214d25;
   --primary: #3281ea;
+  background: var(--background);
 }
 
 .navbar {

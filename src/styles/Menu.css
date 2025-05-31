@@ -1,46 +1,103 @@
-.menu-page {
-    max-width: 800px;
+.menu-list-page {
+    background: var(--background, #fffbe9);
+    min-height: 100vh;
+    padding: 2rem 0;
+}
+
+.menu-list-container {
+    max-width: 900px;
     margin: 0 auto;
-    padding: 32px 16px;
 }
 
-.menu-title {
-    text-align: center;
-    margin-bottom: 32px;
-}
-
-.menu-sections {
-    display: flex;
-    flex-direction: column;
-    gap: 32px;
+.menu-section {
+    margin-bottom: 2.8rem;
 }
 
 .menu-section-title {
- font-size: 1.4rem;
-    margin-bottom: 12px;
-    color: #444;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #b8772a;
+    margin-bottom: 1.1rem;
+    letter-spacing: 0.01em;
 }
 
-.menu-items-list {
-    list-style: none;
-    padding: 0;
+.menu-section-items {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
 }
 
-.menu-item {
+.menu-item-card {
+    position: relative;
+    background: var(--background, #fff);
+    border-radius: 1.2rem;
+    box-shadow: 0 2px 14px 0 rgba(52,38,19,0.09);
+    padding: 1.1rem 1.4rem;
+    min-width: 150px;
+    min-height: 80px;
     display: flex;
-    justify-content: space-between;
-    padding: 6px 0;
-    border-bottom: 1px solid #eee;
+    flex-direction: column;
+    justify-content: center;
+    cursor: pointer;
+    transition: box-shadow 0.15s;
 }
 
-.menu-item:last-child {
-    border-bottom: none;
+.menu-item-card:hover,
+.menu-item-card:focus-within {
+    box-shadow: 0 8px 32px 0 rgba(52,38,19,0.17);
 }
 
-.menu-item-name {
-    font-weight: 500;
+.menu-item-title {
+    font-size: 1.08rem;
+    font-weight: 600;
+    color: var(--foreground, #232323);
 }
 
-menu-item-price {
-    color: #888;
+.menu-item-price {
+    color: #27781e;
+    font-weight: bold;
+    margin-top: 0.5rem;
 }
+
+/*Popup styling */
+.menu-item-pop {
+    position: absolute;
+    left: 102%;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    background: #fff;
+    border-radius: 1rem;
+    box-shadow: 0 4px 20px rgba(52,38,19,0.17);
+    padding: 1rem;
+    min-width: 210px;
+    min-height: 110px;
+    display: flex;
+    gap: 0.7rem;
+    align-items: center;
+    animation: fadeIn 0.18s;
+}
+
+.menu-popup-img {
+    width: 68px;
+    height: 68px;
+    border-radius: 0.8rem;
+    object-fit: cover;
+}
+
+.menu-popup-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.32rem;
+}
+
+.menu-popup-ingredients {
+    font-size: 0.99rem;
+    color: #98812c;
+}
+
+@keyframes fadeIn {
+    from {opacity: 0; transform: translateY(10px);}
+    to {opacity: 1; transform: none;}
+}
+
+

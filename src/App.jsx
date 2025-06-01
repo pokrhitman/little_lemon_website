@@ -1,6 +1,8 @@
 import { useEffect } from "react";
 import { HashRouter as Router, Route, Routes } from "react-router-dom";
 import { useTheme } from "./ThemeContext";
+import { Layout } from "./components";
+
 import {
   Desserts,
   Drinks,
@@ -9,13 +11,10 @@ import {
   Home,
   Login,
   Menu,
-  SignUp
+  SignUp,
 } from "./pages";
+
 import "./styles/App.css";
-
-import LittleLemonFooter from "./components/LittleLemonFooter";
-import Navbar from "./components/Navbar";
-
 
 function App() {
   const { theme } = useTheme();
@@ -27,43 +26,38 @@ function App() {
 
   return (
     <div className="app-shell">
+
       <Router>
-        {/*Navbar appears on every page */}
-        <Navbar />
+          <Layout>
+            <Routes>
+              {/*Landing or welcome page */}
+              <Route path="/" element={<Home />} />
+              <Route path="" element={<Home />} />
+              <Route path="*" element={<Home />} />
 
-        {/*Main content switches based on route */}
-        <main>
-          <Routes>
-            {/*Landing or welcome page */}
-            <Route path="/" element={<Home />} />
-            <Route path="" element={<Home />} />
-            <Route path="*" element={<Home />} />
+              {/* Menu list */}
+              <Route path="/menu" element={<Menu />} />
 
-            {/* Menu list */}
-            <Route path="/menu" element={<Menu />} />
+              {/* Desserts list */}
+              <Route path="/desserts" element={<Desserts />} />
 
-            {/* Desserts list */}
-            <Route path="/desserts" element={<Desserts />} />
+              {/* Drinks list */}
+              <Route path="/drinks" element={<Drinks />} />
 
-            {/* Drinks list */}
-            <Route path="/drinks" element={<Drinks />} />
+              {/* Feedback Form */}
+              <Route path="/feedback" element={<Feedback />} />
 
-            {/* Feedback Form */}
-            <Route path="/feedback" element={<Feedback />} />
+              {/* Login Form */}
+              <Route path="/login" element={<Login />} />
 
-            {/* Login Form */}
-            <Route path="/login" element={<Login />} />
+              {/* Sign up Form */}
+              <Route path="/signup" element={<SignUp />} />
 
-            {/* Sign up Form */}
-            <Route path="/signup" element={<SignUp />} />
+              {/* Gift Card */}
+              <Route path="/giftcard" element={<GiftCard />} />
 
-            {/* Gift Card */}
-            <Route path="/giftcard" element={<GiftCard />} />
-
-          </Routes>
-        </main>
-
-        <LittleLemonFooter />
+            </Routes>
+          </Layout>
       </Router>
     </div>
   );

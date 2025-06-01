@@ -122,6 +122,7 @@ const menuItemsToDisplay = [
                     ingredients: "Chickpeas, tahini, olive oil, garlic, lemon juice"
                 }
             },
+            
             {
                 name: 'Buttered Rice',
                 price: '$3.00',

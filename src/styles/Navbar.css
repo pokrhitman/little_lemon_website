@@ -7,9 +7,9 @@
     border-radius: 0.5rem;
     font-family: inherit;
     margin-top: 2.5rem;
-    width: fit-content; /* Only as wide as content */
-    margin-left: auto;
-    margin-right: auto;
+    width: fit-content;
+    max-width: 800px;
+    margin: 0 auto;
 }
 
 .nav-link {

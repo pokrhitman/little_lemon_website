@@ -87,6 +87,6 @@ main {
   flex: 1 0 auto;
 }
 
-footer {
+footer, .footer-container {
   flex-shrink: 0;
 }

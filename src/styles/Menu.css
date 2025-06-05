@@ -1,7 +1,7 @@
 .menu-list-page {
     background: var(--background, #fffbe9);
     min-height: 100vh;
-    padding: 2rem 0;
+    padding: 1.5 0;
 }
 
 .menu-list-container {
@@ -30,8 +30,8 @@
 
 .menu-item-card {
     position: relative;
-    background: var(--background, #fff);
-    border-radius: 1.2rem;
+    background: #fffef7;
+    border-radius: 1.3rem;
     box-shadow: 0 2px 14px 0 rgba(52,38,19,0.09);
     padding: 1.1rem 1.4rem;
     min-width: 150px;
@@ -40,21 +40,23 @@
     flex-direction: column;
     justify-content: center;
     cursor: pointer;
-    transition: box-shadow 0.15s;
+    transition: box-shadow 0.15s, background 0.18s;
 }
 
 .menu-item-card:hover,
 .menu-item-card:focus-within {
     box-shadow: 0 8px 32px 0 rgba(52,38,19,0.17);
+    background: #fffbe3;
 }
 
 .menu-item-title {
-    font-size: 1.08rem;
+    font-size: 1.2rem;
     font-weight: 600;
     color: var(--foreground, #232323);
 }
 
 .menu-item-price {
+    font-size: 1.2rem;
     color: #27781e;
     font-weight: bold;
     margin-top: 0.5rem;
@@ -121,8 +123,8 @@
 }
 
 @keyframes fadeIn {
-    from {opacity: 0; transform: translateY(10px);}
-    to {opacity: 1; transform: none;}
+    from {opacity: 0;}
+    to {opacity: 1;}
 }
 
 @media (max-width: 800px) {

@@ -34,7 +34,7 @@ function Feedback() {
         <main className="feedback-main">
             <section className="feedback-intro">
                 <h2 className="feedback-heading">
-                    Little Lemon is a charming neighborhood bistro that served simple food and classic cocktails in a lively but casual environment. We would love to hear your experience with us!
+                    Little Lemon is a charming neighborhood bistro that serves simple food and classic cocktails in a lively but casual environment. We would love to hear your experience with us!
                 </h2>
             </section>
             <section className="feedback-form-section">

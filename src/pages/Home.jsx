@@ -5,7 +5,6 @@ import QuoteCard from "../components/QuoteCard";
 function Home() {
     return (
         <main className="home-main-content" tabIndex={-1}>
-
             <div className="home-content-center">
                 <div className="home-welcome-container">
                     <header className="home-welcome-header" aria-label="Site banner">

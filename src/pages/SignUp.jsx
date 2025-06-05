@@ -114,14 +114,14 @@ function SignUp() {
             )}
             </label>
             <label className="signup-label">
-            Role <sup>*</sup>
+            Role (please select) <sup>*</sup>
             <select
             className="signup-select"
             value={role}
             onChange={e => setRole(e.target.value)}
             required
             >
-              <option value="role">Role</option>
+              <option value="" disabled selected hidden>Role</option>
               <option value="individual">Individual</option>
               <option value="business">Business</option>
             </select>

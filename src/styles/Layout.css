@@ -10,7 +10,7 @@
     justify-content: center;
     align-items: flex-start;
     flex: 1;
-    padding: 2.5rem 0 2.5rem 0;
+    padding: 1.5rem 0;
     gap: 2.5rem; /* Space between future sidebars/main */
 }
 
@@ -32,4 +32,24 @@
         gap: 0;
         padding: 1.2rem 0;
     }
+}
+
+.skip-link {
+    position: absolute;
+    left: -999px;
+    top: 12px;
+    background: #fffbe9;
+    color: #333;
+    font-weight: bold;
+    z-index: 1000;
+    padding: 8px 16px;
+    border-radius: 5px;
+    border: 2px solid #fec90c;
+    transition: left 0.18s;
+}
+
+.skip-link:focus {
+    left: 12px;
+    box-shadow: 0 4px 12px 2px #0001;
+    outline: none;
 }

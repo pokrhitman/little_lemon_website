@@ -1,17 +1,52 @@
+import React from "react";
 import { useState } from "react";
 import "../styles/Feedback.css";
+
+function RadioGroup({ selected, onChange, children}) {
+    return (
+        <div role="radiogroup" aria-labelledby="heard-from-label"
+        className="radio-group">
+            {React.Children.map(children, child =>
+                React.cloneElement(child, {selected, onChange})
+            )}
+        </div>
+    );
+}
+
+function RadioOption({ value, selected, onChange, children}) {
+    return (
+        <label className="radio-option">
+            <input
+            type="radio"
+            name="heardForm"
+            value={value}
+            checked={selected === value}
+            onChange={() => onChange(value)}
+            required/>
+            <span>{children}</span>
+        </label>
+    );
+}
 
 function Feedback() {
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [phoneNumber, setPhoneNumber] = useState("");
     const [message, setMessage] = useState("");
+    const [heardFrom, setHeardFrom] = useState("");
     const [submitted, setSubmitted] = useState(false);
+
+    const allValid =
+    firstName.trim() &&
+    lastName.trim() &&
+    phoneNumber.trim() &&
+    message.trim() &&
+    heardFrom;
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (!firstName || !lastName || !phoneNumber || !message) {
-            alert("Please fill in all the fields.");
+        if (!allValid) {
+            alert("Please fill in all the fields and select how you heard about us.");
             return;
         }
 
@@ -24,10 +59,8 @@ function Feedback() {
         setLastName("");
         setPhoneNumber("");
         setMessage("");
-
-        setTimeout(() => {
-            setSubmitted(false);
-        }, 3000);
+        setHeardFrom("");
+        setTimeout(() => setSubmitted(false), 3000);
     };
 
     return (
@@ -92,8 +125,23 @@ function Feedback() {
                     />
                 </label>
 
-                <button className="feedback-submit-button" type="submit">
-                    Submit
+                <div>
+                    <h4 id="heard-from-label" className="radio-group-heading">
+                        How did you hear about us?
+                    </h4>
+                    <RadioGroup selected={heardFrom} onChange={setHeardFrom}>
+                        <RadioOption value="social-media">Social Media</RadioOption>
+                        <RadioOption value="friends">Friends</RadioOption>
+                        <RadioOption value="advertising">Advertising</RadioOption>
+                        <RadioOption value="other">Other</RadioOption>
+                    </RadioGroup>
+                </div>
+
+                <button className="feedback-submit-button" type="submit"
+                disabled={!allValid}
+                aria-disabled={!allValid}
+                >
+                Submit
                 </button>
                 </form>
             </section>

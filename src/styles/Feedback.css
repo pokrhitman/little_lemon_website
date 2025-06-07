@@ -1,9 +1,9 @@
 .feedback-main {
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
-    background: #fffbe9;
-    min-height: 70vh;
+    background: var(--background, #fffbe9);
 }
 
 .feedback-intro {
@@ -17,37 +17,40 @@
     text-align: center;
     font-weight: 600;
     margin-bottom: 26px;
-    margin-left: auto;
-    margin-right: auto;
     line-height: 1.5;
-    word-break: break-word;
 }
 
 .feedback-form-section {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     width: 100%;
-    margin-top: 0;
+    align-items: center;
 }
 
 .feedback-form {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-    max-width: 500px;
+    max-width: 440px;
     width: 100%;
     background: #fff;
-    padding: 0.8rem;
     border-radius: 1.2rem;
-    box-shadow: 0 2px 18px 2px #0001;
-    margin-bottom: 1.5rem;
-    transition: box-shadow 0.18s;
+    box-shadow: 0 4px 20px 0 rgba(52,38,19,0.13);
+    padding: 2.1rem 2.3rem 1.7rem 2.3rem;
+    margin: 0 auto;
+    display: flex;    
+    flex-direction: column;
+    gap: 18px;
+    align-items: stretch;
+}
+
+.feedback-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
 }
 
 .feedback-form:hover,
 .feedback-form:focus-within {
     box-shadow: 0 10px 36px 2px rgba(52,38,19,0.12),
-    0 2px 12px 0 rgba(52,38,19,0.07);
+    0 2px 12px 0 rgba(52,38,19,0.12);
 }
 
 .feedback-subheading {
@@ -65,6 +68,11 @@
     border-radius: 6px;
     text-align: center;
     margin-bottom: 8px;
+}
+
+.feedback-success-message:focus {
+    outline: 2px solid #27781e;
+    outline-offset: 2px;
 }
 
 .feedback-label {
@@ -119,11 +127,16 @@
 }
 
 .radio-group {
-    display: flex;
-    flex-direction: column;
-    gap: 0;
+    border: none;
+    padding: 0;
+    margin-bottom: 10px;
 }
 
+.radio-group-heading {
+    font-size: 1.05rem;
+    font-weight: 600;
+    margin-bottom: 2px;
+}
 .radio-option {
     display: flex;
     align-items: center;

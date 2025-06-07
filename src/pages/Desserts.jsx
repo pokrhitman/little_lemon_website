@@ -1,4 +1,5 @@
 import "../styles/Desserts.css";
+import useDevice from "../hooks/useDevice";
 
 function Desserts() {
   return (

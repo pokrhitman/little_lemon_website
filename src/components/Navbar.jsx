@@ -10,8 +10,7 @@ function Navbar() {
             <NavLink to="desserts" className="nav-link">Desserts</NavLink>
             <NavLink to="drinks" className="nav-link">Drinks</NavLink>
             <NavLink to="feedback" className="nav-link">Feedback</NavLink>
-            <NavLink to="login" className="nav-link">Login</NavLink>
-            <NavLink to="signup" className="nav-link">Sign Up</NavLink>
+            <NavLink to="login" className="nav-link">Log In</NavLink>
             <NavLink to="giftcard" className="nav-link">Gift Card</NavLink>
             <Switch />
         </nav>

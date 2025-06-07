@@ -1,4 +1,5 @@
 import "../styles/Drinks.css";
+import useDevice from "../hooks/useDevice";
 
 function Drinks() {
 

@@ -1,7 +1,7 @@
 .menu-list-page {
     background: var(--background, #fffbe9);
     min-height: 100vh;
-    padding: 1.5 0;
+    padding: 1.5rem 0;
 }
 
 .menu-list-container {
@@ -41,6 +41,11 @@
     justify-content: center;
     cursor: pointer;
     transition: box-shadow 0.15s, background 0.18s;
+}
+
+.menu-item-card:focus {
+    outline: 2px solid #b8772a;
+    outline-offset: 2px;
 }
 
 .menu-item-card:hover,
@@ -131,4 +136,42 @@
     .menu-section-items {
         grid-template-columns: repeat(1, 1fr);
     }
+}
+
+.menu-item-popup,
+.menu-item-popup.mobile {
+    left: 50% !important;
+    top: 100% !important;
+    transform: translate(-50%, 0);
+    min-width: 90vw;
+    max-width: 98vw;
+    min-height: 120px;
+    z-index: 999;
+    box-shadow: 0 8px 36px 0 rgba(52,38,19,0.16);
+}
+
+.popup-close-btn {
+    position: absolute;
+    right: 10px;
+    top: 8px;
+    background: none;
+    border: none;
+    font-size: 2rem;
+    color: #a00;
+    cursor: pointer;
+    z-index: 1001;
+}
+
+.popup-close-btn:focus {
+    outline: 2px solid #b8772a;
+    outline-offset: 1px;
+}
+
+.sr-only {
+    position: absolute !important;
+    width: 1px; height: 1px;
+    padding: 0; margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
 }

@@ -1,14 +1,14 @@
 .navbar {
     display: flex;
     align-items: center;
-    gap: 1.5rem; /* Space between links */
+    gap: 2.5rem; /* Space between links */
     padding: 0.5rem 1rem;
     background-color: #ffe066;
     border-radius: 0.5rem;
     font-family: inherit;
     margin-top: 1rem;
     width: fit-content;
-    max-width: 800px;
+    max-width: 900px;
     margin: 0 auto;
 }
 

@@ -4,14 +4,13 @@ import { useTheme } from "./ThemeContext";
 import { Layout } from "./components";
 
 import {
+  AuthPage,
   Desserts,
   Drinks,
   Feedback,
   GiftCard,
   Home,
-  Login,
   Menu,
-  SignUp,
 } from "./pages";
 
 import "./styles/App.css";
@@ -48,10 +47,7 @@ function App() {
               <Route path="/feedback" element={<Feedback />} />
 
               {/* Login Form */}
-              <Route path="/login" element={<Login />} />
-
-              {/* Sign up Form */}
-              <Route path="/signup" element={<SignUp />} />
+              <Route path="/login" element={<AuthPage />} />
 
               {/* Gift Card */}
               <Route path="/giftcard" element={<GiftCard />} />

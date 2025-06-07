@@ -1,6 +1,7 @@
 import logo from "../assets/logo.png";
 import "../styles/Home.css";
 import QuoteCard from "../components/QuoteCard";
+import useDevice from "../hooks/useDevice";
 
 // Accessibility notes:
 // - <main> with id is the main landmark for users and bots

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "../styles/GiftCard.css";
+import useDevice from "../hooks/useDevice";
 
 const VALID_CODES = {
     "LL-2024-001": 100,

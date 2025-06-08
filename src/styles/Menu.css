@@ -135,11 +135,9 @@
 @media (max-width: 800px) {
     .menu-section-items {
         grid-template-columns: repeat(1, 1fr);
-    }
-}
-
-.menu-item-popup,
-.menu-item-popup.mobile {
+    } 
+    .menu-item-popup,
+    .menu-item-popup.mobile {
     left: 50% !important;
     top: 100% !important;
     transform: translate(-50%, 0);
@@ -148,6 +146,7 @@
     min-height: 120px;
     z-index: 999;
     box-shadow: 0 8px 36px 0 rgba(52,38,19,0.16);
+    }
 }
 
 .popup-close-btn {

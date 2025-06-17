@@ -21,21 +21,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 ## [1.3.0] – 2025-06-18
 
 ### Changed
+
 - Migrated Home page, Navbar, Footer and QuoteCard components to Chakra UI for modern, accessible and consistent styling.
 - Removed ThemeContext and custom theme switch logic in favor of Chakra's built-in color mode (light/dark mode) support.
 - Refactored App.jsx to eliminate legacy layout and style logic; now uses Chakra layout primitives and color tokens.
 
 ### Added
+
 - Implemented Chakra's `IconButton` for global light/dark mode toggle in the Navbar.
 - Integrated Chakra color mode script for persistent theming.
 
 ### Removed
+
 - Deleted legacy Switch component and its styles after replacing with Chakra color mode toggle.
 - Removed all unused or obsolete CSS files (App.css, Switch styles, etc.) following Chakra migration.
 - Dramatically reduced or deleted `index.css` after migrating global styles to Chakra's theme system.
 
 ---
-
 
 ## [1.2.0] – 2025-06-16
 

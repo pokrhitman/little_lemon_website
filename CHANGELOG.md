@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 ## [Unreleased]
 
 ### Planned
+
 - Full refactor of styles and layout to Chakra UI components.
 - UI/UX design audit and accessibility enhancements.
 - README and documentation updates.
@@ -17,15 +18,36 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 ---
 
+## [1.3.0] – 2025-06-18
+
+### Changed
+- Migrated Home page, Navbar, Footer and QuoteCard components to Chakra UI for modern, accessible and consistent styling.
+- Removed ThemeContext and custom theme switch logic in favor of Chakra's built-in color mode (light/dark mode) support.
+- Refactored App.jsx to eliminate legacy layout and style logic; now uses Chakra layout primitives and color tokens.
+
+### Added
+- Implemented Chakra's `IconButton` for global light/dark mode toggle in the Navbar.
+- Integrated Chakra color mode script for persistent theming.
+
+### Removed
+- Deleted legacy Switch component and its styles after replacing with Chakra color mode toggle.
+- Removed all unused or obsolete CSS files (App.css, Switch styles, etc.) following Chakra migration.
+- Dramatically reduced or deleted `index.css` after migrating global styles to Chakra's theme system.
+
+---
+
+
 ## [1.2.0] – 2025-06-16
 
 ### Added
+
 - Integrated ESLint and Prettier for automated code linting and formatting.
 - Created a custom Chakra UI theme with unified brand color tokens based on extracted legacy CSS colors.
 - Added `theme.js` for centralized color, font, and design token management.
 - Updated `main.jsx` to use ChakraProvider with the new theme.
 
 ### Changed
+
 - Planned replacement of scattered legacy CSS with Chakra tokens for a unified design system (to be completed component-by-component in upcoming releases).
 
 ---
@@ -33,6 +55,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 ## [1.1.0] – 2025-06-16
 
 ### Added
+
 - Integrated ESLint and Prettier for automated code linting and formatting.
 
 ---
@@ -40,5 +63,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 ## [1.0.0] – YYYY-MM-DD
 
 ### Added
+
 - Initial version of the Little Lemon Restaurant website.
 - Core pages: Home, Menu, Feedback, Login, etc. (summarize what you had at the project’s first public release).

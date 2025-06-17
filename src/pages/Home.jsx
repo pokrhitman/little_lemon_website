@@ -1,7 +1,7 @@
-import logo from "../assets/logo.png";
-import "../styles/Home.css";
-import QuoteCard from "../components/QuoteCard";
-import useDevice from "../hooks/useDevice";
+import React from 'react';
+import { Box, VStack, Heading, Text, Image } from '@chakra-ui/react';
+import logo from '../assets/logo.png';
+import QuoteCard from '../components/QuoteCard';
 
 // Accessibility notes:
 // - <main> with id is the main landmark for users and bots
@@ -9,33 +9,57 @@ import useDevice from "../hooks/useDevice";
 // - Logo uses alt for branding (screen readers/ AI agents)
 
 function Home() {
-    return (
-        <main className="home-main-content" tabIndex={-1}>
-            <div className="home-content-center">
-                <div className="home-welcome-container">
-                    <header className="home-welcome-header">
-                        {/* Logo image, alt text for a11y and agents */}
-                        <img
-                            className="home-logo"
-                            src={logo}
-                            alt="Little Lemon Logo"
-                            width={120}
-                            height={120}
-                        />
-                        {/*Main heading.*/}
-                        <h1 className="home-title">Welcome to Little Lemon</h1>
-
-                    </header>
-                    <p className="home-subtitle">
-                        Little Lemon is a charming neighborhood bistro that serves simple food and classic cocktails in a lively but casual environment.
-                        <br />
-                        We would love to hear more about your experience with us!
-                    </p>
-                </div>
-                <QuoteCard />
-            </div>
-        </main>
-    );
+  return (
+    <Box
+      as="main"
+      id="main-content"
+      tabIndex={-1}
+      minH="100vH"
+      bg="brand.50"
+      py={{ base: 8, md: 16 }}
+      px={{ base: 8, md: 0 }}
+      display="flex"
+      alignItems="center"
+      justifyContent="center"
+    >
+      <VStack spacing={10} align="center" w="100%" maxW="2xl">
+        <Box as="header" display="flex" flexDirection="column" alignItems="center">
+          <Image
+            src={logo}
+            alt="Little Lemon Logo"
+            boxSize={{ base: '80px', md: '120px' }}
+            mb={4}
+            borderRadius="full"
+            shadow="md"
+            bg="white"
+            p={2}
+          />
+          <Heading
+            as="h1"
+            size="2xl"
+            color="brand.700"
+            mb={2}
+            fontFamily="heading"
+            textAlign="center"
+          >
+            Welcome to Little Lemon
+          </Heading>
+        </Box>
+        <Text
+          fontSize={{ base: 'md', md: 'xl' }}
+          color="brand.900"
+          textAlign="center"
+          lineHeight="1.6"
+        >
+          Little Lemon is a charming neighborhood bistro that serves simple food and classic
+          cocktails in a lively but casual environment.
+          <br />
+          We would love to hear mor about your experience with us!
+        </Text>
+        <QuoteCard />
+      </VStack>
+    </Box>
+  );
 }
 
 export default Home;

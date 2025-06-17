@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "lint": "eslint .",
+    "lint": "eslint . --ext .js,.jsx",
+    "format": "prettier --write \"./**/*.{js,jsx,json,css,md}\"",
     "preview": "vite preview",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist"
@@ -16,6 +17,7 @@
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
     "framer-motion": "^12.18.1",
+    "prop-types": "^15.8.1",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-router-dom": "^6.30.1"

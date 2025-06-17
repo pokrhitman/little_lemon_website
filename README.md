@@ -1,4 +1,3 @@
-
 # Little Lemon Website — Modern React Portfolio Project
 
 > Portfolio project for the **Meta Front-End Developer Certification** offered by Coursera  
@@ -8,7 +7,7 @@
 
 ## 🚀 Project Overview
 
-This is a **front-end React web app** for the fictional Mediterranean bistro, *Little Lemon*.
+This is a **front-end React web app** for the fictional Mediterranean bistro, _Little Lemon_.
 
 - **Built for the Coursera Meta Front-End Developer certificate.**
 - Demonstrates advanced React architecture, component patterns, hooks, accessibility and a professional UI/UX.
@@ -76,9 +75,7 @@ This project goes beyond traditional accessibility (a11y) and proactively prepar
 - Continue applying and documenting UI/UX and a11y best practices as new features are added.
 - Refactor, document and polish all code and components based on ongoing user feedback and professional audits.
 
-*Project is open to contributions and continuous improvement!*
----
-
+## _Project is open to contributions and continuous improvement!_
 
 ## 📁 Folder Structure
 
@@ -111,6 +108,7 @@ cd little_lemon_website
 npm install
 npm run dev
 ```
+
 - Open [http://localhost:5173](http://localhost:5173) in your browser.
 
 ---

@@ -1,171 +1,205 @@
-import React from 'react';
-import { useState, useRef } from 'react';
-import '../styles/Feedback.css';
+import React, { useRef, useEffect } from 'react';
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
 import useDevice from '../hooks/useDevice';
+import {
+  Box,
+  Button,
+  Heading,
+  Input,
+  VStack,
+  FormControl,
+  FormLabel,
+  FormErrorMessage,
+  RadioGroup,
+  HStack,
+  Radio,
+  Textarea,
+  Text,
+} from '@chakra-ui/react';
 
-function RadioGroup({ selected, onChange, children }) {
-  return (
-    <fieldset className="radio-group" aria-labelledby="heard-from-label">
-      <legend id="heard-from-label" className="radio-group-heading">
-        How did you hear about us?
-      </legend>
-      {React.Children.map(children, child => React.cloneElement(child, { selected, onChange }))}
-    </fieldset>
-  );
-}
+const heardFromOptions = [
+  { value: 'social-media', label: 'Social Media' },
+  { value: 'friends', label: 'Friends' },
+  { value: 'advertising', label: 'Advertising' },
+  { value: 'other', label: 'Other' },
+];
 
-function RadioOption({ value, selected, onChange, children }) {
-  return (
-    <label className="radio-option">
-      <input
-        type="radio"
-        name="heardForm"
-        value={value}
-        checked={selected === value}
-        onChange={() => onChange(value)}
-        required
-      />
-      <span>{children}</span>
-    </label>
-  );
-}
-
-function Feedback() {
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [phoneNumber, setPhoneNumber] = useState('');
-  const [message, setMessage] = useState('');
-  const [heardFrom, setHeardFrom] = useState('');
-  const [submitted, setSubmitted] = useState(false);
-  const successRef = useRef(null);
+const Feedback = () => {
   const { isMobile } = useDevice();
+  const formRef = useRef(null);
+  const [successMsg, setSuccessMsg] = React.useState('');
 
-  const allValid =
-    firstName.trim() && lastName.trim() && phoneNumber.trim() && message.trim() && heardFrom;
+  // Formik + Yup setup
 
-  const handleSubmit = e => {
-    e.preventDefault();
-    if (!allValid) {
-      alert('Please fill in all the fields and select how you heard about us.');
-      return;
+  const formik = useFormik({
+    initialValues: {
+      firstName: '',
+      lastName: '',
+      email: '',
+      message: '',
+      heardFrom: '',
+    },
+    validationSchema: Yup.object({
+      firstName: Yup.string().required('Please enter your first name.'),
+      lastName: Yup.string().required('Please enter your last name.'),
+      email: Yup.string()
+        .email('Please enter a valid email address.')
+        .required('Email address is required.'),
+      message: Yup.string().required('Please enter your message.').max(250, 'Max 250 characters.'),
+      heardFrom: Yup.string().required('Please select how you heard about us.'),
+    }),
+    onSubmit: (values, { resetForm, setSubmitting }) => {
+      setSuccessMsg(
+        `Thank you for your feedback${values.firstName ? `, ${values.firstName}` : ''}!`
+      );
+      resetForm();
+      setSubmitting(false);
+      setTimeout(() => setSuccessMsg(''), 4000);
+      // For screen readers: focus the ARIA live region on mobile
+      if (isMobile && formRef.current) {
+        formRef.current.focus();
+      }
+    },
+  });
+
+  // Focus first invalid field on submit for keyboard users
+  useEffect(() => {
+    if (formik.isSubmitting && Object.keys(formik.errors).length > 0) {
+      const firstErrorKey = Object.keys(formik.errors)[0];
+      const errorElem = document.getElementByName(firstErrorKey)[0];
+      if (errorElem) errorElem.focus();
     }
-    setSubmitted(true);
-    setFirstName('');
-    setLastName('');
-    setPhoneNumber('');
-    setMessage('');
-    setHeardFrom('');
-    setTimeout(() => setSubmitted(false), 3000);
-    // On mobile, optionally focus the success message for screen readers
-    if (isMobile && successRef.current) {
-      successRef.current.focus();
-    }
-  };
+    // Reset successMsg when user starts typing again
+    if (formik.isValidating || formik.isSubmitting) setSuccessMsg('');
+  }, [formik.errors, formik.isSubmitting, formik.isValidating]);
 
   return (
-    <main className="feedback-main" id="main-content">
-      <section className="feedback-intro">
-        <h1 className="feedback-heading">
+    <Box as="main" py={10} px={[2, 6]} id="main-content">
+      <VStack spacing={8} align="flex-start" maxW="700px" mx="auto">
+        <Heading as="h1" size="lg">
           Little Lemon is a charming neighborhood bistro that serves simple food and classic
           cocktails in a lively but casual environment. We would love to hear your experience with
           us!
-        </h1>
-      </section>
-      <section className="feedback-form-section">
-        <form className="feedback-form" onSubmit={handleSubmit} noValidate>
-          <h2 className="feedback-subheading">How was your visit to Little Lemon?</h2>
-          {submitted && (
-            <div
-              className="feedback-success-message"
-              role="status"
-              tabIndex={-1}
-              aria-live="polite"
-            >
-              Thank you for your feedback!
-            </div>
-          )}
+        </Heading>
 
-          <div className="feedback-field">
-            <label className="feedback-label" htmlFor="firstName">
-              First Name
-            </label>
-            <input
-              className="feedback-input"
-              id="firstName"
-              value={firstName}
-              onChange={e => setFirstName(e.target.value)}
-              placeholder="Enter your first name"
-              required
-              autoComplete="given-name"
-            />
-          </div>
-
-          <div className="feedback-field">
-            <label className="feedback-label" htmlFor="lastName">
-              Last Name
-            </label>
-            <input
-              className="feedback-input"
-              id="lastName"
-              value={lastName}
-              onChange={e => setLastName(e.target.value)}
-              placeholder="Enter your last name"
-              required
-              autoComplete="family-name"
-            />
-          </div>
-
-          <div className="feedback-field">
-            <label className="feedback-label" htmlFor="phoneNumber">
-              Phone Number
-            </label>
-            <input
-              className="feedback-input"
-              value={phoneNumber}
-              onChange={e => setPhoneNumber(e.target.value)}
-              placeholder="Enter your phone name"
-              type="tel"
-              required
-              autoComplete="tel"
-              inputMode="tel"
-            />
-          </div>
-
-          <div className="feedback-field">
-            <label className="feedback-label" htmlFor="message">
-              Your Message
-            </label>
-            <textarea
-              className="feedback-message-input"
-              id="message"
-              value={message}
-              onChange={e => setMessage(e.target.value)}
-              placeholder="Leave your feedback here"
-              maxLength={250}
-              required
-              rows={3}
-            />
-          </div>
-
-          <RadioGroup selected={heardFrom} onChange={setHeardFrom}>
-            <RadioOption value="social-media">Social Media</RadioOption>
-            <RadioOption value="friends">Friends</RadioOption>
-            <RadioOption value="advertising">Advertising</RadioOption>
-            <RadioOption value="other">Other</RadioOption>
-          </RadioGroup>
-
-          <button
-            className="feedback-submit-button"
-            type="submit"
-            disabled={!allValid}
-            aria-disabled={!allValid}
+        <Box p={6} rounded="md" w="100%" bg="whiteAlpha.100">
+          {/* ARIA-live region for a11y success message */}
+          <Box
+            role="status"
+            arial-live="polite"
+            tabIndex={-1}
+            ref={formRef}
+            style={{ outline: 'none ' }}
+            mb={successMsg ? 4 : 0}
           >
-            Submit
-          </button>
-        </form>
-      </section>
-    </main>
+            {successMsg && (
+              <Text color="green.400" fontWeight="bold">
+                {successMsg}
+              </Text>
+            )}
+          </Box>
+
+          <form onSubmit={formik.handleSubmit} noValidate>
+            <VStack spacing={4} align="stretch">
+              <FormControl
+                isInvalid={formik.touched.firstName && !!formik.errors.firstName}
+                isRequired
+              >
+                <FormLabel htmlFor="firstName">First Name</FormLabel>
+                <Input
+                  id="firstName"
+                  name="firstName"
+                  placeholder="Please enter your first name."
+                  autoComplete="given-name"
+                  {...formik.getFieldProps('firstName')}
+                />
+                <FormErrorMessage>{formik.errors.firstName}</FormErrorMessage>
+              </FormControl>
+
+              <FormControl
+                isInvalid={formik.touched.lastName && !!formik.errors.lastName}
+                isRequired
+              >
+                <FormLabel htmlFor="firstName">First Name</FormLabel>
+                <Input
+                  id="lastName"
+                  name="lastName"
+                  placeholder="Please enter your last name."
+                  autoComplete="family-name"
+                  {...formik.getFieldProps('lastName')}
+                />
+                <FormErrorMessage>{formik.errors.lastName}</FormErrorMessage>
+              </FormControl>
+
+              <FormControl isInvalid={formik.touched.email && !!formik.errors.email} isRequired>
+                <FormLabel htmlFor="email">Email Address</FormLabel>
+                <Input
+                  id="email"
+                  name="email"
+                  type="email"
+                  placeholder="Please enter your email address."
+                  autoComplete="email"
+                  {...formik.getFieldProps('email')}
+                />
+                <FormErrorMessage>{formik.errors.email}</FormErrorMessage>
+              </FormControl>
+
+              <FormControl isInvalid={formik.touched.message && !!formik.errors.message} isRequired>
+                <FormLabel htmlFor="message">Your Message</FormLabel>
+                <Textarea
+                  id="message"
+                  name="message"
+                  placeholder="Please leave your feedback here."
+                  maxLength={250}
+                  rows={3}
+                  {...formik.getFieldProps('message')}
+                />
+                <FormErrorMessage>{formik.errors.message}</FormErrorMessage>
+              </FormControl>
+
+              <FormControl
+                isInvalid={formik.touched.heardFrom && !!formik.errors.message}
+                isRequired
+              >
+                <FormLabel as="legend" htmlFor="heardFrom">
+                  How did you hear about us?
+                </FormLabel>
+                <RadioGroup
+                  id="heardFrom"
+                  name="heardFrom"
+                  value={formik.values.heardFrom}
+                  onChange={val => formik.setFieldValue('heardFrom', val)}
+                  onBlur={(() => formik.setFieldTouched('heardFrom'), true)}
+                >
+                  <HStack spacing={4}>
+                    {heardFromOptions.map(opt => (
+                      <Radio key={opt.value} value={opt.value}>
+                        {opt.label}
+                      </Radio>
+                    ))}
+                  </HStack>
+                </RadioGroup>
+                <FormErrorMessage>{formik.errors.heardFrom}</FormErrorMessage>
+              </FormControl>
+
+              <Button
+                type="submit"
+                colorScheme="greem"
+                width="full"
+                fontSize="lg"
+                isLoading={formik.isSubmitting}
+                aria-busy={formik.isSubmitting}
+                isDisabled={!formik.isValid || !formik.dirty}
+              >
+                Submit
+              </Button>
+            </VStack>
+          </form>
+        </Box>
+      </VStack>
+    </Box>
   );
-}
+};
 
 export default Feedback;

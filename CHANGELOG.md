@@ -18,6 +18,32 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 ---
 
+## [1.4.0] – 2025-06-19
+
+### Changed
+
+- Fully refactored Menu, Drinks, Desserts, and Store pages to use Chakra UI layout and modal components for consistent, accessible UI.
+- Removed all remaining legacy CSS and className-based styles from the refactored pages.
+- Updated navigation: replaced Gift Card with Store, removed dead links from Navbar.
+
+### Added
+
+- Implemented fully accessible, keyboard- and screen reader-friendly modal popups for menu item details on Menu, Drinks, and Desserts pages.
+- Added user prompt (“Click on an item to see more details.”) above product grids to clarify interaction.
+- Included an InfoOutline icon next to each item name for improved discoverability of item details.
+- Created a new Store page featuring sections for Spices, Sauces, and Merchandise, with “Buy Now” buttons linking to external stores.
+
+### Fixed
+
+- Ensured all interactive elements provide focus states, pointer cursors, and proper ARIA roles for accessibility.
+- Standardized layout and spacing across all major pages to match design system and improve responsive UX.
+
+### Removed
+
+- Deactivated (but retained) GiftCard page/component in codebase pending future reservation/table booking feature.
+- Eliminated unused onMouseEnter/onMouseLeave popup logic in favor of accessible modal pattern.
+
+
 ## [1.3.0] – 2025-06-18
 
 ### Changed

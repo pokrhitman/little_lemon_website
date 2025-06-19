@@ -56,9 +56,9 @@ function Navbar() {
           </Button>
         </NavLink>
 
-        <NavLink to="giftcard" style={{ textDecoration: 'none' }}>
+        <NavLink to="store" style={{ textDecoration: 'none' }}>
           <Button variant="link" color="brand.100" _hover={{ color: 'brand.500' }}>
-            Gift Card
+            Store
           </Button>
         </NavLink>
       </HStack>

@@ -1,111 +1,173 @@
-import React, { useState, useRef } from 'react';
-import '../styles/Auth.css';
+/* eslint-disable react/no-unescaped-entities */
+import React, { useRef, useEffect } from 'react';
+import {
+  Box,
+  Button,
+  Heading,
+  Input,
+  VStack,
+  FormControl,
+  FormLabel,
+  FormErrorMessage,
+  Text,
+  Link,
+} from '@chakra-ui/react';
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
 
-function AuthPage() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [loginSubmitted, setLoginSubmitted] = useState(false);
-  const [error, setError] = useState(false);
-  const successRef = useRef(null);
+const AuthPage = () => {
+  const formRef = useRef(null);
+  const [successMsg, setSuccessMsg] = React.useState('');
+  const [errorMsg, setErrorMsg] = React.useState('');
 
-  // Example Login handler (fake, for demo)
-  const handleLogin = e => {
-    e.preventDefault();
-    setError('');
-    setLoginSubmitted(false);
-    // Demo only: accept any non-empty email/pass
-    if (!email.trim() || !password.trim()) {
-      setError('Please enter both email and password.');
-      return;
+  // Formik + Yup Logic
+  const formik = useFormik({
+    initialValues: {
+      email: '',
+      password: '',
+    },
+    validationSchema: Yup.object({
+      email: Yup.string()
+        .email('Please enter a valid email address')
+        .required('Email address is required.'),
+      password: Yup.string()
+        .required('Password is required.')
+        .min(8, 'Password must be at least 8 characters.'),
+    }),
+    onSubmit: (values, { resetForm, setSubmitting }) => {
+      setErrorMsg('');
+      setSuccessMsg('');
+      // Fake Login: accept any non-empty, valid values
+      if (!values.email.trim() || !values.password.trim()) {
+        setErrorMsg('Please enter bot email and password.');
+        setSubmitting(false);
+        return;
+      }
+
+      // You would replace with real Login / auth API here
+      setSuccessMsg('Log in successful!');
+      resetForm();
+      setSubmitting(false);
+      setTimeout(() => setSuccessMsg(''), 2000);
+
+      // Focus success message for a11y
+      if (formRef.current) formRef.current.focus();
+    },
+  });
+
+  // Focus first invalid field on submit for keyboard users
+  useEffect(() => {
+    if (formik.isSubmitting && Object.keys(formik.errors).length > 0) {
+      const firstErrorKey = Object.keys(formik.errors)[0];
+      const errorElem = document.getElementByName(firstErrorKey)[0];
+      if (errorElem) errorElem.focus();
     }
-
-    // Replace with real login logic
-    setLoginSubmitted(true);
-    setEmail('');
-    usePassword('');
-    setTimeout(() => setLoginSubmitted(false), 2000);
-    if (successRef.current) successRef.current.focus();
-  };
+    // Reset succcessMsg when users starts typing again
+    if (formik.isValidating || formik.isSubmitting) setSuccessMsg('');
+    if (formik.isValidating || formik.isSubmitting) setErrorMsg('');
+  }, [formik.errors, formik.isSubmitting, formik.isValidating]);
 
   return (
-    <main className="auth-main" id="main-content">
-      <section className="auth-container">
-        <h1 className="auth-heading">Log In to Little Lemon</h1>
-        <form className="auth-form" onSubmit={handleLogin} noValidate>
-          {loginSubmitted && (
-            <div
-              className="auth-success"
-              role="status"
-              tabIndex={-1}
-              ref={successRef}
-              aria-live="polite"
+    <Box as="main" py={10} px={[2, 6]} id="main-content" minH="100vH" bg="gray.50">
+      <VStack
+        spacing={8}
+        align="center"
+        maxW="420px"
+        mx="auto"
+        p={8}
+        boxShadow="md"
+        borderRadius="xl"
+        bg="white"
+      >
+        <Heading as="h1" size="lg">
+          Log In to Little Lemon
+        </Heading>
+
+        {/* ARIA-live region for a11y success message */}
+        <Box
+          role="status"
+          aria-live="polite"
+          tabIndex={-1}
+          ref={formRef}
+          style={{ outline: 'none' }}
+          mb={successMsg ? 4 : 0}
+        >
+          {successMsg && (
+            <Text color="green.500" fontWeight="bold">
+              {successMsg}
+            </Text>
+          )}
+        </Box>
+        {/* Error Message */}
+        {errorMsg && (
+          <Box role="alert" aria-live="assertive" mb={2}>
+            <Text color="red.500" fontWeight="bold">
+              {errorMsg}
+            </Text>
+          </Box>
+        )}
+
+        <form onSubmit={formik.handleSubmit} noValidate style={{ width: '100%' }}>
+          <VStack spacing={4} align="stretch">
+            <FormControl isInvalid={formik.touched.email && !!formik.errors.email} isRequired>
+              <FormLabel htmlFor="email">Email</FormLabel>
+              <Input
+                id="email"
+                name="email"
+                type="email"
+                autoComplete="username"
+                placeholder="Enter your email"
+                {...formik.getFieldProps('email')}
+              />
+              <FormErrorMessage>{formik.errors.email}</FormErrorMessage>
+            </FormControl>
+
+            <FormControl isInvalid={formik.touched.password && !!formik.errors.password} isRequired>
+              <FormLabel htmlFor="password">Password</FormLabel>
+              <Input
+                id="password"
+                name="password"
+                type="password"
+                autoComplete="current-password"
+                placeholder="Enter your password"
+                {...formik.getFieldProps('password')}
+              />
+              <FormErrorMessage>{formik.errors.password}</FormErrorMessage>
+            </FormControl>
+
+            <Button
+              type="submit"
+              colorScheme="yellow"
+              width="full"
+              fontSize="lg"
+              isLoading={formik.isSubmitting}
+              aria-busy={formik.isSubmitting}
+              isDisabled={!formik.isValid || !formik.dirty}
+              mt={2}
             >
-              Log in successful!
-            </div>
-          )}
-          {error && (
-            <div className="auth-error" role="alert" aria-live="assertive">
-              {error}
-            </div>
-          )}
-
-          <div className="auth-field">
-            <label htmlFor="login-email" className="auth-label">
-              Email
-            </label>
-            <input
-              id="login-email"
-              className="auth-input"
-              type="email"
-              autoComplete="username"
-              placeholder="Enter your email"
-              value={email}
-              onChange={e => setEmail(e.target.value)}
-              required
-            />
-          </div>
-
-          <div className="auth-field">
-            <label htmlFor="login-password" className="auth-label">
-              Password
-            </label>
-            <input
-              id="login-password"
-              className="auth-input"
-              type="password"
-              autoComplete="current-password"
-              placeholder="Enter your password"
-              value={password}
-              onChange={e => setPassword(e.target.value)}
-              required
-            />
-          </div>
-
-          <button
-            className="auth-submit-button"
-            type="submit"
-            disabled={!email.trim() || !password.trim()}
-            aria-disabled={!email.trim() || !password.trim()}
-          >
-            Log In
-          </button>
+              Log In
+            </Button>
+          </VStack>
         </form>
 
-        <div className="auth-toggle">
-          <span>Don't have an account?</span>
-          {/* You could link to a real signup or open signup modal */}
-          <a
-            href="#"
-            className="auth-toggle-link"
-            tabIndex={0}
-            aria-label="Sign up (not yet implemented"
-          >
-            Sign up
-          </a>
-        </div>
-      </section>
-    </main>
+        <Box pt={2} textAlign="center" w="full">
+          <Text as="span" fontSize="md">
+            Don't have an account?{' '}
+            <Link
+              href="#"
+              color="yellow.600"
+              fontWeight="bold"
+              aria-label="Sign up"
+              tabIndex={0}
+              _hover={{ textDecoration: 'underline' }}
+            >
+              Sign up here
+            </Link>
+          </Text>
+        </Box>
+      </VStack>
+    </Box>
   );
-}
+};
 
 export default AuthPage;

@@ -1,15 +1,12 @@
 body {
   margin: 0;
-  font-family:
-    -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell',
-    'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  font-family: inherit; /* Chakra theme will set font */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 html,
 body {
-  margin: 0;
   padding: 0;
   box-sizing: border-box;
   width: 100%;
@@ -18,54 +15,4 @@ body {
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
-}
-
-body.light {
-  --background: #fffbe9;
-  --foreground: #232323;
-  --navbar: #ffd942;
-  --input-bg: #fafaf7;
-  --card-bg: #fff;
-  --success: #daf5d5;
-  --primary: #fec90c;
-  background: var(--background);
-}
-
-body.dark {
-  --background: #1a1a1a;
-  --foreground: #fafaf7;
-  --navbar: #3a3a3a;
-  --input-bg: #222;
-  --card-bg: #292929;
-  --success: #214d25;
-  --primary: #3281ea;
-  background: var(--background);
-}
-
-.navbar {
-  background: var(--navbar);
-}
-
-.home-welcome-container,
-.menu-page,
-.feedback-main,
-.login-container {
-  background: var(--card-bg);
-  color: var(--foreground);
-}
-
-input,
-textarea {
-  background: var(--input-bg);
-  color: var(--foreground);
-  border: 1px solid #bbb;
-}
-
-.feeback-success-message,
-.login-success-message {
-  background: var(--success);
-}
-
-.switch input:checked + .slider {
-  background-color: var(--primary);
 }

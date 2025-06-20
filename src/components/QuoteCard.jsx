@@ -11,7 +11,7 @@ function QuoteCard() {
     <Box
       as="section"
       aria-live="polite"
-      bg="brand.100"
+      bg="brand.700"
       borderRadius="xl"
       boxShadow="lg"
       p={[4, 6]}
@@ -21,7 +21,7 @@ function QuoteCard() {
       mt={8}
     >
       <VStack spacing={3} align="stretch">
-        <Heading as="h2" size="md" color="brand.700" textAlign="center">
+        <Heading as="h2" size="md" color="brand.100" textAlign="center" fontWeight="bold">
           Quote of the Day
         </Heading>
         <Box bg="white" borderRadius="md" p={4} boxShadow="sm">
@@ -32,7 +32,14 @@ function QuoteCard() {
             - {quote.author}
           </Text>
         </Box>
-        <Button colorScheme="brand" variant="outline" alignSelf="center" onClick={getRandomQuote}>
+        <Button
+          bg="brand.100"
+          color="black"
+          border="2px solid black"
+          _hover={{ bg: 'brand.50', color: 'black', border: '2px solid black' }}
+          alignSelf="center"
+          onClick={getRandomQuote}
+        >
           Get New Quote
         </Button>
       </VStack>

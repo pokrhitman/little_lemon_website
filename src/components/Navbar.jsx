@@ -11,7 +11,7 @@ function Navbar() {
     <Flex
       as="nav"
       bg="brand.700"
-      color="brand.700"
+      color="brand.100"
       px={[4, 8]}
       py={3}
       align="center"
@@ -21,43 +21,78 @@ function Navbar() {
     >
       <HStack spacing={4}>
         <NavLink to="/" style={{ textDecoration: 'none' }}>
-          <Button variant="link" color="brand.100" _hover={{ color: 'brand.500' }}>
+          <Button
+            variant="link"
+            color="brand.100"
+            fontSize="lg"
+            _hover={{ color: 'brand.500', textDecoration: 'undeline' }}
+          >
             Home
           </Button>
         </NavLink>
 
         <NavLink to="menu" style={{ textDecoration: 'none' }}>
-          <Button variant="link" color="brand.100" _hover={{ color: 'brand.500' }}>
+          <Button
+            variant="link"
+            color="brand.100"
+            fontSize="lg"
+            _hover={{ color: 'brand.500', textDecoration: 'undeline' }}
+          >
             Menu
           </Button>
         </NavLink>
 
         <NavLink to="desserts" style={{ textDecoration: 'none' }}>
-          <Button variant="link" color="brand.100" _hover={{ color: 'brand.500' }}>
+          <Button
+            variant="link"
+            color="brand.100"
+            fontSize="lg"
+            _hover={{ color: 'brand.500', textDecoration: 'undeline' }}
+          >
             Desserts
           </Button>
         </NavLink>
 
         <NavLink to="drinks" style={{ textDecoration: 'none' }}>
-          <Button variant="link" color="brand.100" _hover={{ color: 'brand.500' }}>
+          <Button
+            variant="link"
+            color="brand.100"
+            fontSize="lg"
+            _hover={{ color: 'brand.500', textDecoration: 'undeline' }}
+          >
             Drinks
           </Button>
         </NavLink>
 
         <NavLink to="feedback" style={{ textDecoration: 'none' }}>
-          <Button variant="link" color="brand.100" _hover={{ color: 'brand.500' }}>
+          <Button
+            variant="link"
+            color="brand.100"
+            fontSize="lg"
+            _hover={{ color: 'brand.500', textDecoration: 'undeline' }}
+          >
             Feedback
           </Button>
         </NavLink>
 
         <NavLink to="login" style={{ textDecoration: 'none' }}>
-          <Button variant="link" color="brand.100" _hover={{ color: 'brand.500' }}>
+          <Button
+            variant="link"
+            color="brand.100"
+            fontSize="lg"
+            _hover={{ color: 'brand.500', textDecoration: 'undeline' }}
+          >
             Log In
           </Button>
         </NavLink>
 
         <NavLink to="store" style={{ textDecoration: 'none' }}>
-          <Button variant="link" color="brand.100" _hover={{ color: 'brand.500' }}>
+          <Button
+            variant="link"
+            color="brand.100"
+            fontSize="lg"
+            _hover={{ color: 'brand.500', textDecoration: 'undeline' }}
+          >
             Store
           </Button>
         </NavLink>

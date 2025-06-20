@@ -10,55 +10,45 @@ import QuoteCard from '../components/QuoteCard';
 
 function Home() {
   return (
-    <Box
-      as="main"
-      id="main-content"
-      tabIndex={-1}
-      minH="100vH"
-      bg="brand.50"
-      py={{ base: 8, md: 16 }}
-      px={{ base: 8, md: 0 }}
-      display="flex"
-      alignItems="center"
-      justifyContent="center"
-    >
-      <VStack spacing={10} align="center" w="100%" maxW="2xl">
-        <Box as="header" display="flex" flexDirection="column" alignItems="center">
-          <Image
-            src={logo}
-            alt="Little Lemon Logo"
-            boxSize={{ base: '80px', md: '120px' }}
-            mb={4}
-            borderRadius="full"
-            shadow="md"
-            bg="white"
-            p={2}
-          />
-          <Heading
-            as="h1"
-            size="2xl"
-            color="brand.700"
-            mb={2}
-            fontFamily="heading"
-            textAlign="center"
-          >
-            Welcome to Little Lemon
-          </Heading>
-        </Box>
-        <Text
-          fontSize={{ base: 'md', md: 'xl' }}
-          color="brand.900"
+    <VStack spacing={10} align="center" w="100%" maxW="2xl" mx="auto" py={{ base: 8, md: 16 }}>
+      {/* Logo and Heading */}
+      <Box as="header" display="flex" flexDirection="column" alignItems="center">
+        <Image
+          src={logo}
+          alt="Little Lemon Logo"
+          boxSize={{ base: '120px', md: '160px' }}
+          mb={6}
+          borderRadius="full"
+          shadow="md"
+          bg="white"
+          p={2}
+        />
+        <Heading
+          as="h1"
+          size="2xl"
+          color="brand.700"
+          mb={2}
+          fontFamily="heading"
           textAlign="center"
-          lineHeight="1.6"
         >
-          Little Lemon is a charming neighborhood bistro that serves simple food and classic
-          cocktails in a lively but casual environment.
-          <br />
-          We would love to hear mor about your experience with us!
-        </Text>
-        <QuoteCard />
-      </VStack>
-    </Box>
+          Welcome to Little Lemon!
+        </Heading>
+      </Box>
+      {/* Welcome message */}
+      <Text
+        fontSize={{ base: 'md', md: 'lg' }}
+        fontWeight="md"
+        color="brand.900"
+        textAlign="center"
+        lineHeight="1.6"
+      >
+        Little Lemon is a charming neighborhood bistro that serves simple Mediterranean food,
+        delicious desserts and refreshing drinks in a lively but casual environment.
+        <br />
+        We are looking forward to your visit!
+      </Text>
+      <QuoteCard />
+    </VStack>
   );
 }
 

@@ -3,13 +3,11 @@ import { extendTheme } from '@chakra-ui/react';
 const theme = extendTheme({
   colors: {
     brand: {
-      50: '#FFFBE9', // lightest bg
-      100: '#FFF5CC', // giftcard bg, etc.
-      200: '#FFE066', // input bg
-      500: '#FFD700', // alternate yellow
-      700: '#B8772A', // nav hover/ title
-      800: '#936A18', // nav/ footer text
-      900: '#232323', // dark text
+      50: '#f8f9ea', // light lemon background
+      100: '#ffeb3b', // lemon yellow
+      500: '#b2a03a', // medium olive
+      700: '#687439', // deep olive
+      900: '#283618', // dark text
     },
     // add accent/ utility colors as needed
     accent: {

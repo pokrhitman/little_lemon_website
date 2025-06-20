@@ -18,6 +18,31 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 ---
 
+## [1.4.1] – 2025-06-21
+
+### Changed
+
+- Refactored Home page and all main page components to work with a single Chakra Layout wrapper, removing redundant <main> and conflicting minH/flex settings.
+- Removed all legacy global CSS classes and replaced with Chakra props for backgrounds, spacing and colors.
+- Standardized layout for sticky footer and responsive Navbar on all pages.
+- Improved brand color consistency in all UI components.
+
+### Fixed
+
+- Footer now consistently appears at the bottom of every page, including Home and Login.
+- Eliminated layout and spacing conflicts caused by duplicate <main> containers and leftover CSS.
+- Resolved mobile/desktop viewport edge cases for short pages.
+
+### Removed
+
+- Deleted obsolete WelcomeCard.jsx component and all unused className references from web project.
+
+### Notes
+
+- Project is now fully Chakra-themed with no dependency on global CSS or React Native/mobile code.
+- Next: apply layout fix to Login page and continue UI polish as needed.
+
+
 ## [1.4.0] – 2025-06-19
 
 ### Changed

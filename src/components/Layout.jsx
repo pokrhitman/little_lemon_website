@@ -1,29 +1,38 @@
 import React from 'react';
 import Navbar from './Navbar';
-import LittleLemonFooter from './LittleLemonFooter';
-import '../styles/Layout.css';
+import Footer from './Footer';
 import PropTypes from 'prop-types';
+import { Box, Flex, Link } from '@chakra-ui/react';
 
 // Accessibility: Skip Link allows keyboard/screen reader
 // users to jump directly to main content.
 
+const skipLinkStyles = {
+  position: 'absolute',
+  left: '0',
+  top: '0',
+  background: '#fffde7',
+  color: '#283618',
+  padding: '8px 16px',
+  zIndex: '999',
+  transform: 'translateY(-120%)',
+  transition: 'transform 0.3s',
+  _focus: { transform: 'translateY(0)' },
+};
+
 function Layout({ children }) {
   return (
-    <div className="app-shell">
+    <Flex minH="100vh" direction="column" bg="brand.50">
       {/* Skip to Main Content link for accessibility */}
-      <a href="main-content" className="skip-link">
+      <Link href="#main-content" sx={skipLinkStyles} _focus={{ transform: 'translateY(0)' }}>
         Skip to main content
-      </a>
+      </Link>
       <Navbar />
-      <div className="main-grid">
-        {/* Placeholder for <aside className="sidebar-left">...</aside> here later */}
-        <main className="main-content" id="main-content">
-          {children}
-        </main>
-        {/* Placeholder for <aside className="sidebar-right">Widget area for future use</aside> */}
-      </div>
-      <LittleLemonFooter />
-    </div>
+      <Box as="main" id="main-content" flex="1" display="flex" flexDirection="column">
+        {children}
+      </Box>
+      <Footer />
+    </Flex>
   );
 }
 

@@ -6,3 +6,5 @@ export { default as Drinks } from './Drinks';
 export { default as Feedback } from './Feedback';
 export { default as Store } from './Store';
 export { default as Layout } from '../components/Layout';
+export { default as Account } from './Account';
+export { default as Register } from './Register';

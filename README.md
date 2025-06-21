@@ -56,8 +56,9 @@ This project goes beyond traditional accessibility (a11y) and proactively prepar
 - **Advanced React Patterns**  
   Functional components, custom hooks, prop drilling, controlled inputs, modular state management.
 
-- **Polished UI & Clean CSS**  
-  Consistent color system, accessible contrast, focus indicators, responsive layout and modern cards.
+- **Polished UI & Clean Styling with Chakra UI**  
+- All layouts and styles now use [Chakra UI](https://chakra-ui.com/)
+  components for maximum accessibility and developer experience.
 
 ---
 
@@ -89,13 +90,13 @@ little_lemon_website/
   │   ├── hooks/          # Custom hooks (e.g., useFetchQuote)
   │   ├── pages/          # Page views (Home, Menu, Feedback, etc.)
   │   ├── styles/         # CSS stylesheets
-  │   ├── utils/          # Helpers/utilities
   │   ├── App.jsx         # Main app component
   │   ├── main.jsx        # Entry point
   │   └── ...
   ├── package.json
   ├── README.md
-  └── ...
+  └── CHANGELOG.md        # Detailed explanations about updates and new
+                            features
 ```
 
 ---
@@ -113,6 +114,24 @@ npm run dev
 
 ---
 
+## ⚠️ Important Note for Coursera Students
+
+This project **started as a solution for the Meta Front-End Developer Capstone (Little Lemon) course assignment** on Coursera, but has since been **heavily refactored and expanded** with modern frameworks:
+
+- All UI now uses Chakra UI (not plain CSS or course starter files)
+- Form logic is handled with Formik and Yup, rather than React's useState or
+  vanilla JS validation
+- Routing, file structure and overall app logic have been modularized for
+  professional/production use
+
+**As a result, this codebase is _not compatible_ with Coursera's auto-grading system or course copy-paste assignments.**
+If you are a student, please do not try to submit this repository as a solution — it will not match assignment requirements or grading scripts. You may fail the assignment or the peer review.
+
+> **This repo is provided as a professional, portfolio-ready demonstration project. Use for learning and inspiration, not as a drop-in course answer.**
+
+---
+
+
 ## 📝 Course Assignments Covered
 
 - **Menu & Popups:** Mapping, filtering and UI state.
@@ -129,9 +148,10 @@ npm run dev
 
 - **React 18+**
 - **Vite** (modern build tool)
+- **Chakra UI** (component-based styling and a11y)
+- **Formik + Yup** (form state & robust validation)
 - **ESLint** (linting, code quality)
 - **Modern JavaScript (ES6+)**
-- **Responsive CSS (no frameworks)**
 
 ---
 

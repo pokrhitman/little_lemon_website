@@ -20,14 +20,14 @@ const skipLinkStyles = {
   _focus: { transform: 'translateY(0)' },
 };
 
-function Layout({ children }) {
+function Layout({ children, user, onLogout }) {
   return (
     <Flex minH="100vh" direction="column" bg="brand.50">
       {/* Skip to Main Content link for accessibility */}
       <Link href="#main-content" sx={skipLinkStyles} _focus={{ transform: 'translateY(0)' }}>
         Skip to main content
       </Link>
-      <Navbar />
+      <Navbar user={user} onLogout={onLogout} />
       <Box as="main" id="main-content" flex="1" display="flex" flexDirection="column">
         {children}
       </Box>
@@ -38,6 +38,8 @@ function Layout({ children }) {
 
 Layout.propTypes = {
   children: PropTypes.node.isRequired,
+  user: PropTypes.object,
+  onLogout: PropTypes.func,
 };
 
 export default Layout;

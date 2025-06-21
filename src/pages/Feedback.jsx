@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import React, { useRef, useEffect } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
@@ -75,15 +76,16 @@ const Feedback = () => {
   }, [formik.errors, formik.isSubmitting, formik.isValidating]);
 
   return (
-    <Box as="main" py={10} px={[2, 6]} id="main-content">
-      <VStack spacing={8} align="flex-start" maxW="700px" mx="auto">
-        <Heading as="h1" size="lg">
-          Little Lemon is a charming neighborhood bistro that serves simple food and classic
-          cocktails in a lively but casual environment. We would love to hear your experience with
-          us!
+    <Box py={10} px={[2, 6]} minH="80vh" bg="brand.50">
+      <VStack spacing={8} align="flex-start" maxW="600px" mx="auto">
+        <Heading as="h1" size="lg" color="brand.700">
+          We'd love your feedback!
         </Heading>
+        <Text as="h2" fontSize="lg" fontWeight="medium" color="brand.900" mb={2}>
+          How was your experience at Little Lemon? Drop a comment below and help us keep improving.
+        </Text>
 
-        <Box p={6} rounded="md" w="100%" bg="whiteAlpha.100">
+        <Box p={8} rounded="xl" w="100%" bg="brand.700" boxShadow="lg">
           {/* ARIA-live region for a11y success message */}
           <Box
             role="status"
@@ -94,24 +96,28 @@ const Feedback = () => {
             mb={successMsg ? 4 : 0}
           >
             {successMsg && (
-              <Text color="green.400" fontWeight="bold">
+              <Text color="brand.100" fontWeight="bold">
                 {successMsg}
               </Text>
             )}
           </Box>
 
           <form onSubmit={formik.handleSubmit} noValidate>
-            <VStack spacing={4} align="stretch">
+            <VStack spacing={5} align="stretch">
               <FormControl
                 isInvalid={formik.touched.firstName && !!formik.errors.firstName}
                 isRequired
               >
-                <FormLabel htmlFor="firstName">First Name</FormLabel>
+                <FormLabel htmlFor="firstName" color="brand.100" fontWeight="bold">
+                  First Name
+                </FormLabel>
                 <Input
                   id="firstName"
                   name="firstName"
                   placeholder="Please enter your first name."
                   autoComplete="given-name"
+                  bg="white"
+                  color="brand.900"
                   {...formik.getFieldProps('firstName')}
                 />
                 <FormErrorMessage>{formik.errors.firstName}</FormErrorMessage>
@@ -121,38 +127,50 @@ const Feedback = () => {
                 isInvalid={formik.touched.lastName && !!formik.errors.lastName}
                 isRequired
               >
-                <FormLabel htmlFor="firstName">First Name</FormLabel>
+                <FormLabel htmlFor="firstName" color="brand.100" fontWeight="bold">
+                  Last Name
+                </FormLabel>
                 <Input
                   id="lastName"
                   name="lastName"
                   placeholder="Please enter your last name."
                   autoComplete="family-name"
+                  bg="white"
+                  color="brand.900"
                   {...formik.getFieldProps('lastName')}
                 />
                 <FormErrorMessage>{formik.errors.lastName}</FormErrorMessage>
               </FormControl>
 
               <FormControl isInvalid={formik.touched.email && !!formik.errors.email} isRequired>
-                <FormLabel htmlFor="email">Email Address</FormLabel>
+                <FormLabel htmlFor="email" color="brand.100" fontWeight="bold">
+                  Email Address
+                </FormLabel>
                 <Input
                   id="email"
                   name="email"
                   type="email"
                   placeholder="Please enter your email address."
                   autoComplete="email"
+                  bg="white"
+                  color="brand.900"
                   {...formik.getFieldProps('email')}
                 />
                 <FormErrorMessage>{formik.errors.email}</FormErrorMessage>
               </FormControl>
 
               <FormControl isInvalid={formik.touched.message && !!formik.errors.message} isRequired>
-                <FormLabel htmlFor="message">Your Message</FormLabel>
+                <FormLabel htmlFor="message" color="brand.100" fontWeight="bold">
+                  Your Message
+                </FormLabel>
                 <Textarea
                   id="message"
                   name="message"
                   placeholder="Please leave your feedback here."
                   maxLength={250}
                   rows={3}
+                  bg="white"
+                  color="brand.900"
                   {...formik.getFieldProps('message')}
                 />
                 <FormErrorMessage>{formik.errors.message}</FormErrorMessage>
@@ -162,7 +180,7 @@ const Feedback = () => {
                 isInvalid={formik.touched.heardFrom && !!formik.errors.message}
                 isRequired
               >
-                <FormLabel as="legend" htmlFor="heardFrom">
+                <FormLabel as="legend" htmlFor="heardFrom" color="brand.100" fontWeight="bold">
                   How did you hear about us?
                 </FormLabel>
                 <RadioGroup
@@ -172,10 +190,10 @@ const Feedback = () => {
                   onChange={val => formik.setFieldValue('heardFrom', val)}
                   onBlur={(() => formik.setFieldTouched('heardFrom'), true)}
                 >
-                  <HStack spacing={4}>
+                  <HStack spacing={8}>
                     {heardFromOptions.map(opt => (
                       <Radio key={opt.value} value={opt.value}>
-                        {opt.label}
+                        <Text color="whiteAlpha.800"> {opt.label} </Text>
                       </Radio>
                     ))}
                   </HStack>
@@ -185,12 +203,16 @@ const Feedback = () => {
 
               <Button
                 type="submit"
-                colorScheme="greem"
+                bg="brand.100"
+                color="black"
+                border="2px solid black"
+                _hover={{ bg: 'brand.50', color: 'black', border: '2px solid black' }}
                 width="full"
                 fontSize="lg"
                 isLoading={formik.isSubmitting}
                 aria-busy={formik.isSubmitting}
                 isDisabled={!formik.isValid || !formik.dirty}
+                mt={4}
               >
                 Submit
               </Button>

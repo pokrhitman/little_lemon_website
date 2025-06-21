@@ -1,10 +1,11 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { Flex, HStack, Button } from '@chakra-ui/react';
+import { Flex, HStack, Button, Text } from '@chakra-ui/react';
 import { useColorMode, IconButton } from '@chakra-ui/react';
 import { SunIcon, MoonIcon } from '@chakra-ui/icons';
+import PropTypes from 'prop-types';
 
-function Navbar() {
+function Navbar({ user, onLogout }) {
   const { colorMode, toggleColorMode } = useColorMode();
 
   return (
@@ -25,7 +26,8 @@ function Navbar() {
             variant="link"
             color="brand.100"
             fontSize="lg"
-            _hover={{ color: 'brand.500', textDecoration: 'undeline' }}
+            fontWeight="bold"
+            _hover={{ color: 'brand.500', textDecoration: 'underline' }}
           >
             Home
           </Button>
@@ -36,7 +38,7 @@ function Navbar() {
             variant="link"
             color="brand.100"
             fontSize="lg"
-            _hover={{ color: 'brand.500', textDecoration: 'undeline' }}
+            _hover={{ color: 'brand.500', textDecoration: 'underline' }}
           >
             Menu
           </Button>
@@ -47,7 +49,7 @@ function Navbar() {
             variant="link"
             color="brand.100"
             fontSize="lg"
-            _hover={{ color: 'brand.500', textDecoration: 'undeline' }}
+            _hover={{ color: 'brand.500', textDecoration: 'underline' }}
           >
             Desserts
           </Button>
@@ -58,7 +60,7 @@ function Navbar() {
             variant="link"
             color="brand.100"
             fontSize="lg"
-            _hover={{ color: 'brand.500', textDecoration: 'undeline' }}
+            _hover={{ color: 'brand.500', textDecoration: 'underline' }}
           >
             Drinks
           </Button>
@@ -69,20 +71,9 @@ function Navbar() {
             variant="link"
             color="brand.100"
             fontSize="lg"
-            _hover={{ color: 'brand.500', textDecoration: 'undeline' }}
+            _hover={{ color: 'brand.500', textDecoration: 'underline' }}
           >
             Feedback
-          </Button>
-        </NavLink>
-
-        <NavLink to="login" style={{ textDecoration: 'none' }}>
-          <Button
-            variant="link"
-            color="brand.100"
-            fontSize="lg"
-            _hover={{ color: 'brand.500', textDecoration: 'undeline' }}
-          >
-            Log In
           </Button>
         </NavLink>
 
@@ -91,18 +82,63 @@ function Navbar() {
             variant="link"
             color="brand.100"
             fontSize="lg"
-            _hover={{ color: 'brand.500', textDecoration: 'undeline' }}
+            _hover={{ color: 'brand.500', textDecoration: 'underline' }}
           >
             Store
           </Button>
         </NavLink>
+        {/* Auth links: conditionall rendered */}
+        {user ? (
+          <>
+            <NavLink to="account" style={{ textDecoration: 'none' }}>
+              <Button
+                varian="link"
+                color="brand.100"
+                fontSize="lg"
+                _hover={{ color: 'brand.500', textDecoration: 'underline' }}
+              >
+                Account
+              </Button>
+            </NavLink>
+            {/* User greeting */}
+            <Text as="span" color="brand.100" fontWeight="bold" ml={4}>
+              {user.firstName
+                ? `Welcome, ${user.firstName}!`
+                : user.email
+                  ? `Logged in as: ${user.email}`
+                  : `Logged in`}
+            </Text>
+
+            <Button
+              onClick={onLogout}
+              colorScheme="yellow"
+              variant="ghost"
+              fontSize="lg"
+              ml={2}
+              color="brand.100"
+              _hover={{ color: 'brand.500', bg: 'brand.50' }}
+            >
+              Log out
+            </Button>
+          </>
+        ) : (
+          <NavLink to="login" style={{ textDecoration: 'none' }}>
+            <Button
+              variant="link"
+              color="brand.100"
+              fontSize="lg"
+              _hover={{ color: 'brand.500', textDecoration: 'underline' }}
+            >
+              Log In
+            </Button>
+          </NavLink>
+        )}
       </HStack>
       <IconButton
         aria-label="Toggle color mode"
         icon={colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
         onClick={toggleColorMode}
         variant="ghost"
-        ml={4}
         fontSize="xl"
         color="brand.100"
         _hover={{ color: 'brand.500' }}
@@ -110,5 +146,10 @@ function Navbar() {
     </Flex>
   );
 }
+
+Navbar.propTypes = {
+  user: PropTypes.object,
+  onLogout: PropTypes.func,
+};
 
 export default Navbar;

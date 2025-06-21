@@ -1,4 +1,3 @@
-/* eslint-disable react/no-unescaped-entities */
 import React, { useRef, useEffect } from 'react';
 import {
   Flex,
@@ -16,54 +15,48 @@ import {
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
-const AuthPage = () => {
+const Register = () => {
   const formRef = useRef(null);
   const [successMsg, setSuccessMsg] = React.useState('');
   const [errorMsg, setErrorMsg] = React.useState('');
 
-  // Formik + Yup Logic
   const formik = useFormik({
     initialValues: {
+      firstName: '',
+      lastName: '',
       email: '',
       password: '',
+      confirmPassword: '',
     },
     validationSchema: Yup.object({
+      firstName: Yup.string().required('Please enter your first name'),
+      lastName: Yup.string().required('Please enter your last name.'),
       email: Yup.string()
-        .email('Please enter a valid email address')
-        .required('Email address is required.'),
+        .email('Please enter a valid email adress.')
+        .required('Email address is requited.'),
       password: Yup.string()
         .required('Password is required.')
         .min(8, 'Password must be at least 8 characters.'),
+      confirmPassword: Yup.string()
+        .oneOf([Yup.ref('password'), null], 'Passwords must match.')
+        .required('Please confirm your password.'),
     }),
     onSubmit: (values, { resetForm, setSubmitting }) => {
       setErrorMsg('');
-      setSuccessMsg('');
-      // Fake Login: accept any non-empty, valid values
-      if (!values.email.trim() || !values.password.trim()) {
-        setErrorMsg('Please enter both email and password.');
-        setSubmitting(false);
-        return;
-      }
-
-      // You would replace with real Login / auth API here
-      setSuccessMsg('Log in successful!');
+      setSuccessMsg('Account created sucessfully! You can now log in.');
       resetForm();
       setSubmitting(false);
-      setTimeout(() => setSuccessMsg(''), 2000);
-
-      // Focus success message for a11y
+      setTimeout(() => setSuccessMsg(''), 4000);
       if (formRef.current) formRef.current.focus();
     },
   });
 
-  // Focus first invalid field on submit for keyboard users
   useEffect(() => {
     if (formik.isSubmitting && Object.keys(formik.errors).length > 0) {
       const firstErrorKey = Object.keys(formik.errors)[0];
       const errorElem = document.getElementByName(firstErrorKey)[0];
       if (errorElem) errorElem.focus();
     }
-    // Reset succcessMsg when users starts typing again
     if (formik.isValidating || formik.isSubmitting) setSuccessMsg('');
     if (formik.isValidating || formik.isSubmitting) setErrorMsg('');
   }, [formik.errors, formik.isSubmitting, formik.isValidating]);
@@ -73,9 +66,11 @@ const AuthPage = () => {
       <Box maxW="400px" w="100%" p={8} bg="brand.700" borderRadius="xl" boxShadow="lg">
         <VStack spacing={6} align="stretch">
           <Heading as="h1" size="lg" textAlign="center" color="brand.100">
-            Log In to Little Lemon
+            Create Your Account
           </Heading>
-
+          <Text fontSize="md" color="brand.100" textAlign="center">
+            Please fill out the form below to register for Little Lemon.
+          </Text>
           {/* ARIA-live region for a11y success message */}
           <Box
             role="status"
@@ -91,7 +86,6 @@ const AuthPage = () => {
               </Text>
             )}
           </Box>
-          {/* Error Message */}
           {errorMsg && (
             <Box role="alert" aria-live="assertive" mb={2}>
               <Text color="red.200" fontWeight="bold">
@@ -102,19 +96,55 @@ const AuthPage = () => {
 
           <form onSubmit={formik.handleSubmit} noValidate>
             <VStack spacing={4} align="stretch">
-              <FormControl isInvalid={formik.touched.email && !!formik.errors.email} isRequired>
-                <FormLabel htmlFor="email" color="brand.100" fontWeight="bold">
-                  Email
+              <FormControl
+                isInvalid={formik.touched.firstName && !!formik.errors.firstName}
+                isRequired
+              >
+                <FormLabel htmlFor="firstName" color="brand.100">
+                  First Name
+                </FormLabel>
+                <Input
+                  id="firstName"
+                  name="firstName"
+                  autoComplete="given-name"
+                  placeholder="Please enter your first name"
+                  bg="white"
+                  color="brand.900"
+                  {...formik.getFieldProps('firstName')}
+                />
+                <FormErrorMessage>{formik.errors.firstName}</FormErrorMessage>
+              </FormControl>
+
+              <FormControl
+                isInvalid={formik.touched.lastName && !!formik.errors.lastName}
+                isRequired
+              >
+                <FormLabel htmlFor="lastName" color="brand.100">
+                  Last Name
+                </FormLabel>
+                <Input
+                  id="lastName"
+                  name="lastName"
+                  autoComplete="family-name"
+                  placeholder="Please enter your last name"
+                  bg="white"
+                  color="brand.900"
+                  {...formik.getFieldProps('lastName')}
+                />
+                <FormErrorMessage>{formik.errors.lastName}</FormErrorMessage>
+              </FormControl>
+
+              <FormControl isinvalid={formik.touched.email && !!formik.errors.email} isRequired>
+                <FormLabel htmlFor="email" color="brand.100">
+                  Email Address
                 </FormLabel>
                 <Input
                   id="email"
-                  name="email"
                   type="email"
-                  autoComplete="username"
-                  placeholder="Please enter your email"
-                  {...formik.getFieldProps('email')}
+                  placeholder="Please enter your email address"
                   bg="white"
                   color="brand.900"
+                  {...formik.getFieldProps('email')}
                 />
                 <FormErrorMessage>{formik.errors.email}</FormErrorMessage>
               </FormControl>
@@ -123,20 +153,39 @@ const AuthPage = () => {
                 isInvalid={formik.touched.password && !!formik.errors.password}
                 isRequired
               >
-                <FormLabel htmlFor="password" fontWeight="bold" color="brand.100">
+                <FormLabel htmlFor="password" color="brand">
                   Password
                 </FormLabel>
                 <Input
                   id="password"
                   name="password"
                   type="password"
-                  autoComplete="current-password"
-                  placeholder="Please enter your password"
+                  autoComplete="new-password"
                   bg="white"
                   color="brand.900"
                   {...formik.getFieldProps('password')}
                 />
                 <FormErrorMessage>{formik.errors.password}</FormErrorMessage>
+              </FormControl>
+
+              <FormControl
+                isInvalid={formik.touched.confirmPassword && !!formik.errors.confirmPassword}
+                isRequired
+              >
+                <FormLabel htmlFor="confirmPassword" color="brand.100">
+                  Please confirm your password.
+                </FormLabel>
+                <Input
+                  id="confirmPassword"
+                  name="confirmPassword"
+                  type="password"
+                  autoComplete="new-password"
+                  placeholder="Re-enter your password"
+                  bg="white"
+                  color="brand.900"
+                  {...formik.getFieldProps('confirmPassword')}
+                />
+                <FormErrorMessage>{formik.errors.confirmPassword}</FormErrorMessage>
               </FormControl>
 
               <Button
@@ -145,7 +194,6 @@ const AuthPage = () => {
                 color="black"
                 border="2px solid black"
                 _hover={{ bg: 'brand.50', color: 'black', border: '2px solid black' }}
-                colorScheme="yellow"
                 width="full"
                 fontSize="lg"
                 isLoading={formik.isSubmitting}
@@ -153,21 +201,20 @@ const AuthPage = () => {
                 isDisabled={!formik.isValid || !formik.dirty}
                 mt={2}
               >
-                Log In
+                Register
               </Button>
             </VStack>
           </form>
-
-          <Text pt={2} textAlign="center" fontSize="md" fontWeight="bold" color="whiteAlpha.800">
-            Don't have an account?{' '}
+          <Text pt={2} textAlign="center" fontSize="md">
+            Already have an account?{''}
             <Link
-              href="/register/"
+              href="/login"
               color="brand.100"
               fontWeight="bold"
-              aria-label="Sign up"
+              aria-label="Log in"
               _hover={{ textDecoration: 'underline', color: 'brand.50' }}
             >
-              Sign up here!
+              Log in here
             </Link>
           </Text>
         </VStack>
@@ -176,4 +223,4 @@ const AuthPage = () => {
   );
 };
 
-export default AuthPage;
+export default Register;

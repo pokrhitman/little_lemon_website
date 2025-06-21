@@ -1,34 +1,34 @@
-import { useEffect, useState } from 'react';
+import { useBreakpointValue } from '@chakra-ui/react';
+import { useMemo } from 'react';
 
-function getDeviceState(breakpoints = { mobile: 800, tablet: 1200 }) {
-  const width = window.innerWidth;
-  const height = window.innerHeight;
-  const isTouch = navigator.maxTouchPoints > 0;
-  const orientation = width > height ? 'landscapte' : 'portrait';
+function useDevice() {
+  // Chakra breakpoints (adjust for your design system)
+  const isMobile = useBreakpointValue({ base: true, md: false });
+  const isTablet = useBreakpointValue({ base: false, md: true, lg: false });
+  const isDesktop = useBreakpointValue({ base: false, md: true });
+
+  // Touch device detection
+  const isTouchDevice = useMemo(
+    () =>
+      typeof window !== 'undefined' && ('ontouchstart' in window || navigator.maxTouchPoints > 0),
+    []
+  );
+
+  // Orientation detection
+  const orientation = useMemo(() => {
+    if (typeof window === 'undefined' || typeof window.screen === 'undefined') {
+      return 'portrait';
+    }
+    return window.screen.orientation?.type?.includes('landscape') ? 'landscape' : 'portrait';
+  }, []);
 
   return {
-    isMobile: width < breakpoints.mobile,
-    isTablet: width >= breakpoints.mobile && width < breakpoints.tablet,
-    isDesktop: width >= breakpoints.tablet,
-    isTouchDevice: isTouch,
+    isMobile: !!isMobile,
+    isTablet: !!isTablet,
+    isDesktop: !!isDesktop,
+    isTouchDevice,
     orientation,
-    width,
-    height,
   };
 }
 
-export default function useDevice(breakpoints = { mobile: 800, tablet: 1200 }) {
-  const [device, setDevice] = useState(() => getDeviceState(breakpoints));
-
-  useEffect(() => {
-    const handleResize = () => setDevice(getDeviceState(breakpoints));
-    window.addEventListener('resize', handleResize);
-    window.addEventListener('orientationchange', handleResize);
-    return () => {
-      window.removeEventListener('resize', handleResize);
-      window.removeEventListener('orientationchange', handleResize);
-    };
-  }, [breakpoints]);
-
-  return device;
-}
+export default useDevice;

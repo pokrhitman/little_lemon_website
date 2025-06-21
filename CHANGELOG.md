@@ -18,7 +18,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 ---
 
-## [1.4.1] – 2025-06-21
+## [1.4.2] – 2025-06-21
+
+### Changed
+- Refactored useDevice custom hook to use Chakra’s responsive utilities and keep only touch/orientation logic not available in Chakra.
+- Removed legacy utils.jsx email validator; all form validation is now handled via Yup in Chakra-ized forms.
+- Cleaned up project by removing unused or course-specific helper files.
+
+### Added
+- Updated Navbar to show user’s name or email when logged in; also to display correct links for login, account and logout.
+- Added comments throughout codebase to clarify authentication flow and Chakra best practices.
+
+### Fixed
+- All forms (Login, Register, Feedback) now use Chakra UI and Yup validation for full accessibility and brand consistency.
+- Removed legacy device logic and all unused code from course assignments.
+
+
+## [1.4.1] – 2025-06-20
 
 ### Changed
 

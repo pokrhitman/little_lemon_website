@@ -11,12 +11,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 ### Planned
 
-- Full refactor of styles and layout to Chakra UI components.
-- UI/UX design audit and accessibility enhancements.
-- README and documentation updates.
+- Table reservation system
+- Food ordering and shopping cart feature
 - Additional features and quality-of-life improvements (to be specified).
 
 ---
+
+## [1.5.0] – 2025-06-24
+
+### Added
+- Integrated Firebase Authentication (email/password) for registration and login.
+- Connected feedback form to Firestore database with secure public write and private read rules.
+- Hid Firebase API keys using environment variables and documented setup for future cloners.
+- Added robust error handling and developer logging for form/database submissions.
+
+### Changed
+- Updated documentation and project structure to reflect backend integration and security best practices.
+
 
 ## [1.4.2] – 2025-06-21
 

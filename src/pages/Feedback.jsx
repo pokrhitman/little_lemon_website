@@ -1,5 +1,5 @@
 /* eslint-disable react/no-unescaped-entities */
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import useDevice from '../hooks/useDevice';
@@ -19,6 +19,12 @@ import {
   Text,
 } from '@chakra-ui/react';
 
+import { getFirestore, collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import app from '../firebase';
+import PropTypes from 'prop-types';
+
+const db = getFirestore(app);
+
 const heardFromOptions = [
   { value: 'social-media', label: 'Social Media' },
   { value: 'friends', label: 'Friends' },
@@ -29,7 +35,7 @@ const heardFromOptions = [
 const Feedback = () => {
   const { isMobile } = useDevice();
   const formRef = useRef(null);
-  const [successMsg, setSuccessMsg] = React.useState('');
+  const [successMsg, setSuccessMsg] = useState('');
 
   // Formik + Yup setup
 
@@ -50,16 +56,27 @@ const Feedback = () => {
       message: Yup.string().required('Please enter your message.').max(250, 'Max 250 characters.'),
       heardFrom: Yup.string().required('Please select how you heard about us.'),
     }),
-    onSubmit: (values, { resetForm, setSubmitting }) => {
-      setSuccessMsg(
-        `Thank you for your feedback${values.firstName ? `, ${values.firstName}` : ''}!`
-      );
-      resetForm();
-      setSubmitting(false);
-      setTimeout(() => setSuccessMsg(''), 4000);
-      // For screen readers: focus the ARIA live region on mobile
-      if (isMobile && formRef.current) {
-        formRef.current.focus();
+    onSubmit: async (values, { resetForm, setSubmitting }) => {
+      setSuccessMsg('');
+      try {
+        await addDoc(collection(db, 'feedback'), {
+          ...values,
+          createdAt: serverTimestamp(),
+        });
+        setSuccessMsg(
+          `Thank you for your feedback${values.firstName ? `, ${values.firstName}` : ''}!`
+        );
+        resetForm();
+        setSubmitting(false);
+        setTimeout(() => setSuccessMsg(''), 4000);
+        if (isMobile && formRef.current) {
+          formRef.current.focus();
+        }
+      } catch (error) {
+        setSuccessMsg('Could not submit feedback, please try again.');
+        setSubmitting(false);
+        // Log error to console for dev/ debugging:
+        console.error('Error submitting feedback:', error);
       }
     },
   });
@@ -222,6 +239,10 @@ const Feedback = () => {
       </VStack>
     </Box>
   );
+};
+
+Feedback.propTypes = {
+  onFeedback: PropTypes.func,
 };
 
 export default Feedback;

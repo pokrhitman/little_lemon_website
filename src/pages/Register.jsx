@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import {
   Flex,
   Box,
@@ -15,10 +15,17 @@ import {
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
-const Register = () => {
+import { getAuth, createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
+import app from '../firebase';
+import { useNavigate } from 'react-router-dom';
+import PropTypes from 'prop-types';
+
+function Register({ onRegister }) {
   const formRef = useRef(null);
-  const [successMsg, setSuccessMsg] = React.useState('');
-  const [errorMsg, setErrorMsg] = React.useState('');
+  const navigate = useNavigate();
+  const [successMsg, setSuccessMsg] = useState('');
+  const [errorMsg, setErrorMsg] = useState('');
+  const auth = getAuth(app);
 
   const formik = useFormik({
     initialValues: {
@@ -41,20 +48,67 @@ const Register = () => {
         .oneOf([Yup.ref('password'), null], 'Passwords must match.')
         .required('Please confirm your password.'),
     }),
+
     onSubmit: (values, { resetForm, setSubmitting }) => {
       setErrorMsg('');
-      setSuccessMsg('Account created sucessfully! You can now log in.');
-      resetForm();
-      setSubmitting(false);
-      setTimeout(() => setSuccessMsg(''), 4000);
-      if (formRef.current) formRef.current.focus();
+      setSuccessMsg('');
+      // Firebase Registration
+      createUserWithEmailAndPassword(auth, values.email, values.password)
+        .then(userCredential => {
+          // Try to update display name (first/last name)
+          updateProfile(userCredential.user, {
+            displayName: `${values.firstName}, ${values.lastName}`,
+          })
+            .then(() => {
+              setSuccessMsg('Account created! Redirecting...');
+              // Call the parent handler with user info
+              if (onRegister) {
+                onRegister({
+                  email: userCredential.user.email,
+                  firstName: values.firstName,
+                  lastName: values.lastName,
+                  uid: userCredential.user.uid,
+                });
+              }
+              resetForm();
+              setSubmitting(false);
+              setTimeout(() => {
+                setSuccessMsg('');
+                navigate('/account');
+              }, 1500);
+            })
+            .catch(error => {
+              // If updating profile fails, show the error but continue
+              setErrorMsg('Account created, but profile could not be updated: ' + error.message);
+              if (onRegister) {
+                onRegister({
+                  email: userCredential.user.email,
+                  firstName: values.firstName,
+                  lastName: values.lastName,
+                  uid: userCredential.user.uir,
+                });
+              }
+              resetForm();
+              setSubmitting(false);
+              setTimeout(() => {
+                setErrorMsg('');
+                navigate('/account');
+              }, 2500);
+            });
+        })
+        .catch(error => {
+          setErrorMsg(
+            error.message.replace('Firebase:', '').replace('auth/', '').replace(/-/g, ' ')
+          );
+          setSubmitting(false);
+        });
     },
   });
 
   useEffect(() => {
     if (formik.isSubmitting && Object.keys(formik.errors).length > 0) {
       const firstErrorKey = Object.keys(formik.errors)[0];
-      const errorElem = document.getElementByName(firstErrorKey)[0];
+      const errorElem = document.getElementsByName(firstErrorKey)[0];
       if (errorElem) errorElem.focus();
     }
     if (formik.isValidating || formik.isSubmitting) setSuccessMsg('');
@@ -221,6 +275,10 @@ const Register = () => {
       </Box>
     </Flex>
   );
+}
+
+Register.propTypes = {
+  onRegister: PropTypes.func,
 };
 
 export default Register;

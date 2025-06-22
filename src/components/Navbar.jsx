@@ -66,6 +66,17 @@ function Navbar({ user, onLogout }) {
           </Button>
         </NavLink>
 
+        <NavLink to="store" style={{ textDecoration: 'none' }}>
+          <Button
+            variant="link"
+            color="brand.100"
+            fontSize="lg"
+            _hover={{ color: 'brand.500', textDecoration: 'underline' }}
+          >
+            Store
+          </Button>
+        </NavLink>
+
         <NavLink to="feedback" style={{ textDecoration: 'none' }}>
           <Button
             variant="link"
@@ -77,16 +88,6 @@ function Navbar({ user, onLogout }) {
           </Button>
         </NavLink>
 
-        <NavLink to="store" style={{ textDecoration: 'none' }}>
-          <Button
-            variant="link"
-            color="brand.100"
-            fontSize="lg"
-            _hover={{ color: 'brand.500', textDecoration: 'underline' }}
-          >
-            Store
-          </Button>
-        </NavLink>
         {/* Auth links: conditionall rendered */}
         {user ? (
           <>

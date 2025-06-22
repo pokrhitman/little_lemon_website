@@ -1,5 +1,5 @@
 /* eslint-disable react/no-unescaped-entities */
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import {
   Flex,
   Box,
@@ -16,10 +16,17 @@ import {
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
-const AuthPage = () => {
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import app from '../firebase';
+import { useNavigate } from 'react-router-dom';
+import PropTypes from 'prop-types';
+
+function Login({ onLogin }) {
   const formRef = useRef(null);
-  const [successMsg, setSuccessMsg] = React.useState('');
-  const [errorMsg, setErrorMsg] = React.useState('');
+  const navigate = useNavigate();
+  const [successMsg, setSuccessMsg] = useState('');
+  const [errorMsg, setErrorMsg] = useState('');
+  const auth = getAuth(app);
 
   // Formik + Yup Logic
   const formik = useFormik({
@@ -38,21 +45,28 @@ const AuthPage = () => {
     onSubmit: (values, { resetForm, setSubmitting }) => {
       setErrorMsg('');
       setSuccessMsg('');
-      // Fake Login: accept any non-empty, valid values
-      if (!values.email.trim() || !values.password.trim()) {
-        setErrorMsg('Please enter both email and password.');
-        setSubmitting(false);
-        return;
-      }
-
-      // You would replace with real Login / auth API here
-      setSuccessMsg('Log in successful!');
-      resetForm();
-      setSubmitting(false);
-      setTimeout(() => setSuccessMsg(''), 2000);
-
-      // Focus success message for a11y
-      if (formRef.current) formRef.current.focus();
+      signInWithEmailAndPassword(auth, values.email, values.password)
+        .then(userCredential => {
+          setSuccessMsg('Login successful! Redirecting...');
+          if (onLogin) {
+            onLogin({
+              email: userCredential.user.email,
+              uid: userCredential.user.uid,
+              displayName: userCredential.user.displayName,
+            });
+          }
+          resetForm();
+          setSubmitting(false);
+          setTimeout(() => {
+            setSuccessMsg('');
+            navigate('/account');
+          }, 1500);
+        })
+        .catch(error => {
+          setErrorMsg(
+            error.message.replace('Firebase:', '').replace('auth/', '').replace(/-/g, ' ')
+          );
+        });
     },
   });
 
@@ -174,6 +188,10 @@ const AuthPage = () => {
       </Box>
     </Flex>
   );
+}
+
+Login.propTypes = {
+  onLogin: PropTypes.func,
 };
 
-export default AuthPage;
+export default Login;

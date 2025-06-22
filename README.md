@@ -9,7 +9,7 @@
 
 This is a **front-end React web app** for the fictional Mediterranean bistro, _Little Lemon_.
 
-- **Built for the Coursera Meta Front-End Developer certificate.**
+- **Built for the Coursera Meta Front-End Developer Certificate.**
 - Demonstrates advanced React architecture, component patterns, hooks, accessibility and a professional UI/UX.
 - Designed for **scalability, clarity, and strong developer experience** using **Vite**, ESLint and a clean folder structure.
 
@@ -45,7 +45,7 @@ This project goes beyond traditional accessibility (a11y) and proactively prepar
   A motivational or culinary quote is shown on the Home page, pulled from a local database (future-proof against broken APIs), with a button for instant new quotes.
 
 - **Sign-Up, Login & Feedback Forms**  
-  All forms are interactive, accessible and fully controlled, with real-time validation and success messaging.
+  All forms are interactive, accessible and fully controlled, with real-time validation and success messaging. To collect real user feedback and data please follow the steps to create a Firebase project below this section.
 
 - **Dark/Light Theme Toggle**  
   Global theming with persistent theme choice and consistent style application.
@@ -61,6 +61,20 @@ This project goes beyond traditional accessibility (a11y) and proactively prepar
   components for maximum accessibility and developer experience.
 
 ---
+
+## ⚠️ Important Setup Step for real Authentication
+
+This project **requires you to create your own Firebase project** for Auth/Feedback, Log In and Register features to work with actual user data. For security and resource reasons, no default Firebase API keys are included in this repo.
+
+### How to get started:
+1. Create a Firebase project at [console.firebase.google.com](https://console.firebase.google.com/)
+2. Create a Web App and copy your config keys.
+3. Add them to a `.env` file in your project root (see `.env.example`).
+4. Run `npm install` and then `npm run dev`.
+
+*Do not use your actual API keys for commits to Github  or for public sites.*
+
+
 
 ## 🔧 Code Quality & Tooling
 

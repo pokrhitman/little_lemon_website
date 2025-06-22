@@ -2,17 +2,7 @@ import React, { useState } from 'react';
 import { HashRouter as Router, Route, Routes } from 'react-router-dom';
 import { Box, ColorModeScript } from '@chakra-ui/react';
 import { Layout } from './components';
-import {
-  AuthPage,
-  Desserts,
-  Drinks,
-  Feedback,
-  Store,
-  Home,
-  Menu,
-  Register,
-  Account,
-} from './pages';
+import { Login, Desserts, Drinks, Feedback, Store, Home, Menu, Register, Account } from './pages';
 
 function App() {
   const [user, setUser] = useState(null);
@@ -40,7 +30,7 @@ function App() {
               <Route path="/drinks" element={<Drinks />} />
               <Route path="/feedback" element={<Feedback />} />
               <Route path="/store" element={<Store />} />
-              <Route path="/login" element={<AuthPage onLogin={handleLogin} />} />
+              <Route path="/login" element={<Login onLogin={handleLogin} />} />
               <Route path="/register" element={<Register onRegister={handleLogin} />} />
               <Route path="/account" element={<Account user={user} onLogout={handleLogout} />} />
             </Routes>

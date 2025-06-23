@@ -28,33 +28,36 @@ const Store = () => {
             <Heading as="h2" size="lg" mb={6}>
               {section.title}
             </Heading>
-            <SimpleGrid columnds={gridColumns} spacing={8} aria-label={`${section.title} products`}>
+            <SimpleGrid columns={gridColumns} aria-label={`${section.title} products`}>
               {section.data.map(item => (
                 <Box
                   key={item.name}
-                  bg="brand.100"
+                  bg="white"
                   borderRadius="xl"
                   boxShadow="md"
-                  p={6}
+                  p={4}
+                  maxW="280px"
+                  minW="180px"
+                  w="100%"
                   display="flex"
                   flexDirection="column"
                   alignItems="center"
                   transition="box-shadow 0.2s"
-                  _hover={{ boxShadow: 'xl', cursor: 'pointer', bg: 'brand.50' }}
+                  _hover={{ boxShadow: 'xl', cursor: 'pointer', bg: 'brand.100' }}
                 >
                   <Image
                     src={import.meta.env.BASE_URL + item.img}
                     alt={item.name}
                     borderRadius="lg"
                     objectFit="cover"
-                    boxSize="140px"
-                    mb={4}
+                    boxSize="260px"
+                    mb={3}
                   />
                   <VStack spacing={2} align="center">
                     <Heading as="h3" size="md">
                       {item.name}
                     </Heading>
-                    <Text fontWeight="bold" color="yellow.700">
+                    <Text fontSize="lg" fontWeight="bold" color="yellow.700">
                       {item.price}
                     </Text>
                     <Text fontSize="sm" color="gray.700" textAlign="center">

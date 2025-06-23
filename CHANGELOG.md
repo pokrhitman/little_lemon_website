@@ -17,7 +17,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 ---
 
-## [1.5.0] – 2025-06-24
+## [1.5.1] – 2025-06-23
+
+### Fixed
+- Layout issues with item cards in Menu, Drinks, Desserts and Store pages.
+- Reduced width of item cards and corrected spacing between section title, heading and the item cards.
+- Better alignment of text and item cards for improved visual display.
+
+
+## [1.5.0] – 2025-06-22
 
 ### Added
 - Integrated Firebase Authentication (email/password) for registration and login.

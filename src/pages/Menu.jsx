@@ -55,14 +55,15 @@ function Menu() {
 
       <Box maxW="7xl" mx="auto">
         {menuItemsToDisplay.map(section => (
-          <Box as="section" key={section.title} mv={10}>
-            <Heading as="h2" size="lg" mb={4}>
+          <Box as="section" key={section.title} mb={14}>
+            <Heading as="h2" size="lg" mb={2}>
               {section.title}
             </Heading>
             <Text color="gray.600" fontSize="md" mb={4}>
               Click on an item to see more details.
             </Text>
-            <SimpleGrid columns={gridColumns} spacing={6} aria-label={`${section.title} items`}>
+
+            <SimpleGrid columns={gridColumns} spacing={8} aria-label={`${section.title} items`}>
               {section.data.map(item => (
                 <Box
                   as="button"
@@ -71,19 +72,34 @@ function Menu() {
                   aria-haspopup="dialog"
                   aria-label={item.name}
                   textAlign="left"
-                  bg="brand.100"
+                  bg="brand.500"
                   borderRadius="xl"
                   boxShadow="md"
-                  p={4}
+                  p={5}
+                  position="relative"
+                  maxW="280px"
+                  minW="220px"
+                  w="100%"
                   transition="box-shadow 0.2s"
-                  _hover={{ boxShadwow: 'xl', cursor: 'pointer', bg: 'brand.50' }}
+                  _hover={{ boxShadwow: 'xl', cursor: 'pointer', bg: 'yellow.200' }}
                   _focus={{ outline: '2px solid', outlineColor: 'brand.500' }}
                   onClick={() => handleOpenPopup(item)}
                   onKeyDown={e => handleCardKey(item, e)}
+                  display="flex"
+                  flexDirection="column"
+                  alignItems="flex-start"
                 >
-                  <Heading as="h3" size="md" mb={2} display="flex" alignItems="center">
+                  {/* Info icon fixed in upper right */}
+                  <InfoOutlineIcon
+                    color="gray.400"
+                    boxSize={5}
+                    position="absolute"
+                    top="12px"
+                    right="12px"
+                    zIndex="1"
+                  />
+                  <Heading as="h3" size="md" mb={1} pr="32px" fontWeight="semibold">
                     {item.name}
-                    <InfoOutlineIcon ml={2} color="gray.400" boxSize={4} />
                   </Heading>
                   <Text fontWeight="bold">{item.price}</Text>
                 </Box>

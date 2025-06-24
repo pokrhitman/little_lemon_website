@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { HashRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { Box, ColorModeScript } from '@chakra-ui/react';
 import { Layout } from './components';
 import { Login, Desserts, Drinks, Feedback, Store, Home, Menu, Register, Account } from './pages';
@@ -19,7 +19,7 @@ function App() {
     <>
       <ColorModeScript initialColorMode="light" />
       <Box minH="100vh" bg={['gray.50', 'gray.900']}>
-        <Router>
+        <Router basename="/little_lemon_website">
           <Layout user={user} onLogout={handleLogout}>
             <Routes>
               <Route path="/" element={<Home />} />

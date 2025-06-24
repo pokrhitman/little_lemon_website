@@ -13,19 +13,18 @@ import {
   ModalHeader,
   ModalCloseButton,
   ModalBody,
-  useDisclosure,
   VisuallyHidden,
   useBreakpointValue,
 } from '@chakra-ui/react';
-import { InfoOutlineIcon } from '@chakra-ui/icons';
+import ItemCard from '../components/ItemCard';
 
 function Menu() {
   const { isMobile } = useDevice();
   const [popupItem, setPopupItem] = useState(null);
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { isOpen, onOpen, onClose } = useState(false);
 
   // Responsive columns
-  const gridColumns = useBreakpointValue({ base: 1, md: 3 });
+  const gridColumns = useBreakpointValue({ base: 1, md: 2, lg: 3 });
 
   // For keyboard accessibility:
   const handleCardKey = (item, e) => {
@@ -65,44 +64,19 @@ function Menu() {
 
             <SimpleGrid columns={gridColumns} spacing={8} aria-label={`${section.title} items`}>
               {section.data.map(item => (
-                <Box
-                  as="button"
+                <ItemCard
                   key={item.name}
+                  title={item.name}
+                  price={item.price}
+                  bg="brand.700"
+                  hoverBg="yellow.600"
+                  textColor="brand.100"
+                  onClick={() => handleOpenPopup(item)}
+                  oneKeyDown={e => handleCardKey(item, e)}
                   tabIndex={0}
                   aria-haspopup="dialog"
                   aria-label={item.name}
-                  textAlign="left"
-                  bg="brand.500"
-                  borderRadius="xl"
-                  boxShadow="md"
-                  p={5}
-                  position="relative"
-                  maxW="280px"
-                  minW="220px"
-                  w="100%"
-                  transition="box-shadow 0.2s"
-                  _hover={{ boxShadwow: 'xl', cursor: 'pointer', bg: 'yellow.200' }}
-                  _focus={{ outline: '2px solid', outlineColor: 'brand.500' }}
-                  onClick={() => handleOpenPopup(item)}
-                  onKeyDown={e => handleCardKey(item, e)}
-                  display="flex"
-                  flexDirection="column"
-                  alignItems="flex-start"
-                >
-                  {/* Info icon fixed in upper right */}
-                  <InfoOutlineIcon
-                    color="gray.400"
-                    boxSize={5}
-                    position="absolute"
-                    top="12px"
-                    right="12px"
-                    zIndex="1"
-                  />
-                  <Heading as="h3" size="md" mb={1} pr="32px" fontWeight="semibold">
-                    {item.name}
-                  </Heading>
-                  <Text fontWeight="bold">{item.price}</Text>
-                </Box>
+                />
               ))}
             </SimpleGrid>
           </Box>

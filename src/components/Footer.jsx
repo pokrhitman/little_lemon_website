@@ -14,7 +14,7 @@ function Footer() {
       boxShadow="sm"
     >
       <Flex justify="center" align="center" minH="56px">
-        <Text fontSize="md" fontWeight="medium" textAlign="center">
+        <Text fontSize="lg" fontWeight="bold" textAlign="center">
           All rights reserved by Little Lemon, 2025
         </Text>
       </Flex>

@@ -1,4 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react';
+import { Link as RouterLink } from 'react-router-dom';
 import {
   Flex,
   Box,
@@ -10,8 +11,8 @@ import {
   FormLabel,
   FormErrorMessage,
   Text,
-  Link,
 } from '@chakra-ui/react';
+import { Link as ChakraLink } from '@chakra-ui/react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
@@ -261,15 +262,16 @@ function Register({ onRegister }) {
           </form>
           <Text pt={2} textAlign="center" fontSize="md">
             Already have an account?{''}
-            <Link
-              href="/login"
+            <ChakraLink
+              as={RouterLink}
+              to="/login"
               color="brand.100"
               fontWeight="bold"
               aria-label="Log in"
               _hover={{ textDecoration: 'underline', color: 'brand.50' }}
             >
               Log in here
-            </Link>
+            </ChakraLink>
           </Text>
         </VStack>
       </Box>

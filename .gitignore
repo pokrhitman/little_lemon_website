@@ -24,4 +24,6 @@ dist-ssr
 *.sw?
 
 # Firebase API Keys
+dist/
+build/
 .env

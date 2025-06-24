@@ -1,5 +1,6 @@
 /* eslint-disable react/no-unescaped-entities */
 import React, { useRef, useEffect, useState } from 'react';
+import { Link as RouterLink } from 'react-router-dom';
 import {
   Flex,
   Box,
@@ -11,8 +12,8 @@ import {
   FormLabel,
   FormErrorMessage,
   Text,
-  Link,
 } from '@chakra-ui/react';
+import { Link as ChakraLink } from '@chakra-ui/react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
@@ -174,15 +175,16 @@ function Login({ onLogin }) {
 
           <Text pt={2} textAlign="center" fontSize="md" fontWeight="bold" color="whiteAlpha.800">
             Don't have an account?{' '}
-            <Link
-              href="/register/"
+            <ChakraLink
+              as={RouterLink}
+              to="/register"
               color="brand.100"
               fontWeight="bold"
               aria-label="Sign up"
               _hover={{ textDecoration: 'underline', color: 'brand.50' }}
             >
               Sign up here!
-            </Link>
+            </ChakraLink>
           </Text>
         </VStack>
       </Box>

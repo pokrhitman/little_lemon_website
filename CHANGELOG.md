@@ -17,6 +17,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 ---
 
+## [1.5.1] - 2025-06-24 
+
+### Authentication, Security & Routing Improvements
+
+- Fixed SPA routing and navigation links for Login/Register pages to use React Router (`to` prop), ensuring compatibility with GH Pages subdirectory deployment.
+- Switched all internal authentication-related navigation from `href` to `to`, resolving broken links and 404 errors on direct access.
+- Audited and clarified Firebase API key handling for public deployments:
+  - Restricted Firebase API key usage in Google Cloud Console to only allowed website domains.
+  - Updated `.env` to use newly restricted Firebase key; removed/replaced any previously leaked keys.
+  - Documented secure client-side key practices and added guidance for API key restriction.
+- Reviewed and set minimum-necessary Firestore security rules:
+  - Public write-only feedback collection; no public reads.
+  - No public write/read for any other collections.
+- Added documentation and in-code comments for security improvements.
+- General UI and accessibility polish based on latest website testing by adding new component itemCard.jsx which handles the global styling of the item cards in the Menu, Drinks and Desserts pages.
+
+
 ## [1.5.1] – 2025-06-23
 
 ### Fixed

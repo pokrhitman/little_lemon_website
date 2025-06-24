@@ -38,7 +38,7 @@ const drinksItemsToDisplay = [
     title: 'Alcoholic Beverages',
     data: [
       {
-        name: 'Selection of Tap Beers',
+        name: 'Selection of Beers',
         price: '$5',
         img: 'assets/drinks/beer.png',
         nutrition: {

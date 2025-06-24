@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import useDevice from '../hooks/useDevice';
 import drinksItemsToDisplay from '../data/drinksData';
+import useDevice from '../hooks/useDevice';
 import {
   Box,
   SimpleGrid,
   Heading,
+  HStack,
   Text,
   Image,
   Modal,
@@ -13,17 +14,15 @@ import {
   ModalHeader,
   ModalCloseButton,
   ModalBody,
-  useDisclosure,
   VisuallyHidden,
   useBreakpointValue,
-  HStack,
 } from '@chakra-ui/react';
-import { InfoOutlineIcon } from '@chakra-ui/icons';
+import ItemCard from '../components/ItemCard';
 
 function Drinks() {
   const { isMobile } = useDevice();
   const [popupItem, setPopupItem] = useState(null);
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { isOpen, onOpen, onClose } = useState(false);
 
   // Responsive columns for the grid
   const gridColumns = useBreakpointValue({ base: 1, md: 2, lg: 3 });
@@ -62,46 +61,21 @@ function Drinks() {
             <Text color="gray.600" fontSize="md" mb={4}>
               Click on an item to see more details.
             </Text>
-            <SimpleGrid columns={gridColumns} spacing={8} aria-label={`$section.title} items`}>
+            <SimpleGrid columns={gridColumns} spacing={8} aria-label={`${section.title} items`}>
               {section.data.map(item => (
-                <Box
-                  as="button"
+                <ItemCard
                   key={item.name}
+                  title={item.name}
+                  price={item.price}
+                  bg="blue.50"
+                  hoverBg="blue.100"
+                  textColor="blue.500"
+                  onClick={() => handleOpenPopup(item)}
+                  oneKeyDown={e => handleCardKey(item, e)}
+                  tabIndex={0}
                   aria-haspopup="dialog"
                   aria-label={item.name}
-                  textAlign="left"
-                  bg="blue.50"
-                  borderRadius="xl"
-                  boxShadow="md"
-                  p={4}
-                  position="relative"
-                  maxW="280px"
-                  minW="220px"
-                  w="100%"
-                  transition="box-shadow 0.2s, background 0.2s"
-                  _hover={{ boxShadow: 'xl', cursor: 'pointer', bg: 'blue.100' }}
-                  _focus={{ outline: '2px solid', outlineColor: 'blue.500' }}
-                  onClick={() => handleOpenPopup(item)}
-                  onKeyDown={e => handleCardKey(item, e)}
-                  display="flex"
-                  flexDirection="column"
-                  alignItems="flex-start"
-                >
-                  {/* Info icon fixed in upper right */}
-                  <InfoOutlineIcon
-                    color="gray.400"
-                    boxSize={5}
-                    position="absolute"
-                    top="12px"
-                    right="12px"
-                    zIndex="1"
-                  />
-
-                  <Heading as="h3" size="md" mb={1} pr="32px" fontWeight="semibold">
-                    {item.name}
-                  </Heading>
-                  <Text fontWeight="bold">{item.price}</Text>
-                </Box>
+                />
               ))}
             </SimpleGrid>
           </Box>

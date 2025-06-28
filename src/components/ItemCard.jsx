@@ -1,48 +1,33 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Box, Heading, Text } from '@chakra-ui/react';
-import { InfoOutlineIcon } from '@chakra-ui/icons';
+import { Info } from 'lucide-react';
 
-const ItemCard = ({
+function ItemCard({
   title,
   price,
   children,
-  bg = 'brand.100',
-  hoverBg = 'yellow.200',
+  bg = 'bg-green-800',
+  hoverBg = 'bg-yellow-400',
+  textColor = 'text-yellow-100',
   info = true,
   ...props
-}) => (
-  <Box
-    position="relative"
-    borderRadius="xl"
-    boxShadow="md"
-    p={5}
-    maxW="280px"
-    minW="220px"
-    w="100%"
-    bg={bg}
-    transition="box-shadow 0.2s, background 0.2"
-    _hover={{ boxShadow: 'xl', cursor: 'pointer', bg: hoverBg }}
-    _focus={{ outline: '2px solid', outlineColor: 'brand.500' }}
-    {...props}
-  >
-    {info && (
-      <InfoOutlineIcon
-        color="gray.400"
-        boxSize={5}
-        position="absolute"
-        top="12px"
-        right="12px"
-        zIndex="1"
-      />
-    )}
-    <Heading as="h3" size="md" mb={1} pr="32px" fontWeight="semibold">
-      {title}
-    </Heading>
-    <Text fontWeight="bold">{price}</Text>
-    {children}
-  </Box>
-);
+}) {
+  return (
+    <button
+      type="button"
+      tabIndex={0}
+      aria-label={title}
+      className={`relative rounded-xl shadow-md p-5 max-w-[280px] min-w-[220px] w-full transition box-border ${bg} ${textColor} hover:${hoverBg} hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-yellow-400 flex flex-col items-start`}
+      {...props}
+    >
+      {/* Info icon in upper right, but never a close "x" here */}
+      {info && <Info className="absolute top-3 right-2 text-gray-400 w-5 h-5" aria-label="info" />}
+      <h3 className="text-lg font-semibold mb-1 pr-7">{title}</h3>
+      <span className="font-bold">{price}</span>
+      {children}
+    </button>
+  );
+}
 
 ItemCard.propTypes = {
   title: PropTypes.string.isRequired,
@@ -50,6 +35,7 @@ ItemCard.propTypes = {
   children: PropTypes.node,
   bg: PropTypes.string,
   hoverBg: PropTypes.string,
+  textColor: PropTypes.string,
   info: PropTypes.bool,
 };
 

@@ -2,37 +2,26 @@ import React from 'react';
 import Navbar from './Navbar';
 import Footer from './Footer';
 import PropTypes from 'prop-types';
-import { Box, Flex, Link } from '@chakra-ui/react';
 
 // Accessibility: Skip Link allows keyboard/screen reader
 // users to jump directly to main content.
 
-const skipLinkStyles = {
-  position: 'absolute',
-  left: '0',
-  top: '0',
-  background: '#fffde7',
-  color: '#283618',
-  padding: '8px 16px',
-  zIndex: '999',
-  transform: 'translateY(-120%)',
-  transition: 'transform 0.3s',
-  _focus: { transform: 'translateY(0)' },
-};
-
 function Layout({ children, user, onLogout }) {
   return (
-    <Flex minH="100vh" direction="column" bg="brand.50">
+    <div className="flex flex-col min-h-screen bg-gray-50">
       {/* Skip to Main Content link for accessibility */}
-      <Link href="#main-content" sx={skipLinkStyles} _focus={{ transform: 'translateY(0)' }}>
+      <a
+        href="#main-content"
+        className="absolute left-2 top-2 z-50 px-4 py-2 bg-yellow text-green-900 rounded opacity-0 pointer-events-none focus:opacity-100 focus:pointer-events-auto focus:translate-y-0 transition"
+      >
         Skip to main content
-      </Link>
+      </a>
       <Navbar user={user} onLogout={onLogout} />
-      <Box as="main" id="main-content" flex="1" display="flex" flexDirection="column">
+      <main id="main-content" className="flex-1 flex flex-col w-full">
         {children}
-      </Box>
+      </main>
       <Footer />
-    </Flex>
+    </div>
   );
 }
 

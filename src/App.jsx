@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import { Box, ColorModeScript } from '@chakra-ui/react';
 import { Layout } from './components';
 import { Login, Desserts, Drinks, Feedback, Store, Home, Menu, Register, Account } from './pages';
 
@@ -16,11 +15,10 @@ function App() {
   };
 
   return (
-    <>
-      <ColorModeScript initialColorMode="light" />
-      <Box minH="100vh" bg={['gray.50', 'gray.900']}>
-        <Router basename="/little_lemon_website">
-          <Layout user={user} onLogout={handleLogout}>
+    <div className="flex flex-col min-h-screen bg-gray-50">
+      <Router basename="/little_lemon_website">
+        <Layout user={user} onLogout={handleLogout}>
+          <main className="flex-1 flex flex-col items-center justify-center">
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="" element={<Home />} />
@@ -34,10 +32,10 @@ function App() {
               <Route path="/register" element={<Register onRegister={handleLogin} />} />
               <Route path="/account" element={<Account user={user} onLogout={handleLogout} />} />
             </Routes>
-          </Layout>
-        </Router>
-      </Box>
-    </>
+          </main>
+        </Layout>
+      </Router>
+    </div>
   );
 }
 

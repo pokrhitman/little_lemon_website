@@ -1,194 +1,145 @@
-/* eslint-disable react/no-unescaped-entities */
-import React, { useRef, useEffect, useState } from 'react';
-import { Link as RouterLink } from 'react-router-dom';
-import {
-  Flex,
-  Box,
-  Button,
-  Heading,
-  Input,
-  VStack,
-  FormControl,
-  FormLabel,
-  FormErrorMessage,
-  Text,
-} from '@chakra-ui/react';
-import { Link as ChakraLink } from '@chakra-ui/react';
-import { useFormik } from 'formik';
-import * as Yup from 'yup';
-
+import React, { useRef, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import app from '../firebase';
-import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 function Login({ onLogin }) {
-  const formRef = useRef(null);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting, isValid, isDirty },
+    reset,
+  } = useForm({ mode: 'onTouched' });
+
   const navigate = useNavigate();
   const [successMsg, setSuccessMsg] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
+  const formRef = useRef(null);
   const auth = getAuth(app);
 
-  // Formik + Yup Logic
-  const formik = useFormik({
-    initialValues: {
-      email: '',
-      password: '',
-    },
-    validationSchema: Yup.object({
-      email: Yup.string()
-        .email('Please enter a valid email address')
-        .required('Email address is required.'),
-      password: Yup.string()
-        .required('Password is required.')
-        .min(8, 'Password must be at least 8 characters.'),
-    }),
-    onSubmit: (values, { resetForm, setSubmitting }) => {
-      setErrorMsg('');
-      setSuccessMsg('');
-      signInWithEmailAndPassword(auth, values.email, values.password)
-        .then(userCredential => {
-          setSuccessMsg('Login successful! Redirecting...');
-          if (onLogin) {
-            onLogin({
-              email: userCredential.user.email,
-              uid: userCredential.user.uid,
-              displayName: userCredential.user.displayName,
-            });
-          }
-          resetForm();
-          setSubmitting(false);
-          setTimeout(() => {
-            setSuccessMsg('');
-            navigate('/account');
-          }, 1500);
-        })
-        .catch(error => {
-          setErrorMsg(
-            error.message.replace('Firebase:', '').replace('auth/', '').replace(/-/g, ' ')
-          );
+  const onSubmit = async values => {
+    setSuccessMsg('');
+    setErrorMsg('');
+    try {
+      const userCredential = await signInWithEmailAndPassword(auth, values.email, values.password);
+      setSuccessMsg('Login successful! Redirecting...');
+      if (onLogin) {
+        onLogin({
+          email: userCredential.user.email,
+          uid: userCredential.user.uid,
+          displayName: userCredential.user.displayName,
         });
-    },
-  });
-
-  // Focus first invalid field on submit for keyboard users
-  useEffect(() => {
-    if (formik.isSubmitting && Object.keys(formik.errors).length > 0) {
-      const firstErrorKey = Object.keys(formik.errors)[0];
-      const errorElem = document.getElementByName(firstErrorKey)[0];
-      if (errorElem) errorElem.focus();
+      }
+      reset();
+      setTimeout(() => {
+        setSuccessMsg('');
+        navigate('/account');
+      }, 1500);
+    } catch (error) {
+      setErrorMsg(error.message.replace('Firebase:', '').replace('auth/', '').replace(/-/g, ' '));
     }
-    // Reset succcessMsg when users starts typing again
-    if (formik.isValidating || formik.isSubmitting) setSuccessMsg('');
-    if (formik.isValidating || formik.isSubmitting) setErrorMsg('');
-  }, [formik.errors, formik.isSubmitting, formik.isValidating]);
+  };
 
   return (
-    <Flex flex="1" bg="brand.50" align="center" justify="center" minH="80vh">
-      <Box maxW="400px" w="100%" p={8} bg="brand.700" borderRadius="xl" boxShadow="lg">
-        <VStack spacing={6} align="stretch">
-          <Heading as="h1" size="lg" textAlign="center" color="brand.100">
-            Log In to Little Lemon
-          </Heading>
+    <main className="min-h-screen flex items-center justify-center bg-yellow-50 px-2">
+      <div className="max-w-md w-full bg-white rounded-2xl shadow-xl p-8 flex flex-col gap-6">
+        <h1 className="text-3xl font-bold text-green-900 text-center mb-2">
+          Log In to Little Lemon
+        </h1>
 
-          {/* ARIA-live region for a11y success message */}
-          <Box
-            role="status"
-            aria-live="polite"
-            tabIndex={-1}
-            ref={formRef}
-            style={{ outline: 'none' }}
-            mb={successMsg ? 2 : 0}
-          >
-            {successMsg && (
-              <Text color="green.200" fontWeight="bold">
-                {successMsg}
-              </Text>
-            )}
-          </Box>
-          {/* Error Message */}
-          {errorMsg && (
-            <Box role="alert" aria-live="assertive" mb={2}>
-              <Text color="red.200" fontWeight="bold">
-                {errorMsg}
-              </Text>
-            </Box>
+        {/* ARIA-live region for success message */}
+        <div
+          role="status"
+          aria-live="polite"
+          tabIndex={-1}
+          ref={formRef}
+          className={successMsg ? 'mb-2' : ''}
+        >
+          {successMsg && (
+            <div className="text-green-800 bg-green-100 font-bold py-2 px-4 rounded mb-2 transition text-center">
+              {successMsg}
+            </div>
           )}
+        </div>
+        {/* Error Message */}
+        {errorMsg && (
+          <div role="alert" aria-live="assertive" className="mb-2">
+            <div className="text-red-800 bg-red-100 font-bold py-2 px-4 rounded text-center">
+              {errorMsg}
+            </div>
+          </div>
+        )}
 
-          <form onSubmit={formik.handleSubmit} noValidate>
-            <VStack spacing={4} align="stretch">
-              <FormControl isInvalid={formik.touched.email && !!formik.errors.email} isRequired>
-                <FormLabel htmlFor="email" color="brand.100" fontWeight="bold">
-                  Email
-                </FormLabel>
-                <Input
-                  id="email"
-                  name="email"
-                  type="email"
-                  autoComplete="username"
-                  placeholder="Please enter your email"
-                  {...formik.getFieldProps('email')}
-                  bg="white"
-                  color="brand.900"
-                />
-                <FormErrorMessage>{formik.errors.email}</FormErrorMessage>
-              </FormControl>
-
-              <FormControl
-                isInvalid={formik.touched.password && !!formik.errors.password}
-                isRequired
-              >
-                <FormLabel htmlFor="password" fontWeight="bold" color="brand.100">
-                  Password
-                </FormLabel>
-                <Input
-                  id="password"
-                  name="password"
-                  type="password"
-                  autoComplete="current-password"
-                  placeholder="Please enter your password"
-                  bg="white"
-                  color="brand.900"
-                  {...formik.getFieldProps('password')}
-                />
-                <FormErrorMessage>{formik.errors.password}</FormErrorMessage>
-              </FormControl>
-
-              <Button
-                type="submit"
-                bg="brand.100"
-                color="black"
-                border="2px solid black"
-                _hover={{ bg: 'brand.50', color: 'black', border: '2px solid black' }}
-                colorScheme="yellow"
-                width="full"
-                fontSize="lg"
-                isLoading={formik.isSubmitting}
-                aria-busy={formik.isSubmitting}
-                isDisabled={!formik.isValid || !formik.dirty}
-                mt={2}
-              >
-                Log In
-              </Button>
-            </VStack>
-          </form>
-
-          <Text pt={2} textAlign="center" fontSize="md" fontWeight="bold" color="whiteAlpha.800">
-            Don't have an account?{' '}
-            <ChakraLink
-              as={RouterLink}
-              to="/register"
-              color="brand.100"
-              fontWeight="bold"
-              aria-label="Sign up"
-              _hover={{ textDecoration: 'underline', color: 'brand.50' }}
-            >
-              Sign up here!
-            </ChakraLink>
-          </Text>
-        </VStack>
-      </Box>
-    </Flex>
+        <form className="flex flex-col gap-5" onSubmit={handleSubmit(onSubmit)} noValidate>
+          <div>
+            <label className="font-bold text-green-900" htmlFor="email">
+              Email *
+            </label>
+            <Input
+              id="email"
+              type="email"
+              autoComplete="username"
+              placeholder="Please enter your email"
+              {...register('email', {
+                required: 'Email address is required.',
+                pattern: {
+                  value: /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/,
+                  message: 'Please enter a valid email address.',
+                },
+              })}
+              aria-invalid={!!errors.email}
+              className="mt-1"
+            />
+            {errors.email && <span className="text-red-600 text-sm">{errors.email.message}</span>}
+          </div>
+          <div>
+            <label className="font-bold text-green-900" htmlFor="password">
+              Password *
+            </label>
+            <Input
+              id="password"
+              type="password"
+              autoComplete="current-password"
+              placeholder="Please enter your password"
+              {...register('password', {
+                required: 'Password is required.',
+                minLength: {
+                  value: 8,
+                  message: 'Password must be at least 8 characters.',
+                },
+              })}
+              aria-invalid={!!errors.password}
+              className="mt-1"
+            />
+            {errors.password && (
+              <span className="text-red-600 text-sm">{errors.password.message}</span>
+            )}
+          </div>
+          <Button
+            type="submit"
+            className="w-full font-bold bg-yellow-400 hover:bg-yellow-300 text-green-900 mt-2"
+            disabled={isSubmitting || !isValid || !isDirty}
+            aria-busy={isSubmitting}
+          >
+            {isSubmitting ? 'Logging in...' : 'Log In'}
+          </Button>
+        </form>
+        <div className="text-center text-md font-bold text-green-900 pt-2">
+          Don&apos;t have an account?{' '}
+          <RouterLink
+            to="/register"
+            className="text-yellow-600 font-bold hover:underline"
+            aria-label="Sign up"
+          >
+            Sign up here!
+          </RouterLink>
+        </div>
+      </div>
+    </main>
   );
 }
 

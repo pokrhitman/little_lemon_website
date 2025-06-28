@@ -15,6 +15,22 @@ This is a **front-end React web app** for the fictional Mediterranean bistro, _L
 
 ---
 
+## 🚨 Framework Update (June 2025)
+
+> **This codebase was originally built with Chakra UI and Formik/Yup. As of June 2025, it is now fully migrated to Tailwind CSS, shadcn/ui, and React Hook Form.**
+>
+> - **Why the change?**
+>     - **Performance:** Utility-first CSS is faster, lighter 
+        and more scalable.
+>     - **Design Freedom:** shadcn/ui + Tailwind provide complete
+        control with no opinionated theme conflicts.
+>     - **Modern Forms:** React Hook Form is the new industry
+        standard—simpler, more accessible and better for large projects.
+> - **All Chakra/Formik/Yup code has been removed.**
+> - See the [Changelog](./CHANGELOG.md) for migration notes.
+
+--- 
+
 ## ✨ Live Demo
 
 👉 [View the Demo on GitHub Pages](https://pokrhitman.github.io/little_lemon_website/)
@@ -55,11 +71,6 @@ This project goes beyond traditional accessibility (a11y) and proactively prepar
 
 - **Advanced React Patterns**  
   Functional components, custom hooks, prop drilling, controlled inputs, modular state management.
-
-- **Polished UI & Clean Styling with Chakra UI**  
-- All layouts and styles now use [Chakra UI](https://chakra-ui.com/)
-  components for maximum accessibility and developer experience.
-
 ---
 
 ## ⚠️ Important Setup Step for real Authentication
@@ -98,19 +109,13 @@ This project **requires you to create your own Firebase project** for Auth/Feedb
 little_lemon_website/
   ├── public/
   ├── src/
-  │   ├── assets/         # Images & static files
-  │   ├── components/     # Navbar, Footer, QuoteCard, etc.
-  │   ├── data/           # Static JSON data (menu, quotes)
-  │   ├── hooks/          # Custom hooks (e.g., useFetchQuote)
-  │   ├── pages/          # Page views (Home, Menu, Feedback, etc.)
-  │   ├── styles/         # CSS stylesheets
-  │   ├── App.jsx         # Main app component
-  │   ├── main.jsx        # Entry point
-  │   └── ...
-  ├── package.json
-  ├── README.md
-  └── CHANGELOG.md        # Detailed explanations about updates and new
-                            features
+      components/       # All UI components (shadcn/ui, custom)
+      pages/            # Page-level components (Home, Menu, etc)
+      data/             # Static menu/drinks/store data
+      lib/              # Utility functions (e.g. classNames)
+      hooks/            # Custom React hooks (device, auth, etc)
+      firebase.js       # Firebase config
+      main.jsx, App.jsx # App root and router
 ```
 
 ---
@@ -132,11 +137,8 @@ npm run dev
 
 This project **started as a solution for the Meta Front-End Developer Capstone (Little Lemon) course assignment** on Coursera, but has since been **heavily refactored and expanded** with modern frameworks:
 
-- All UI now uses Chakra UI (not plain CSS or course starter files)
-- Form logic is handled with Formik and Yup, rather than React's useState or
-  vanilla JS validation
-- Routing, file structure and overall app logic have been modularized for
-  professional/production use
+- All UI now uses Tailwind and shadcn/ui (not plain CSS or course starter files)
+- Routing, file structure and overall app logic have been modularized for professional/production use
 
 **As a result, this codebase is _not compatible_ with Coursera's auto-grading system or course copy-paste assignments.**
 If you are a student, please do not try to submit this repository as a solution — it will not match assignment requirements or grading scripts. You may fail the assignment or the peer review.
@@ -158,15 +160,15 @@ If you are a student, please do not try to submit this repository as a solution 
 
 ---
 
-## 🛠️ Tech Stack
+## 🖥️ Tech Stack
 
-- **React 18+**
-- **Vite** (modern build tool)
-- **Chakra UI** (component-based styling and a11y)
-- **Formik + Yup** (form state & robust validation)
-- **ESLint** (linting, code quality)
-- **Modern JavaScript (ES6+)**
-
+- **React + Vite**
+- **Tailwind CSS** (utility-first, responsive styling)
+- **shadcn/ui** (accessible, unstyled headless components)
+- **React Hook Form** (form state and validation)
+- **Firebase** (Auth, Firestore, and image hosting)
+- **Lucide React** (icons)
+- **GitHub Pages** (deployment)
 ---
 
 ## 🧑‍💻 Clean Code Practices
@@ -175,7 +177,8 @@ If you are a student, please do not try to submit this repository as a solution 
 - Strong, scalable folder conventions.
 - DRY, SRP and meaningful component/function naming.
 - Atomic commits and version control hygiene.
-- Accessibility (a11y): semantic HTML, keyboard support, aria-labels, skip links, etc.
+- Accessibility (a11y): semantic HTML, keyboard support,
+  aria-labels, skip links, etc.
 - AI/agent readiness: structured data, predictable UI.
 
 ---

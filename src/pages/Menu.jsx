@@ -1,133 +1,91 @@
 import React, { useState } from 'react';
 import menuItemsToDisplay from '../data/menuData';
-import useDevice from '../hooks/useDevice';
-import {
-  Box,
-  SimpleGrid,
-  Heading,
-  Text,
-  Image,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalCloseButton,
-  ModalBody,
-  VisuallyHidden,
-  useBreakpointValue,
-} from '@chakra-ui/react';
 import ItemCard from '../components/ItemCard';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 
 function Menu() {
-  const { isMobile } = useDevice();
   const [popupItem, setPopupItem] = useState(null);
-  const { isOpen, onOpen, onClose } = useState(false);
-
-  // Responsive columns
-  const gridColumns = useBreakpointValue({ base: 1, md: 2, lg: 3 });
 
   // For keyboard accessibility:
   const handleCardKey = (item, e) => {
     if (e.key === 'Enter' || e.key === ' ') {
       setPopupItem(item);
-      onOpen();
     }
   };
 
   // Open popup
   const handleOpenPopup = item => {
     setPopupItem(item);
-    onOpen();
   };
 
   // Close popup
   const handleClosePopup = () => {
     setPopupItem(null);
-    onClose();
   };
 
   return (
-    <Box as="main" px={[2, 6]} py={[4, 8]} id="main-content">
-      <VisuallyHidden>
-        <Heading as="h1">Menu - Little Lemon Restaurant</Heading>
-      </VisuallyHidden>
+    <main
+      id="main-content"
+      className="px-2 md:px-6 py-8 w-full min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-100"
+    >
+      {/* Hidden real h1 for SEO/ Accessibility */}
+      <h1 className="sr-only">Menu - Little Lemon Restaurant</h1>
 
-      <Box maxW="7xl" mx="auto">
+      <div className="max-w-7xl mx-auto">
         {menuItemsToDisplay.map(section => (
-          <Box as="section" key={section.title} mb={14}>
-            <Heading as="h2" size="lg" mb={2}>
-              {section.title}
-            </Heading>
-            <Text color="gray.600" fontSize="md" mb={4}>
-              Click on an item to see more details.
-            </Text>
-
-            <SimpleGrid columns={gridColumns} spacing={8} aria-label={`${section.title} items`}>
+          <section key={section.title} className="mb-14">
+            <h2 className="text-3xl font-bold text-green-900 mb-2">{section.title}</h2>
+            <p className="text-gray-600 text-md mb-4">Click on an item to see more details.</p>
+            <div
+              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+              aria-label={`${section.title} items`}
+            >
               {section.data.map(item => (
                 <ItemCard
                   key={item.name}
                   title={item.name}
                   price={item.price}
-                  bg="brand.700"
-                  hoverBg="yellow.600"
-                  textColor="brand.100"
+                  bg="bg-green-800"
+                  hoverBg="bg-yellow-400"
+                  textColor="text-yellow-100"
                   onClick={() => handleOpenPopup(item)}
-                  oneKeyDown={e => handleCardKey(item, e)}
+                  onKeyDown={e => handleCardKey(item, e)}
                   tabIndex={0}
                   aria-haspopup="dialog"
                   aria-label={item.name}
                 />
               ))}
-            </SimpleGrid>
-          </Box>
+            </div>
+          </section>
         ))}
-      </Box>
+      </div>
 
-      {/* Chakra Modal Popup */}
-      <Modal
-        isOpen={!!popupItem && isOpen}
-        onClose={handleClosePopup}
-        isCentered
-        size={isMobile ? 'xs' : 'md'}
-        motionPreset="scale"
-        trapFocus
-        closeOnEsc
-        autoFocus
-        returnFocusOnClose
-      >
-        <ModalOverlay />
-        <ModalContent aria-label={popupItem ? `Nutritional infor for ${popupItem.name}` : ''}>
+      {/* shadcn/ui Dialog Popup */}
+      <Dialog open={!!popupItem} onOpenChange={open => !open && handleClosePopup()}>
+        <DialogContent className="max-w-md w-full">
           {popupItem && (
             <>
-              <ModalHeader>
-                {popupItem.name}
-                <Text fontSize="md" color="gray.500" mt={2}>
-                  {popupItem.price}
-                </Text>
-              </ModalHeader>
-              <ModalCloseButton />
-              <ModalBody pb={6} textAlign="center">
-                <Image
+              <DialogHeader>
+                <DialogTitle className="text-2xl font-bold">{popupItem.name}</DialogTitle>
+                <p className="text-md text-gray-600 mt-1 mb-2">{popupItem.price}</p>
+              </DialogHeader>
+              <div className="flex flex-col items-center text-center px-2 pb2">
+                <img
                   src={import.meta.env.BASE_URL + popupItem.img}
                   alt={popupItem.name}
-                  mx="auto"
-                  mb={4}
-                  maxH="180px"
-                  borderRadius="lg"
-                  objectFit="cover"
+                  className="mx-auto mb-4 max-h-44 rounded-lg object-cover"
+                  style={{ maxWidth: '100%' }}
                 />
-                <Box mb={2}>
-                  <Text fontWeight="medium">{popupItem.nutrition.ingredients}</Text>
-                  <Text fontSize="sm" color="gray.500">
-                    {popupItem.nutrition.calories} kcal
-                  </Text>
-                </Box>
-              </ModalBody>
+                <div className="mb-2">
+                  <span className="block font-medium mb-1">{popupItem.nutrition.ingredients}</span>
+                  <span className="text-sm text-gray-500">{popupItem.nutrition.calories} kcal</span>
+                </div>
+              </div>
             </>
           )}
-        </ModalContent>
-      </Modal>
-    </Box>
+        </DialogContent>
+      </Dialog>
+    </main>
   );
 }
 

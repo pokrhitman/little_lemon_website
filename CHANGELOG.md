@@ -13,9 +13,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 - Table reservation system
 - Food ordering and shopping cart feature
+- Animation on Home page
+- Chabot as concierge AI agent
 - Additional features and quality-of-life improvements (to be specified).
 
 ---
+
+### [2.0.0] 2025-06-28
+- Major refactor: migrated entire project and codebase to React Hook Form, shadcn/ui, and Tailwind CSS.
+- Removed all Chakra/Formik/Yup usage from Feedback and Login.
+- Added PropTypes to new shadcn/ui components (textarea, radio-group).
+- Unified style for all pages.
+- Cleaned up unused legacy files (PasswordInput, useDevice).
+- Debugged and fixed dialog/modal and card alignment issues site-wide.
+
 
 ## [1.5.1] - 2025-06-24 
 

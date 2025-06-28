@@ -1,95 +1,66 @@
 import React from 'react';
-import {
-  Box,
-  SimpleGrid,
-  Heading,
-  Text,
-  Button,
-  Image,
-  VStack,
-  useBreakpointValue,
-  VisuallyHidden,
-} from '@chakra-ui/react';
 import storeItemsToDisplay from '../data/storeData';
+import { Button } from '@/components/ui/button';
 
-const Store = () => {
-  //Responsive columns for cards
-  const gridColumns = useBreakpointValue({ base: 1, md: 2, lg: 3 });
-
+function Store() {
   return (
-    <Box as="main" px={[2, 6]} py={[4, 8]} id="main-content">
-      <VisuallyHidden>
-        <Heading as="h1">Store - Little Lemon Restaurand</Heading>
-      </VisuallyHidden>
-
-      <Box maxW="7xl" mx="auto">
+    <main id="main-content" className="px-2 md:px-6 py-8 w-full min-h-screen bg-yellow-50">
+      <h1 className="sr-only">Store - Little Lemon Restaurant</h1>
+      <div className="max-w-7xl mx-auto">
         {storeItemsToDisplay.map(section => (
-          <Box as="section" key={section.title} mb={12}>
-            <Heading as="h2" size="lg" mb={6}>
-              {section.title}
-            </Heading>
-            <SimpleGrid columns={gridColumns} aria-label={`${section.title} products`}>
+          <section key={section.title} className="mb-14">
+            <h2 className="text-3xl font-bold text-yellow-800 mb-8">{section.title}</h2>
+            <div
+              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+              aria-label={`${section.title} products`}
+            >
               {section.data.map(item => (
-                <Box
+                <div
                   key={item.name}
-                  bg="white"
-                  borderRadius="xl"
-                  boxShadow="md"
-                  p={4}
-                  maxW="280px"
-                  minW="180px"
-                  w="100%"
-                  display="flex"
-                  flexDirection="column"
-                  alignItems="center"
-                  transition="box-shadow 0.2s"
-                  _hover={{ boxShadow: 'xl', cursor: 'pointer', bg: 'brand.100' }}
+                  className="bg-white rounded-2xl shadow-md p-4 max-w-[260px] min-w-[180px] w-full flex flex-col items-center transition hover:shadow-xl hover:bg-yellow-100"
                 >
-                  <Image
+                  <img
                     src={import.meta.env.BASE_URL + item.img}
                     alt={item.name}
-                    borderRadius="lg"
-                    objectFit="cover"
-                    boxSize="260px"
-                    mb={3}
+                    className="rounded-xl object-cover w-52 h-52 mb-2"
+                    draggable="false"
                   />
-                  <VStack spacing={2} align="center">
-                    <Heading as="h3" size="md">
-                      {item.name}
-                    </Heading>
-                    <Text fontSize="lg" fontWeight="bold" color="yellow.700">
-                      {item.price}
-                    </Text>
-                    <Text fontSize="sm" color="gray.700" textAlign="center">
-                      {item.description}
-                    </Text>
+                  <div className="flex flex-col items-center gap-2 w-full">
+                    <h3 className="text-lg font-bold text-center">{item.name}</h3>
+                    <span className="text-sm text-gray-700 text-center">{item.price}</span>
+                    <p className="text-sm text-gray-700 text-center">{item.description}</p>
                     {item.url ? (
                       <Button
-                        as="a"
-                        href={item.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        colorScheme="yellow"
-                        variant="solid"
-                        size="sm"
-                        mt={2}
+                        asChild
+                        className="mt-2 w-full font-bold bg-yellow-400 hover:bg-yellow-300 text-green-900"
                       >
-                        Buy Now
+                        <a
+                          href={item.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          aria-label={`Buy ${item.name} now`}
+                        >
+                          Buy Now
+                        </a>
                       </Button>
                     ) : (
-                      <Button colorScheme="gray" variant="outline" size="sm" mt={2} isDisabled>
+                      <Button
+                        variant="outline"
+                        className="mt-2 w-full font-bold text-gray-500 border-gray-300 cursor-not-allowed"
+                        disabled
+                      >
                         Coming Soon!
                       </Button>
                     )}
-                  </VStack>
-                </Box>
+                  </div>
+                </div>
               ))}
-            </SimpleGrid>
-          </Box>
+            </div>
+          </section>
         ))}
-      </Box>
-    </Box>
+      </div>
+    </main>
   );
-};
+}
 
 export default Store;

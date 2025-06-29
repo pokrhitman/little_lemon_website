@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 
 function Store() {
   return (
-    <main id="main-content" className="px-2 md:px-6 py-8 w-full min-h-screen bg-yellow-50">
+    <main id="main-content" className="px-2 md:px-6 py-8 w-full bg-yellow-50">
       <h1 className="sr-only">Store - Little Lemon Restaurant</h1>
       <div className="max-w-7xl mx-auto">
         {storeItemsToDisplay.map(section => (

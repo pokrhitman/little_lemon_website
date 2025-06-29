@@ -29,7 +29,7 @@ function Desserts() {
   };
 
   return (
-    <main id="main-content" className="px-2 md:px-6 py-8 w-full min-h-screen bg-pink-50">
+    <main id="main-content" className="px-2 md:px-6 py-8 w-full bg-pink-50">
       <h1 className="sr-only">Desserts - Little Lemon Restaurant</h1>
 
       <div className="max-w-7xl mx-auto">

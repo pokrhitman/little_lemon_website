@@ -51,7 +51,7 @@ function Feedback() {
   };
 
   return (
-    <main className="min-h-sreen w-full bg-yellow-50 flex items-center py-10 px-2">
+    <main className="w-full bg-yellow-50 flex items-center py-10 px-2">
       <div className="max-w-lg w-full mx-auto flex flex-col gap-8">
         <div>
           <h1 className="text-3xl font-bold text-green-900 mb-2">We&apos;d love your feedback!</h1>

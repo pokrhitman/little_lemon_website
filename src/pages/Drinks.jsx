@@ -28,7 +28,7 @@ function Drinks() {
   };
 
   return (
-    <main id="main-content" className="px-2 md:px-6 py-8 w-full min-h-screen bg-gray-50">
+    <main id="main-content" className="px-2 md:px-6 py-8 w-full bg-gray-50">
       <h1 className="sr-only">Drinks - Little Lemon Restaurant</h1>
       <div className="max-w-7xl mx-auto">
         {drinksItemsToDisplay.map(section => (
@@ -94,5 +94,8 @@ function Drinks() {
     </main>
   );
 }
+
+// The dummy div below is required to store color variants that Tailwind can use. Otherwise any new color will not be applied in above code blocks because TW has no prior reference.
+<div className="hidden hover:bg-blue-200 hover:bg-yellow-300" />;
 
 export default Drinks;

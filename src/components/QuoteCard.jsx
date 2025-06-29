@@ -9,13 +9,13 @@ function QuoteCard() {
   if (!quote) return null;
 
   return (
-    <section aria-live="polite" className="w-full max-w-md mx-auto mt-8">
+    <section aria-live="polite" className="w-full max-w-md mx-auto mt-6">
       <Card className="bg-gray-100/90 shadow-xl rounded-2xl border border-gray-200">
-        <CardContent className="flex flex-col items-center gap-5 py-6 px-4">
+        <CardContent className="flex flex-col items-center gap-6 py-6 px-6">
           <h2 className="text-xl font-bold text-gray-800 text-center tracking-wide">
             Quote of the Day
           </h2>
-          <blockquote className="bg-white rounded-lg px-6 py-4 shadow text-lg italic text-gray-800 relative w-full">
+          <blockquote className="bg-white rounded-lg px-4 py-4 shadow text-lg italic text-gray-800 relative w-full">
             <span className="text-yellow-500 text-2xl mr-2">“</span>
             {quote.content}
             <span className="text-yellow-500 text-2xl mr-2">“</span>

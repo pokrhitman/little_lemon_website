@@ -45,7 +45,7 @@ function Login({ onLogin }) {
   };
 
   return (
-    <main className="min-h-screen flex items-center justify-center bg-yellow-50 px-2">
+    <main className="flex items-center justify-center bg-yellow-50 px-2">
       <div className="max-w-md w-full bg-white rounded-2xl shadow-xl p-8 flex flex-col gap-6">
         <h1 className="text-3xl font-bold text-green-900 text-center mb-2">
           Log In to Little Lemon

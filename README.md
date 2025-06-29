@@ -137,7 +137,7 @@ npm run dev
 
 This project **started as a solution for the Meta Front-End Developer Capstone (Little Lemon) course assignment** on Coursera, but has since been **heavily refactored and expanded** with modern frameworks:
 
-- All UI now uses Tailwind and shadcn/ui (not plain CSS or course starter files)
+- All UI now uses **Tailwind and shadcn/ui** (not plain CSS or course starter files)
 - Routing, file structure and overall app logic have been modularized for professional/production use
 
 **As a result, this codebase is _not compatible_ with Coursera's auto-grading system or course copy-paste assignments.**

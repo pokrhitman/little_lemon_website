@@ -19,6 +19,35 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 ---
 
+## [2.1.0] 2025-06-29 
+
+### UI, Card, and Tailwind Improvements
+
+### UI & Layout
+- Refactored `Menu` and `Home` pages to use blurred background images with semi-transparent overlays for a modern, Mediterranean look.
+- Enhanced card and section title color contrast for readability over photo backgrounds.
+- Standardized “pop” effect for item cards across Menu, Drinks, and Desserts.
+- Updated item cards for left-aligned text, responsive sizing, and improved shadow/border.
+- Fixed sticky footer: footer now always hugs the bottom when content is short; removed excess space on all pages.
+
+### Design System & Tailwind
+- Centralized card hover effect logic in `ItemCard` using `hoverBg` prop; removed wrapper divs for hover styling.
+- Implemented a “dummy div” color registry pattern to ensure Tailwind JIT generates all required hover and background color classes (including new or custom shades).
+- Confirmed that all menu and drink card color variants now work reliably across pages.
+- Documented pattern for future-proofing the codebase.
+
+### Code Cleanup
+- Removed redundant/legacy style wrappers and unnecessary `min-h-screen`/margin from page files.
+- Audited and cleaned up layout spacing for visual consistency and accessibility.
+
+---
+
+**Note:**  
+This update future-proofs card theming and hover effects, unifies visual branding, and eliminates Tailwind JIT surprises. All main pages are now modular, clean and visually consistent.
+
+
+---
+
 ### [2.0.0] 2025-06-28
 - Major refactor: migrated entire project and codebase to React Hook Form, shadcn/ui, and Tailwind CSS.
 - Removed all Chakra/Formik/Yup usage from Feedback and Login.

@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 
 function Layout({ children, user, onLogout }) {
   return (
-    <div className="flex flex-col min-h-screen bg-gray-50">
+    <div className="flex flex-col min-h-screen">
       {/* Skip to Main Content link for accessibility */}
       <a
         href="#main-content"

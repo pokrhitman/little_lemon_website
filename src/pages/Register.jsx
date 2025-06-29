@@ -1,286 +1,254 @@
-import React, { useRef, useEffect, useState } from 'react';
-import { Link as RouterLink } from 'react-router-dom';
-import {
-  Flex,
-  Box,
-  Button,
-  Heading,
-  Input,
-  VStack,
-  FormControl,
-  FormLabel,
-  FormErrorMessage,
-  Text,
-} from '@chakra-ui/react';
-import { Link as ChakraLink } from '@chakra-ui/react';
-import { useFormik } from 'formik';
-import * as Yup from 'yup';
-
+import React, { useRef, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { useNavigate, Link } from 'react-router-dom';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { getAuth, createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import app from '../firebase';
-import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-function Register({ onRegister }) {
-  const formRef = useRef(null);
-  const navigate = useNavigate();
-  const [successMsg, setSuccessMsg] = useState('');
-  const [errorMsg, setErrorMsg] = useState('');
-  const auth = getAuth(app);
+// shadcn/ui components
+import { Card, CardContent, CardHeader } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
+import { Label } from '@/components/ui/label';
 
-  const formik = useFormik({
-    initialValues: {
-      firstName: '',
-      lastName: '',
-      email: '',
-      password: '',
-      confirmPassword: '',
-    },
-    validationSchema: Yup.object({
-      firstName: Yup.string().required('Please enter your first name'),
-      lastName: Yup.string().required('Please enter your last name.'),
-      email: Yup.string()
-        .email('Please enter a valid email adress.')
-        .required('Email address is requited.'),
-      password: Yup.string()
-        .required('Password is required.')
-        .min(8, 'Password must be at least 8 characters.'),
-      confirmPassword: Yup.string()
-        .oneOf([Yup.ref('password'), null], 'Passwords must match.')
-        .required('Please confirm your password.'),
-    }),
-
-    onSubmit: (values, { resetForm, setSubmitting }) => {
-      setErrorMsg('');
-      setSuccessMsg('');
-      // Firebase Registration
-      createUserWithEmailAndPassword(auth, values.email, values.password)
-        .then(userCredential => {
-          // Try to update display name (first/last name)
-          updateProfile(userCredential.user, {
-            displayName: `${values.firstName}, ${values.lastName}`,
-          })
-            .then(() => {
-              setSuccessMsg('Account created! Redirecting...');
-              // Call the parent handler with user info
-              if (onRegister) {
-                onRegister({
-                  email: userCredential.user.email,
-                  firstName: values.firstName,
-                  lastName: values.lastName,
-                  uid: userCredential.user.uid,
-                });
-              }
-              resetForm();
-              setSubmitting(false);
-              setTimeout(() => {
-                setSuccessMsg('');
-                navigate('/account');
-              }, 1500);
-            })
-            .catch(error => {
-              // If updating profile fails, show the error but continue
-              setErrorMsg('Account created, but profile could not be updated: ' + error.message);
-              if (onRegister) {
-                onRegister({
-                  email: userCredential.user.email,
-                  firstName: values.firstName,
-                  lastName: values.lastName,
-                  uid: userCredential.user.uir,
-                });
-              }
-              resetForm();
-              setSubmitting(false);
-              setTimeout(() => {
-                setErrorMsg('');
-                navigate('/account');
-              }, 2500);
-            });
-        })
-        .catch(error => {
-          setErrorMsg(
-            error.message.replace('Firebase:', '').replace('auth/', '').replace(/-/g, ' ')
-          );
-          setSubmitting(false);
-        });
-    },
+const registerSchema = z
+  .object({
+    firstName: z.string().min(1, 'Please enter your first name'),
+    lastName: z.string().min(1, 'Please enter your last name'),
+    email: z.string().email('Please enter a valid email adress.'),
+    password: z.string().min(8, 'Password must be at least 8 characters.'),
+    confirmPassword: z.string().min(1, 'Please confirm your password'),
+  })
+  .refine(data => data.password === data.confirmPassword, {
+    message: 'Passwords must match.',
+    path: ['confirmPassword'],
   });
 
-  useEffect(() => {
-    if (formik.isSubmitting && Object.keys(formik.errors).length > 0) {
-      const firstErrorKey = Object.keys(formik.errors)[0];
-      const errorElem = document.getElementsByName(firstErrorKey)[0];
-      if (errorElem) errorElem.focus();
+export default function Register({ onRegister }) {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting, isValid, isDirty },
+    reset,
+    setFocus,
+  } = useForm({
+    resolver: zodResolver(registerSchema),
+    mode: 'onTouched',
+  });
+  const [successMsg, setSuccessMsg] = useState('');
+  const [errorMsg, setErrorMsg] = useState('');
+  const formStatusRef = useRef(null);
+  const navigate = useNavigate();
+  const auth = getAuth(app);
+
+  // Focus first error field on submit
+  const onError = errs => {
+    const firstError = Object.keys(errs)[0];
+    if (firstError) setFocus(firstError);
+  };
+
+  const onSubmit = async values => {
+    setSuccessMsg('');
+    setErrorMsg('');
+    try {
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        values.email,
+        values.password
+      );
+      await updateProfile(userCredential.user, {
+        displayName: `${values.firstName} ${values.lastName}`,
+      });
+      setSuccessMsg('Account created! Redirecting...');
+      if (onRegister) {
+        onRegister({
+          email: userCredential.user.email,
+          firstName: values.firstName,
+          lastName: values.lastName,
+          uid: userCredential.user.uid,
+        });
+      }
+      reset();
+      setTimeout(() => {
+        setSuccessMsg('');
+        navigate('/account');
+      }, 1500);
+    } catch (error) {
+      setErrorMsg(error.message.replace('Firebase:', '').replace('auth/', '').replace(/-/g, ' '));
     }
-    if (formik.isValidating || formik.isSubmitting) setSuccessMsg('');
-    if (formik.isValidating || formik.isSubmitting) setErrorMsg('');
-  }, [formik.errors, formik.isSubmitting, formik.isValidating]);
+  };
 
   return (
-    <Flex flex="1" bg="brand.50" align="center" justify="center" minH="80vh">
-      <Box maxW="400px" w="100%" p={8} bg="brand.700" borderRadius="xl" boxShadow="lg">
-        <VStack spacing={6} align="stretch">
-          <Heading as="h1" size="lg" textAlign="center" color="brand.100">
+    <div className="flex flex-1 min-h-[80vh] bg-brand-50 items-center justify-center px-2">
+      <Card className="w-full max-w-md bg-brand-700 rounded-2xl shadow-lg p-6">
+        <CardHeader>
+          <h1 className="text-2xl font-bold text-center text-brand-100 mb-2">
             Create Your Account
-          </Heading>
-          <Text fontSize="md" color="brand.100" textAlign="center">
+          </h1>
+          <p className="text-md text-brand-100 text-center mb-2">
             Please fill out the form below to register for Little Lemon.
-          </Text>
+          </p>
+        </CardHeader>
+        <CardContent>
           {/* ARIA-live region for a11y success message */}
-          <Box
+          <div
             role="status"
             aria-live="polite"
             tabIndex={-1}
-            ref={formRef}
-            style={{ outline: 'none' }}
-            mb={successMsg ? 2 : 0}
+            ref={formStatusRef}
+            className={successMsg ? 'mb-2 outline-none' : 'sr-only'}
           >
-            {successMsg && (
-              <Text color="green.200" fontWeight="bold">
-                {successMsg}
-              </Text>
-            )}
-          </Box>
+            {successMsg && <p className="text-green-300 font-semibolb">{setSuccessMsg}</p>}
+          </div>
           {errorMsg && (
-            <Box role="alert" aria-live="assertive" mb={2}>
-              <Text color="red.200" fontWeight="bold">
-                {errorMsg}
-              </Text>
-            </Box>
+            <div role="alert" aria-live="assertive" className="mb-2">
+              <p className="text-red-300 font-semibold">{errorMsg}</p>
+            </div>
           )}
-
-          <form onSubmit={formik.handleSubmit} noValidate>
-            <VStack spacing={4} align="stretch">
-              <FormControl
-                isInvalid={formik.touched.firstName && !!formik.errors.firstName}
-                isRequired
-              >
-                <FormLabel htmlFor="firstName" color="brand.100">
-                  First Name
-                </FormLabel>
-                <Input
-                  id="firstName"
-                  name="firstName"
-                  autoComplete="given-name"
-                  placeholder="Please enter your first name"
-                  bg="white"
-                  color="brand.900"
-                  {...formik.getFieldProps('firstName')}
-                />
-                <FormErrorMessage>{formik.errors.firstName}</FormErrorMessage>
-              </FormControl>
-
-              <FormControl
-                isInvalid={formik.touched.lastName && !!formik.errors.lastName}
-                isRequired
-              >
-                <FormLabel htmlFor="lastName" color="brand.100">
-                  Last Name
-                </FormLabel>
-                <Input
-                  id="lastName"
-                  name="lastName"
-                  autoComplete="family-name"
-                  placeholder="Please enter your last name"
-                  bg="white"
-                  color="brand.900"
-                  {...formik.getFieldProps('lastName')}
-                />
-                <FormErrorMessage>{formik.errors.lastName}</FormErrorMessage>
-              </FormControl>
-
-              <FormControl isinvalid={formik.touched.email && !!formik.errors.email} isRequired>
-                <FormLabel htmlFor="email" color="brand.100">
-                  Email Address
-                </FormLabel>
-                <Input
-                  id="email"
-                  type="email"
-                  placeholder="Please enter your email address"
-                  bg="white"
-                  color="brand.900"
-                  {...formik.getFieldProps('email')}
-                />
-                <FormErrorMessage>{formik.errors.email}</FormErrorMessage>
-              </FormControl>
-
-              <FormControl
-                isInvalid={formik.touched.password && !!formik.errors.password}
-                isRequired
-              >
-                <FormLabel htmlFor="password" color="brand">
-                  Password
-                </FormLabel>
-                <Input
-                  id="password"
-                  name="password"
-                  type="password"
-                  autoComplete="new-password"
-                  bg="white"
-                  color="brand.900"
-                  {...formik.getFieldProps('password')}
-                />
-                <FormErrorMessage>{formik.errors.password}</FormErrorMessage>
-              </FormControl>
-
-              <FormControl
-                isInvalid={formik.touched.confirmPassword && !!formik.errors.confirmPassword}
-                isRequired
-              >
-                <FormLabel htmlFor="confirmPassword" color="brand.100">
-                  Please confirm your password.
-                </FormLabel>
-                <Input
-                  id="confirmPassword"
-                  name="confirmPassword"
-                  type="password"
-                  autoComplete="new-password"
-                  placeholder="Re-enter your password"
-                  bg="white"
-                  color="brand.900"
-                  {...formik.getFieldProps('confirmPassword')}
-                />
-                <FormErrorMessage>{formik.errors.confirmPassword}</FormErrorMessage>
-              </FormControl>
-
-              <Button
-                type="submit"
-                bg="brand.100"
-                color="black"
-                border="2px solid black"
-                _hover={{ bg: 'brand.50', color: 'black', border: '2px solid black' }}
-                width="full"
-                fontSize="lg"
-                isLoading={formik.isSubmitting}
-                aria-busy={formik.isSubmitting}
-                isDisabled={!formik.isValid || !formik.dirty}
-                mt={2}
-              >
-                Register
-              </Button>
-            </VStack>
+          <form
+            onSubmit={handleSubmit(onSubmit, onError)}
+            noValidate
+            className="space-y-4"
+            aria-describedby={errorMsg ? 'register-error' : undefined}
+          >
+            {/* First Name */}
+            <div>
+              <Label htmlFor="firstName" className="text-brand-100">
+                First Name
+              </Label>
+              <Input
+                id="firstName"
+                {...register('firstName')}
+                autoComplete="given-name"
+                aria-invalid={!!errors.firstName}
+                aria-describedby={errors.firstName ? 'firstName-error' : undefined}
+                placeholder="Please enter your first name"
+                className={`bg-white text-brand-900 mt-1 ${
+                  errors.firstName ? 'border-red-500' : ''
+                }`}
+              />
+              {errors.firstName && (
+                <span id="firstName-error" className="text-red-3ßß tex-sm">
+                  {errors.firstName.message}
+                </span>
+              )}
+            </div>
+            {/* Last Name */}
+            <div>
+              <Label htmlFor="lastName" className="text-brand-100">
+                Last Name
+              </Label>
+              <Input
+                id="lastName"
+                {...register('lastName')}
+                autoComplete="family-name"
+                placeholder="Please enter your last name"
+                aria-invalid={!!errors.lastName}
+                aria-describedby={errors.lastName ? 'lastName-error' : undefined}
+                className={`bg-white text-brand-900 mt-1 ${errors.lastName ? 'border-red-500' : ''}`}
+              />
+              {errors.lastName && (
+                <span id="lastName-error" className="text-red-300 text-sm">
+                  {errors.lastName.message}
+                </span>
+              )}
+            </div>
+            {/* Email */}
+            <div>
+              <Label htmlFor="email" className="text-brand-100">
+                Email Address
+              </Label>
+              <Input
+                id="email"
+                type="email"
+                {...register('email')}
+                autoComplete="email"
+                placeholder="Please enter your email address"
+                aria-invalid={!!errors.email}
+                aria-desribedby={errors.email ? 'email-error' : undefined}
+                className={`bg-white text-brand-900 mt-1 ${errors.email ? 'border-red-500' : ''}`}
+              />
+              {errors.email && (
+                <span id="email-error" className="text-red-300 text-sm">
+                  {errors.email.message}
+                </span>
+              )}
+            </div>
+            {/* Password */}
+            <div>
+              <Label htmlFor="password" className="text-brand-100">
+                Password
+              </Label>
+              <Input
+                id="password"
+                type="password"
+                {...register('password')}
+                autoComplete="new-password"
+                placeholder="Enter password"
+                ä
+                aria-invalid={!!errors.password}
+                aria-describedby={errors.password ? 'password-error' : undefined}
+                className={`bg-white text-brand-900 mt-1 ${
+                  errors.password ? 'border-red-500' : ''
+                }`}
+              />
+              {errors.password && (
+                <span id="password-error" className="text-red-300 text-sm">
+                  {errors.password.message}
+                </span>
+              )}
+            </div>
+            {/* Confirm Password */}
+            <div>
+              <Label htmlFor="confirmPassword" className="text-brand-100">
+                Confirm Password
+              </Label>
+              <Input
+                id="confirmPassword"
+                type="password"
+                {...register('confirmPassword')}
+                autoComplete="new-password"
+                placeholder="Re-enter your password"
+                aria-invalid={!!errors.confirmPassword}
+                aria-describedby={errors.confirmPassword ? 'confirmPassword-error' : undefined}
+                className={`bg-white text-brand-900 mt-1 ${
+                  errors.confirmPassword ? 'border-red-500' : ''
+                }`}
+              />
+              {errors.confirmPassword && (
+                <span id="confirmPassword-error" className="text-red-300 text-sm">
+                  {errors.confirmPassword.message}
+                </span>
+              )}
+            </div>
+            {/* Submit */}
+            <Button
+              type="submit"
+              className="w-full mt-2 bg-brand-100 border-2 border-black text-black text-lg font-semibold hover:br-brand-50 hover:text-black transition"
+              aria-busy={isSubmitting}
+              disabled={!isValid || !isDirty || isSubmitting}
+            >
+              {isSubmitting ? 'Registering...' : 'Register'}
+            </Button>
           </form>
-          <Text pt={2} textAlign="center" fontSize="md">
-            Already have an account?{''}
-            <ChakraLink
-              as={RouterLink}
+          <p className="pt-2 text-center text-md">
+            Already have an account?{' '}
+            <Link
               to="/login"
-              color="brand.100"
-              fontWeight="bold"
+              className="text-brand-100 font-bold hover:underline hover:text-brand-50"
               aria-label="Log in"
-              _hover={{ textDecoration: 'underline', color: 'brand.50' }}
             >
               Log in here
-            </ChakraLink>
-          </Text>
-        </VStack>
-      </Box>
-    </Flex>
+            </Link>
+          </p>
+        </CardContent>
+      </Card>
+    </div>
   );
 }
 
 Register.propTypes = {
   onRegister: PropTypes.func,
 };
-
-export default Register;

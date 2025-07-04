@@ -19,6 +19,31 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 ---
 
+## [2.1.1] 2025-07-04 
+
+### Image Layers, Form & Spacing Polish
+
+### Visual & Layout Upgrades
+- Applied blurred, semi-transparent background image layers to Drinks, Desserts, Store and Feedback pages for a unified, modern Mediterranean look.
+- Adjusted section headings and card backgrounds for improved contrast and readability over image layers.
+- Fine-tuned Feedback form for better user experience:
+  - Reduced vertical spacing between page text and form.
+  - Made input and textarea fields slightly darker and more defined for better focus.
+  - Improved radio button appearance and ensured label alignment (single-line for "Social Media").
+- Standardized use of Tailwind spacing utilities (`gap`, `mb`, `py`) across form and grid containers to ensure tighter, more consistent layouts throughout all pages.
+
+### Developer Experience
+- Continued use of the “dummy div” Tailwind color registry pattern to guarantee JIT generation of all custom color/hover classes, supporting future palette flexibility.
+- Confirmed accessibility improvements: form error messages, focus indicators, and color contrast.
+
+---
+
+**Note:**  
+This update finalizes the image-layer layout migration and form accessibility phase. All main UI pages now present a consistent, visually appealing experience, with modular code and theme logic ready for further expansion.
+
+
+
+
 ## [2.1.0] 2025-06-29 
 
 ### UI, Card, and Tailwind Improvements

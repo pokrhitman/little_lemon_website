@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
+import { useLocation } from 'react-router-dom';
 import Navbar from './Navbar';
 import Footer from './Footer';
 import PropTypes from 'prop-types';
@@ -7,19 +8,40 @@ import PropTypes from 'prop-types';
 // users to jump directly to main content.
 
 function Layout({ children, user, onLogout }) {
+  const mainRef = useRef(null);
+  const location = useLocation();
+
+  // On route change, focus the main content for keyboard/a11y users
+  useEffect(() => {
+    if (mainRef.current) {
+      mainRef.current.focus();
+    }
+  }, [location]);
+
   return (
     <div className="flex flex-col min-h-screen">
-      {/* Skip to Main Content link for accessibility */}
+      {/* Accessible Skip Link */}
       <a
         href="#main-content"
-        className="absolute left-2 top-2 z-50 px-4 py-2 bg-yellow text-green-900 rounded opacity-0 pointer-events-none focus:opacity-100 focus:pointer-events-auto focus:translate-y-0 transition"
+        className="sr-only focus:not-sr-only absolute left-2 top-2 z-50 bg-yellow-100 text-green-900 p-2 rounded font-bold transition"
       >
         Skip to main content
       </a>
+
+      {/* Semantic Navbar */}
       <Navbar user={user} onLogout={onLogout} />
-      <main id="main-content" className="flex-1 flex flex-col w-full">
+
+      {/* Main Content Area, focused on route change */}
+      <main
+        id="main-content"
+        ref={mainRef}
+        tabIndex={-1}
+        className="flex-1 flex flex-col w-full outline-none"
+      >
         {children}
       </main>
+
+      {/* Semantic Footer */}
       <Footer />
     </div>
   );

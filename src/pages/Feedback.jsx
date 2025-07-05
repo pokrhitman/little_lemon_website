@@ -104,6 +104,7 @@ function Feedback() {
               <Input
                 id="firstName"
                 autoComplete="given-name"
+                placeholder="Please enter your first name."
                 {...register('firstName', { required: 'Please enter your first name.' })}
                 aria-invalid={!!errors.firstName}
                 className="mt-1 bg-white/70 border-yellow-200 focus:border-yellow-400 placeholder:text-yellow-900/70"
@@ -119,6 +120,7 @@ function Feedback() {
               <Input
                 id="lastName"
                 autoComplete="family-name"
+                placeholder="Please enter your last name."
                 {...register('lastName', { required: 'Please enter your last name.' })}
                 aria-invalid={!!errors.lastName}
                 className="mt-1 bg-white/70 border-yellow-200 focus:border-yellow-400 placeholder:text-yellow-900/70"
@@ -135,6 +137,7 @@ function Feedback() {
                 id="email"
                 type="email"
                 autoComplete="email"
+                placeholder="Please enter your email address."
                 {...register('email', {
                   required: 'Email address is required.',
                   pattern: {
@@ -154,12 +157,13 @@ function Feedback() {
               <Textarea
                 id="message"
                 rows={3}
-                maxLength={250}
+                maxLength={350}
+                placeholder="Please enter your message (max. 350 characters)."
                 {...register('message', {
                   required: 'Please enter your message.',
                   maxLength: {
-                    value: 250,
-                    message: 'Max 250 characters.',
+                    value: 350,
+                    message: 'Max 350 characters.',
                   },
                 })}
                 aria-invalid={!!errors.message}

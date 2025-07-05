@@ -6,6 +6,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { getAuth, createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import app from '../firebase';
 import PropTypes from 'prop-types';
+import registration from '../assets/registration.jpg';
 
 // shadcn/ui components
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
@@ -81,13 +82,27 @@ export default function Register({ onRegister }) {
   };
 
   return (
-    <div className="flex flex-1 min-h-[80vh] bg-brand-50 items-center justify-center px-2">
-      <Card className="w-full max-w-md bg-brand-700 rounded-2xl shadow-lg p-6">
+    <div
+      id="main-content"
+      className="flex flex-1 min-h-[80vh] items-center justify-center overflow-hidden w-full"
+    >
+      {/* Background Image Layer */}
+      <div
+        className="absolute inset-0 -z-10 bg-cover bg-center pointer-events-none w-full h-full"
+        style={{
+          backgroundImage: `url(${registration})`,
+          filter: 'blur(4px) brightness(0.93)',
+          opacity: 0.6,
+        }}
+        aria-hidden="true"
+      />
+
+      <Card className="w-full max-w-md bg-white/90 backdrop-blur rounded-2xl shadow-lg p-6">
         <CardHeader>
-          <h1 className="text-2xl font-bold text-center text-brand-100 mb-2">
+          <h1 className="text-2xl font-bold text-center text-green-900 mb-2">
             Create Your Account
           </h1>
-          <p className="text-md text-brand-100 text-center mb-2">
+          <p className="text-md text-green-900 text-center mb-2">
             Please fill out the form below to register for Little Lemon.
           </p>
         </CardHeader>
@@ -100,11 +115,11 @@ export default function Register({ onRegister }) {
             ref={formStatusRef}
             className={successMsg ? 'mb-2 outline-none' : 'sr-only'}
           >
-            {successMsg && <p className="text-green-300 font-semibolb">{setSuccessMsg}</p>}
+            {successMsg && <p className="text-green-800 font-semibolb">{setSuccessMsg}</p>}
           </div>
           {errorMsg && (
             <div role="alert" aria-live="assertive" className="mb-2">
-              <p className="text-red-300 font-semibold">{errorMsg}</p>
+              <p className="text-red-600 font-semibold">{errorMsg}</p>
             </div>
           )}
           <form
@@ -125,19 +140,19 @@ export default function Register({ onRegister }) {
                 aria-invalid={!!errors.firstName}
                 aria-describedby={errors.firstName ? 'firstName-error' : undefined}
                 placeholder="Please enter your first name"
-                className={`bg-white text-brand-900 mt-1 ${
-                  errors.firstName ? 'border-red-500' : ''
+                className={`bg-white/70 text-brand-900 mt-1 ${
+                  errors.firstName ? 'border-red-500' : 'border-yellow-200'
                 }`}
               />
               {errors.firstName && (
-                <span id="firstName-error" className="text-red-3ßß tex-sm">
+                <span id="firstName-error" className="text-red-600 tex-sm">
                   {errors.firstName.message}
                 </span>
               )}
             </div>
             {/* Last Name */}
             <div>
-              <Label htmlFor="lastName" className="text-brand-100">
+              <Label htmlFor="lastName" className="text-green-900">
                 Last Name
               </Label>
               <Input
@@ -147,17 +162,17 @@ export default function Register({ onRegister }) {
                 placeholder="Please enter your last name"
                 aria-invalid={!!errors.lastName}
                 aria-describedby={errors.lastName ? 'lastName-error' : undefined}
-                className={`bg-white text-brand-900 mt-1 ${errors.lastName ? 'border-red-500' : ''}`}
+                className={`bg-white/70 text-brand-900 mt-1 ${errors.lastName ? 'border-red-500' : 'border-yellow-200'}`}
               />
               {errors.lastName && (
-                <span id="lastName-error" className="text-red-300 text-sm">
+                <span id="lastName-error" className="text-red-600 text-sm">
                   {errors.lastName.message}
                 </span>
               )}
             </div>
             {/* Email */}
             <div>
-              <Label htmlFor="email" className="text-brand-100">
+              <Label htmlFor="email" className="text-green-900">
                 Email Address
               </Label>
               <Input
@@ -168,17 +183,17 @@ export default function Register({ onRegister }) {
                 placeholder="Please enter your email address"
                 aria-invalid={!!errors.email}
                 aria-desribedby={errors.email ? 'email-error' : undefined}
-                className={`bg-white text-brand-900 mt-1 ${errors.email ? 'border-red-500' : ''}`}
+                className={`bg-white/70 text-brand-900 mt-1 ${errors.email ? 'border-red-500' : 'border-yellow-200'}`}
               />
               {errors.email && (
-                <span id="email-error" className="text-red-300 text-sm">
+                <span id="email-error" className="text-red-600 text-sm">
                   {errors.email.message}
                 </span>
               )}
             </div>
             {/* Password */}
             <div>
-              <Label htmlFor="password" className="text-brand-100">
+              <Label htmlFor="password" className="text-green-900">
                 Password
               </Label>
               <Input
@@ -190,8 +205,8 @@ export default function Register({ onRegister }) {
                 ä
                 aria-invalid={!!errors.password}
                 aria-describedby={errors.password ? 'password-error' : undefined}
-                className={`bg-white text-brand-900 mt-1 ${
-                  errors.password ? 'border-red-500' : ''
+                className={`bg-white/70 text-green-900 mt-1 ${
+                  errors.password ? 'border-red-500' : 'border-yellow-200'
                 }`}
               />
               {errors.password && (
@@ -202,7 +217,7 @@ export default function Register({ onRegister }) {
             </div>
             {/* Confirm Password */}
             <div>
-              <Label htmlFor="confirmPassword" className="text-brand-100">
+              <Label htmlFor="confirmPassword" className="text-green-900">
                 Confirm Password
               </Label>
               <Input
@@ -213,12 +228,12 @@ export default function Register({ onRegister }) {
                 placeholder="Re-enter your password"
                 aria-invalid={!!errors.confirmPassword}
                 aria-describedby={errors.confirmPassword ? 'confirmPassword-error' : undefined}
-                className={`bg-white text-brand-900 mt-1 ${
-                  errors.confirmPassword ? 'border-red-500' : ''
+                className={`bg-white/70 text-green-900 mt-1 ${
+                  errors.confirmPassword ? 'border-red-500' : 'border-yellow-200'
                 }`}
               />
               {errors.confirmPassword && (
-                <span id="confirmPassword-error" className="text-red-300 text-sm">
+                <span id="confirmPassword-error" className="text-red-600 text-sm">
                   {errors.confirmPassword.message}
                 </span>
               )}
@@ -226,7 +241,7 @@ export default function Register({ onRegister }) {
             {/* Submit */}
             <Button
               type="submit"
-              className="w-full mt-2 bg-brand-100 border-2 border-black text-black text-lg font-semibold hover:br-brand-50 hover:text-black transition"
+              className="w-full mt-2 bg-yellow-400 border-2 border-black text-black text-lg font-semibold hover:bg-yellow-50 hover:text-black transition"
               aria-busy={isSubmitting}
               disabled={!isValid || !isDirty || isSubmitting}
             >
@@ -237,7 +252,7 @@ export default function Register({ onRegister }) {
             Already have an account?{' '}
             <Link
               to="/login"
-              className="text-brand-100 font-bold hover:underline hover:text-brand-50"
+              className="text-yellow-700 font-bold hover:underline hover:text-yellow-900"
               aria-label="Log in"
             >
               Log in here

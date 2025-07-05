@@ -19,6 +19,28 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 ---
 
+## [2.1.2] 2025-07-05 "Diamond-Standard" a11y Refactor & Layout Consistency
+
+### Accessibility (a11y) Upgrades
+- Completed a comprehensive a11y refactor across all major components, aligning the project with "diamond-level" (enterprise/ESG/legally-defensible) standards.
+- Ensured only one `<main id="main-content">` landmark per page (in Layout), with all individual pages now using `<div>` as the root for stacking and backgrounds.
+- Implemented programmatic focus on main content after route changes for improved screen reader and keyboard navigation.
+- Added and improved skip link visibility for keyboard and screen reader users.
+- Refactored `Navbar` to:
+  - Use `aria-current="page"` on active links.
+  - Provide clear, descriptive aria-labels and roles.
+  - Ensure full keyboard and screen reader accessibility.
+- Refactored `Footer` for proper landmark role, improved semantic structure and high-contrast accessible links.
+- Upgraded `Home`, `QuoteCard`, and `CarouselCard` for correct heading order, aria-live regions and clear section labels.
+- Confirmed background images remain `aria-hidden` and do not interfere with assistive tech.
+- Fixed minor HTML/ARIA typos and enhanced keyboard focus states on all interactive elements.
+
+### Structural & Design Consistency
+- Standardized component architecture: all pages/components use correct semantic landmarks and maintain clean, accessible DOM.
+
+---
+
+
 ## [2.1.1] 2025-07-04 
 
 ### Image Layers, Form & Spacing Polish

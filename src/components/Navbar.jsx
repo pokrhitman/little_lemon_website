@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 
 function Navbar({ user, onLogout, colorMode, toggleColorMode }) {
   return (
-    <nav className="w-full bg-green-900 text-yellow-400 shadow">
+    <nav className="w-full bg-green-900 text-yellow-400 shadow" aria-label="Primary nagivation">
       <div className="max-w-7xl mx-auto flex items-center h-20 px-4">
         {/* Left: Logo (clickable, always visible) */}
         <div className="flex-shrink-0">
@@ -23,7 +23,11 @@ function Navbar({ user, onLogout, colorMode, toggleColorMode }) {
         </div>
 
         {/* Center: Nav links */}
-        <ul className="flex flex-1 justify-center gap-8 text-lg font-bold">
+        <ul
+          className="flex flex-1 justify-center gap-8 text-lg font-bold"
+          role="menubar"
+          aria-label="Site sections"
+        >
           {[
             { to: '/', label: 'Home' },
             { to: '/menu', label: 'Menu' },
@@ -32,14 +36,16 @@ function Navbar({ user, onLogout, colorMode, toggleColorMode }) {
             { to: '/store', label: 'Store' },
             { to: '/feedback', label: 'Feedback' },
           ].map(({ to, label }) => (
-            <li key={label}>
+            <li key={label} role="none">
               <NavLink
                 to={to}
                 className={({ isActive }) =>
                   `px-4 py-2 text-lg font-semibold rounded transition
               ${isActive ? 'text-yellow-400 underline' : 'hover:text-yellow-300'}`
                 }
+                aria-current={({ isActive }) => (isActive ? 'page' : undefined)}
                 tabIndex={0}
+                role="menuitem"
               >
                 {label}
               </NavLink>
@@ -78,7 +84,7 @@ function Navbar({ user, onLogout, colorMode, toggleColorMode }) {
           <Button
             size="icon"
             variant="ghost"
-            aria-label="Toggle color mode"
+            aria-label={colorMode === 'light' ? 'Switch to dark mode' : 'Switch to light mode'}
             className="ml-4"
             onClick={toggleColorMode}
           >

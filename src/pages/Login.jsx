@@ -6,6 +6,7 @@ import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import app from '../firebase';
 import PropTypes from 'prop-types';
+import login from '../assets/login.jpg';
 
 function Login({ onLogin }) {
   const {
@@ -45,8 +46,22 @@ function Login({ onLogin }) {
   };
 
   return (
-    <main className="flex items-center justify-center bg-yellow-50 px-2">
-      <div className="max-w-md w-full bg-white rounded-2xl shadow-xl p-8 flex flex-col gap-6">
+    <div
+      id="main-content"
+      className="relative flex-1 flex flex-col items-center justify-center overflow-hidden w-full min-h-[80vh]"
+    >
+      {/* Background Image Layer */}
+      <div
+        className="absolute inset-0 -z-10 bg-cover bg-center pointer-events-none w-full h-full"
+        style={{
+          backgroundImage: `url(${login})`,
+          filter: 'blur(4px) brightness(0.9)',
+          opacity: 0.6,
+        }}
+        aria-hidden="true"
+      />
+
+      <div className="max-w-md w-full bg-white/90 backdrop-blur rounded-2xl shadow-xl p-8 flex flex-col gap-6">
         <h1 className="text-3xl font-bold text-green-900 text-center mb-2">
           Log In to Little Lemon
         </h1>
@@ -83,7 +98,7 @@ function Login({ onLogin }) {
               id="email"
               type="email"
               autoComplete="username"
-              placeholder="Please enter your email"
+              placeholder="Please enter your email."
               {...register('email', {
                 required: 'Email address is required.',
                 pattern: {
@@ -92,7 +107,7 @@ function Login({ onLogin }) {
                 },
               })}
               aria-invalid={!!errors.email}
-              className="mt-1"
+              className="mt-1 bg-white/70 border border-yellow-200 focus:border-yellow-400 placeholder:text-yellow-900/70"
             />
             {errors.email && <span className="text-red-600 text-sm">{errors.email.message}</span>}
           </div>
@@ -104,7 +119,7 @@ function Login({ onLogin }) {
               id="password"
               type="password"
               autoComplete="current-password"
-              placeholder="Please enter your password"
+              placeholder="Please enter your password."
               {...register('password', {
                 required: 'Password is required.',
                 minLength: {
@@ -113,7 +128,7 @@ function Login({ onLogin }) {
                 },
               })}
               aria-invalid={!!errors.password}
-              className="mt-1"
+              className="mt-1 bg-white/70 border border-yellow-200 focus:border-yellow-400 placeholder:text-yellow-900/70"
             />
             {errors.password && (
               <span className="text-red-600 text-sm">{errors.password.message}</span>
@@ -139,7 +154,7 @@ function Login({ onLogin }) {
           </RouterLink>
         </div>
       </div>
-    </main>
+    </div>
   );
 }
 

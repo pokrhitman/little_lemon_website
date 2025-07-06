@@ -22,7 +22,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 ## [2025-07-06] 2025-07-02 Accessibility statement & a11y refactor round 2
 
 - Added a dedicated **Accessibility Statement** page and footer link for legal/ESG compliance.
-- Refactored navigation, forms, and all pages for diamond-level accessibility (a11y).
+- Refactored navigation forms and all pages for diamond-level accessibility (a11y).
 - Fixed router basename and footer links for correct GitHub Pages navigation.
 - Updated README with expanded accessibility & compliance details.
 

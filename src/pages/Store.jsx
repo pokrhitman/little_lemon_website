@@ -1,7 +1,7 @@
 import React from 'react';
 import storeItemsToDisplay from '../data/storeData';
 import { Button } from '@/components/ui/button';
-import jar from '../assets/jar.jpg';
+import jar from '../assets/background/jar.jpg';
 
 function Store() {
   return (

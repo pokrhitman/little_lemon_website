@@ -6,7 +6,7 @@ import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import app from '../firebase';
 import PropTypes from 'prop-types';
-import login from '../assets/login.jpg';
+import login from '../assets/background/login.jpg';
 
 function Login({ onLogin }) {
   const {

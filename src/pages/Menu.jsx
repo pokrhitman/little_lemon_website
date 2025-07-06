@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import menuItemsToDisplay from '../data/menuData';
 import ItemCard from '../components/ItemCard';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
-import olives from '../assets/olives.jpg';
+import olives from '../assets/background/olives.jpg';
 
 function Menu() {
   const [popupItem, setPopupItem] = useState(null);

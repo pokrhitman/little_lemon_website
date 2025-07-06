@@ -2,7 +2,7 @@ import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Sun, Moon } from 'lucide-react';
-import logo from '../assets/logo.png';
+import logo from '../assets/background/logo.png';
 import PropTypes from 'prop-types';
 
 function Navbar({ user, onLogout, colorMode, toggleColorMode }) {

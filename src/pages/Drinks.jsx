@@ -8,7 +8,7 @@ import {
   DialogTitle,
   DialogClose,
 } from '@/components/ui/dialog';
-import terrace from '../assets/terrace.jpg';
+import terrace from '../assets/background/terrace.jpg';
 
 function Drinks() {
   const [popupItem, setPopupItem] = useState(null);

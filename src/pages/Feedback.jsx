@@ -7,7 +7,7 @@ import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { getFirestore, collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import app from '../firebase';
 import PropTypes from 'prop-types';
-import charcoal from '../assets/charcoal.jpg';
+import charcoal from '../assets/background/charcoal.jpg';
 
 const db = getFirestore(app);
 

@@ -18,15 +18,7 @@ This is a **front-end React web app** for the fictional Mediterranean bistro, _L
 ## 🚨 Framework Update (June 2025)
 
 > **This codebase was originally built with Chakra UI and Formik/Yup. As of June 2025, it is now fully migrated to Tailwind CSS, shadcn/ui, and React Hook Form.**
->
-> - **Why the change?**
->     - **Performance:** Utility-first CSS is faster, lighter 
-        and more scalable.
->     - **Design Freedom:** shadcn/ui + Tailwind provide complete
-        control with no opinionated theme conflicts.
->     - **Modern Forms:** React Hook Form is the new industry
-        standard—simpler, more accessible and better for large projects.
-> - **All Chakra/Formik/Yup code has been removed.**
+
 > - See the [Changelog](./CHANGELOG.md) for migration notes.
 
 --- 
@@ -39,16 +31,24 @@ This is a **front-end React web app** for the fictional Mediterranean bistro, _L
 
 ## ♿ Accessibility & AI-Readiness
 
-This project goes beyond traditional accessibility (a11y) and proactively prepares for the future of web automation and AI agents. Key features include:
+This project goes beyond traditional accessibility (a11y) and proactively prepares for the future of web automation and AI agents. Key standards and features include:
 
 - **Semantic HTML**: All pages use correct landmarks (`<nav>`, `<main>`, `<header>`, `<footer>`), headings and label structure.
-- **Keyboard Navigation**: All interactive elements are keyboard accessible (forms, buttons, pop-ups, etc.).
-- **ARIA Labels & Roles**: Dynamic UI elements (popups, alerts, form feedback) use proper `aria-label`, `aria-live` and roles to announce changes to screen readers and bots.
-- **Skip Link**: Prominent “Skip to main content” link at the top of every page for keyboard and screen reader users.
-- **High Contrast & Focus States**: Color system and visible focus indicators help all users—including those with visual impairments or on touch devices.
-- **Accessible Forms**: All inputs and controls have explicit labels, validation, and accessible feedback.
-- **Structured Data for AI Agents**: Implements [Schema.org](https://schema.org/Restaurant) structured data in the site `<head>`, enabling search engines and AI assistants to understand the restaurant, menu and reservation options.
-- **Future-Proof Philosophy**: Designed so AI agents (e.g., digital assistants, browser bots) can navigate, extract data and perform actions like menu lookups or reservations as the next web generation emerges.
+- **Keyboard Navigation**: All interactive elements (forms, buttons, pop-ups, dialogs, cards) are keyboard accessible.
+- **ARIA Labels, Roles & Live Regions**: Dynamic UI elements (popups, dialogs, alerts, form feedback) use appropriate `aria-label`, `aria-live` and semantic roles to announce changes to screen readers and assistive tech.
+- **Skip Link**: Prominent “Skip to main content” link appears at the top of every page for keyboard and screen reader users.
+- **High Contrast & Focus States**: Color system and clear focus indicators help all users, including those with visual impairments or on touch devices.
+- **Accessible Forms**: All inputs and controls have explicit labels, validation, error feedback, and helper text announced via `aria-describedby`.
+- **Accessible Dialogs & Popups**: All modal dialogs use correct roles (`role="dialog"`, `aria-modal="true"`) are fully keyboard accessible, and announce content changes.
+- **Structured Data for AI Agents**: Implements [Schema.org](https://schema.org/Restaurant) structured data in the site `<head>`, enabling search engines and AI assistants to understand the restaurant, menu, and reservation options.
+- **Dark Mode & Reduced Motion**: Theme toggle supports both light and dark color schemes; respects user OS/browser preference for reduced motion.
+- **Future-Proof Philosophy**: Designed for AI agents (digital assistants, browser bots) to navigate, extract data and perform actions such as menu lookups or reservations as next-gen web automation emerges.
+- **Continuous Accessibility Review**: New features and pages are regularly tested for accessibility with keyboard navigation, screen readers and a11y tooling.
+
+### Standards
+
+This project aims to meet or exceed [WCAG 2.1 AA](https://www.w3.org/WAI/WCAG21/Understanding/) guidelines and is suitable for organizations with strict ESG, legal or supplier compliance requirements. Accessibility is considered throughout the design and development process with ongoing review and reasonable accommodation of accessibility requests.
+
 
 ---
 
@@ -137,7 +137,7 @@ npm run dev
 
 This project **started as a solution for the Meta Front-End Developer Capstone (Little Lemon) course assignment** on Coursera, but has since been **heavily refactored and expanded** with modern frameworks:
 
-- All UI now uses **Tailwind and shadcn/ui** (not plain CSS or course starter files)
+- All UI uses **Tailwind and shadcn/ui** (not plain CSS or course starter files)
 - Routing, file structure and overall app logic have been modularized for professional/production use
 
 **As a result, this codebase is _not compatible_ with Coursera's auto-grading system or course copy-paste assignments.**

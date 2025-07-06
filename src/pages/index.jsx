@@ -8,3 +8,4 @@ export { default as Store } from './Store';
 export { default as Layout } from '../components/Layout';
 export { default as Account } from './Account';
 export { default as Register } from './Register';
+export { default as Accessibility } from './Accessibility';

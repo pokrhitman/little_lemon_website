@@ -24,7 +24,7 @@ function Drinks() {
   const handleClosePopup = () => setPopupItem(null);
 
   return (
-    <div id="main-content" className="relative flex-1 flex-col items-center overflow-hidden w-full">
+    <div className="relative flex-1 flex-col items-center overflow-hidden w-full">
       {/* Background Image Layer */}
       <div
         className="absolute inset-0 -z-10 bg-cover bg-center pointer-events-none w-full h-full"
@@ -35,18 +35,29 @@ function Drinks() {
         }}
         aria-hidden="true"
       />
-      <main className="px-2 md:px-6 py-8 w-full">
+      <div className="px-2 md:px-6 py-8 w-full">
         <h1 className="sr-only">Drinks - Little Lemon Restaurant</h1>
         <div className="max-w-7xl mx-auto">
           {drinksItemsToDisplay.map(section => (
-            <section key={section.title} className="mb-14">
-              <h2 className="text-3xl font-bold text-blue-100 drop-shadow-lg mb-2">
+            <section
+              key={section.title}
+              aria-labelledby={`drinks-section-${section.title.replace(/\s+/g, '-')}`}
+              className="mb-14"
+            >
+              <h2
+                id={`drinks-section-${section.title.replace(/\s+/g, '-')}`}
+                className="text-3xl font-bold text-blue-100 drop-shadow-lg mb-2"
+              >
                 {section.title}
               </h2>
               <p className="text-blue-50 text-md mb-4 drop-shadow">
                 Click on an item to see more details.
               </p>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              <div
+                className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+                role="list"
+                aria-label={`${section.title} items`}
+              >
                 {section.data.map(item => (
                   <ItemCard
                     key={item.name}
@@ -69,7 +80,7 @@ function Drinks() {
 
         {/* Dialog for nutrition info */}
         <Dialog open={!!popupItem} onOpenChange={open => !open && handleClosePopup()}>
-          <DialogContent className="max-w-md w-full">
+          <DialogContent className="max-w-md w-full" aria-modal="true" role="dialog">
             {popupItem && (
               <>
                 <DialogHeader>
@@ -102,7 +113,7 @@ function Drinks() {
             )}
           </DialogContent>
         </Dialog>
-      </main>
+      </div>
 
       {/* Tailwind JIT color registry */}
       <div className="hidden hover:bg-blue-200 hover:bg-yellow-300" />

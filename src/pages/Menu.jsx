@@ -15,20 +15,13 @@ function Menu() {
   };
 
   // Open popup
-  const handleOpenPopup = item => {
-    setPopupItem(item);
-  };
+  const handleOpenPopup = item => setPopupItem(item);
 
   // Close popup
-  const handleClosePopup = () => {
-    setPopupItem(null);
-  };
+  const handleClosePopup = () => setPopupItem(null);
 
   return (
-    <div
-      id="main-content"
-      className="relative flex-1 flex flex-col items-center overflow-hidden w-full"
-    >
+    <div className="relative flex-1 flex flex-col items-center overflow-hidden w-full">
       {/* Background Image Layer */}
       <div
         className="absolute inset-0 -z-10 bg-cover bg-center pointer-events-none w-full h-full"
@@ -39,14 +32,20 @@ function Menu() {
         }}
         aria-hidden="true"
       />
-
-      <main className="px-2 md:px-6 py-8 w-full">
-        {/* Hidden real h1 for SEO/ Accessibility */}
+      {/* Main landmark and hidden h1 for a11y/SEO */}
+      <main className="px-2 md:px-6 py-8 w-full" role="main" aria-label="Menu" tabIndex={-1}>
         <h1 className="sr-only">Menu - Little Lemon Restaurant</h1>
         <div className="max-w-7xl mx-auto">
           {menuItemsToDisplay.map(section => (
-            <section key={section.title} className="mb-14">
-              <h2 className="text-3xl font-bold text-yellow-300 drop-shadow-lg mb-2">
+            <section
+              key={section.title}
+              aria-labelledby={`section-title-${section.title.replace(/\s+/g, '-')}`}
+              className="mb-14"
+            >
+              <h2
+                id={`section-title-${section.title.replace(/\s+/g, '-')}`}
+                className="text-3xl font-bold text-yellow-300 drop-shadow-lg mb-2"
+              >
                 {section.title}
               </h2>
               <p className="text-yellow-300 text-md mb-4 drop-shadow">
@@ -54,6 +53,7 @@ function Menu() {
               </p>
               <div
                 className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+                role="list"
                 aria-label={`${section.title} items`}
               >
                 {section.data.map(item => (
@@ -78,7 +78,7 @@ function Menu() {
 
         {/* shadcn/ui Dialog Popup */}
         <Dialog open={!!popupItem} onOpenChange={open => !open && handleClosePopup()}>
-          <DialogContent className="max-w-md w-full">
+          <DialogContent className="max-w-md w-full" aria-modal="true" role="dialog">
             {popupItem && (
               <>
                 <DialogHeader>
@@ -106,11 +106,10 @@ function Menu() {
           </DialogContent>
         </Dialog>
       </main>
+      {/* Dummy div for Tailwind JIT color variants */}
+      <div className="hidden hover:bg-yellow-400 hover:bg-yellow-500" />;
     </div>
   );
 }
-
-// The dummy div below is required to store color variants that Tailwind can use. Otherwise any new color will not be applied in above code blocks because TW has no prior reference.
-<div className="hidden hover:bg-yellow-400 hover:bg-yellow-500" />;
 
 export default Menu;

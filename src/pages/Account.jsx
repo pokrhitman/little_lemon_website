@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
@@ -8,10 +8,14 @@ import { Button } from '@/components/ui/button';
 
 export default function Account({ user, onLogout }) {
   const navigate = useNavigate();
+  const headingRef = useRef(null);
 
   useEffect(() => {
     if (!user) {
       navigate('/login');
+    } else {
+      //Focus the heading for screen readers on arrival
+      if (headingRef.current) headingRef.current.focus();
     }
   }, [user, navigate]);
 
@@ -19,7 +23,12 @@ export default function Account({ user, onLogout }) {
     <div className="flex flex-1 min-h-[70vh] items-center justify-center bg-brand-50 px-2">
       <Card className="w-full max-w-xl bg-brand-50 rounded-2xl shadow-m p-8">
         <CardHeader>
-          <h1 className="text-2xl font-bold text-brand-700 mb-4">
+          <h1
+            ref={headingRef}
+            className="text-2xl font-bold text-brand-700 mb-4"
+            tabIndex={-1}
+            id="account-title"
+          >
             Welcome, {user?.firstName || user?.email || 'User'}!
           </h1>
         </CardHeader>
@@ -32,7 +41,7 @@ export default function Account({ user, onLogout }) {
         <CardFooter>
           <Button
             type="button"
-            className="bg-brand-100 border-2 border-black text-black hover:bg-brand-700 hover:text-brand-100 font-semibild transition"
+            className="bg-brand-100 border-2 border-black text-black hover:bg-brand-700 hover:text-brand-100 font-semibold transition"
             onClick={onLogout}
             aria-label="Log out"
           >

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 function Footer() {
   return (
@@ -12,14 +13,24 @@ function Footer() {
           <a
             href="https://github.com/pokrhitman"
             target="_blank"
-            rel="noopener noreferer noreferrer"
-            aria-label="Visit Pokrhitman's GitHub profile (opens in new tab"
+            rel="noopener noreferrer"
+            aria-label="Visit Pokrhitman's GitHub profile (opens in new tab)"
             className="underline hover:text-yellow-600 focus:outline-none focus:ring-2 focus:ring-green-900 rounded transition"
           >
             Pokrhitman
           </a>{' '}
           with React, Vite, Tailwind CSS and shadcn/ui.
         </p>
+        {/* Accessibility Statement Link */}
+        <nav aria-label="Footer links" className="flex flex-wrap gap-4 mt-2">
+          <Link
+            to="/accessibility"
+            className="underline hover:text-green-900 focus:outline-none focus:ring-2 focus:ring-green-900 rounded transition text-green-900 font-semibold"
+            aria-label="Accessibility Statement"
+          >
+            Accessibility
+          </Link>
+        </nav>
       </div>
     </footer>
   );

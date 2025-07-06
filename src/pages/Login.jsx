@@ -46,10 +46,7 @@ function Login({ onLogin }) {
   };
 
   return (
-    <div
-      id="main-content"
-      className="relative flex-1 flex flex-col items-center justify-center overflow-hidden w-full min-h-[80vh]"
-    >
+    <div className="relative flex-1 flex flex-col items-center justify-center overflow-hidden w-full min-h-[80vh]">
       {/* Background Image Layer */}
       <div
         className="absolute inset-0 -z-10 bg-cover bg-center pointer-events-none w-full h-full"
@@ -62,7 +59,7 @@ function Login({ onLogin }) {
       />
 
       <div className="max-w-md w-full bg-white/90 backdrop-blur rounded-2xl shadow-xl p-8 flex flex-col gap-6">
-        <h1 className="text-3xl font-bold text-green-900 text-center mb-2">
+        <h1 className="text-3xl font-bold text-green-900 text-center mb-2" id="login-title">
           Log In to Little Lemon
         </h1>
 
@@ -89,7 +86,12 @@ function Login({ onLogin }) {
           </div>
         )}
 
-        <form className="flex flex-col gap-5" onSubmit={handleSubmit(onSubmit)} noValidate>
+        <form
+          className="flex flex-col gap-5"
+          onSubmit={handleSubmit(onSubmit)}
+          noValidate
+          aria-labelledby="login-title"
+        >
           <div>
             <label className="font-bold text-green-900" htmlFor="email">
               Email *
@@ -148,7 +150,7 @@ function Login({ onLogin }) {
           <RouterLink
             to="/register"
             className="text-yellow-600 font-bold hover:underline"
-            aria-label="Sign up"
+            aria-label="Sign up for an account"
           >
             Sign up here!
           </RouterLink>

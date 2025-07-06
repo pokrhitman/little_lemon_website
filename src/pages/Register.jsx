@@ -82,10 +82,7 @@ export default function Register({ onRegister }) {
   };
 
   return (
-    <div
-      id="main-content"
-      className="flex flex-1 min-h-[80vh] items-center justify-center overflow-hidden w-full"
-    >
+    <div className="flex flex-1 min-h-[80vh] items-center justify-center overflow-hidden w-full">
       {/* Background Image Layer */}
       <div
         className="absolute inset-0 -z-10 bg-cover bg-center pointer-events-none w-full h-full"
@@ -126,11 +123,11 @@ export default function Register({ onRegister }) {
             onSubmit={handleSubmit(onSubmit, onError)}
             noValidate
             className="space-y-4"
-            aria-describedby={errorMsg ? 'register-error' : undefined}
+            aria-labelledby="register-title"
           >
             {/* First Name */}
             <div>
-              <Label htmlFor="firstName" className="text-brand-100">
+              <Label htmlFor="firstName" className="text-green-900">
                 First Name
               </Label>
               <Input

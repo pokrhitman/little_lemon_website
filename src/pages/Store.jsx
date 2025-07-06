@@ -5,10 +5,7 @@ import jar from '../assets/jar.jpg';
 
 function Store() {
   return (
-    <div
-      id="main-content"
-      className="relative flex-1 flex flex-col items-center overflow-hidden w-full"
-    >
+    <div className="relative flex-1 flex flex-col items-center overflow-hidden w-full">
       {/* Background Image Layer */}
       <div
         className="absolute inset-0 -z-10 bg-cover bg-center pointer-event-none w-full h-full"
@@ -20,21 +17,30 @@ function Store() {
         aria-hidden="true"
       />
 
-      <main className="px-2 md:px-6 py-8 w-full">
+      <div className="px-2 md:px-6 py-8 w-full">
         <h1 className="sr-only">Store - Little Lemon Restaurant</h1>
         <div className="max-w-7xl mx-auto">
           {storeItemsToDisplay.map(section => (
-            <section key={section.title} className="mb-14">
-              <h2 className="text-3xl font-bold text-yellow-100 drop-shadow-lg mb-8">
+            <section
+              key={section.title}
+              aria-labelledby={`store-section-${section.title.replace(/\s+/g, '-')}`}
+              className="mb-14"
+            >
+              <h2
+                id={`store-section-${section.title.replace(/\s+/g, '-')}`}
+                className="text-3xl font-bold text-yellow-100 drop-shadow-lg mb-8"
+              >
                 {section.title}
               </h2>
               <div
                 className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+                role="list"
                 aria-label={`${section.title} products`}
               >
                 {section.data.map(item => (
                   <div
                     key={item.name}
+                    role="listitem"
                     className="bg-white/80 backdrop-blur-md rounded-2xl shadow-md p-4 max-w-[260px] min-w-[180px] w-full flex flex-col items-center transition hover:shadow-xl hover:bg-yellow-100"
                   >
                     <img
@@ -58,7 +64,7 @@ function Store() {
                             href={item.url}
                             target="_blank"
                             rel="noopener noreferrer"
-                            aria-label={`Buy ${item.name} now`}
+                            aria-label={`Buy ${item.name} now (opens in new tab)`}
                           >
                             Buy Now
                           </a>
@@ -68,6 +74,8 @@ function Store() {
                           variant="outline"
                           className="mt-2 w-full font-bold text-gray-500 border-gray-300 cursor-not-allowed"
                           disabled
+                          aria-disabled="true"
+                          aria-label="Product coming soon"
                         >
                           Coming Soon!
                         </Button>
@@ -79,7 +87,7 @@ function Store() {
             </section>
           ))}
         </div>
-      </main>
+      </div>
 
       {/* Dummy div for Tailwind JIT color registry */}
       <div className="hidden hover:bg-yellow-100 hover:bg-yellow-300 hover:bg-yellow-400" />

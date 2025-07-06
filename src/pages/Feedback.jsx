@@ -52,10 +52,7 @@ function Feedback() {
   };
 
   return (
-    <div
-      id="main-content"
-      className="relative flex-1 flex flex-col items-center overflow-hidden w-full"
-    >
+    <div className="relative flex-1 flex flex-col items-center overflow-hidden w-full">
       {/* Background Image Layer */}
       <div
         className="absolute inset-0 -z-10 bg-cover bg-center pointer-events-none w-full h-full"
@@ -67,7 +64,7 @@ function Feedback() {
         aria-hidden="true"
       />
 
-      <main className="w-full flex items-center py-10 px-2">
+      <div className="w-full flex items-center py-10 px-2">
         <div className="max-w-lg w-full mx-auto flex flex-col gap-3">
           <div>
             <h1 className="text-3xl font-bold text-yellow-300 drop-shadow-lg mb-1">
@@ -96,7 +93,11 @@ function Feedback() {
             className="bg-white/85 backdrop-blur-md rounded-xl shadow-xl p-8 w-full flex flex-col gap-6"
             noValidate
             onSubmit={handleSubmit(onSubmit)}
+            aria-labelledby="feedback-form-title"
           >
+            <h2 id="feedback-form-title" className="sr-only">
+              Feedback form
+            </h2>
             <div>
               <label className="font-bold text-green-900" htmlFor="firstName">
                 First Name *
@@ -214,7 +215,7 @@ function Feedback() {
             </Button>
           </form>
         </div>
-      </main>
+      </div>
       {/* Dummy div for Tailwind JIT color registry */}
       <div className="hidden hover:bg-yellow-100 hover:bg-yellow-300" />
     </div>

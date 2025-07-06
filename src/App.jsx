@@ -1,7 +1,18 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { Layout } from './components';
-import { Login, Desserts, Drinks, Feedback, Store, Home, Menu, Register, Account } from './pages';
+import {
+  Login,
+  Desserts,
+  Drinks,
+  Feedback,
+  Store,
+  Home,
+  Menu,
+  Register,
+  Account,
+  Accessibility,
+} from './pages';
 
 function App() {
   const [user, setUser] = useState(null);
@@ -30,6 +41,7 @@ function App() {
             <Route path="/login" element={<Login onLogin={handleLogin} />} />
             <Route path="/register" element={<Register onRegister={handleLogin} />} />
             <Route path="/account" element={<Account user={user} onLogout={handleLogout} />} />
+            <Route path="/accessibility" element={<Accessibility />} />
           </Routes>
         </Layout>
       </Router>

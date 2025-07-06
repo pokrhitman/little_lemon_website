@@ -6,7 +6,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { getAuth, createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import app from '../firebase';
 import PropTypes from 'prop-types';
-import registration from '../assets/registration.jpg';
+import registration from '../assets/background/registration.jpg';
 
 // shadcn/ui components
 import { Card, CardContent, CardHeader } from '@/components/ui/card';

@@ -8,7 +8,7 @@ import {
   DialogTitle,
   DialogClose,
 } from '@/components/ui/dialog';
-import chocolate from '../assets/chocolate.jpg';
+import chocolate from '../assets/background/chocolate.jpg';
 
 function Desserts() {
   const [popupItem, setPopupItem] = useState(null);

@@ -1,7 +1,7 @@
 import React from 'react';
 import QuoteCard from '../components/QuoteCard';
 import CarouselCard from '../components/CarouselCard';
-import oranges from '../assets/oranges.jpg';
+import oranges from '../assets/background/oranges.jpg';
 
 function Home() {
   return (
@@ -40,40 +40,21 @@ function Home() {
         </h2>
       </section>
 
-      {/* Main Grid: Animation | Cards | Chatbot */}
+      {/* Main Grid: Cards only*/}
       <section
         aria-label="Featured content"
-        className="w-full flex justify-center items-start gap-6 max-w-5xl mb-2 mx-auto"
+        className="w-full flex flex-col items-center justify-center"
       >
-        {/* Left: Animation/ illustration (placehoder) */}
-        <div
-          className="hidden lg:flex w-24 h-48 bg-yellow-100 rounded-lg items-center justify-center"
-          aria-hidden="true"
-        >
-          {/* Replace with animation / character as needed */}
-          <span className="text-3xl" role="img" aria-label="Animation">
-            🧑‍🍳
-          </span>
-        </div>
-
         {/* Center: 2 Cards in a row */}
-        <div className="flex-1 grid grid-cols-2 gap-8 place-items-center">
+        <div className="flex flex-row justify-center gap-10 w-full max-w-4xl">
           {/* Quote Card */}
-          <div className="min-h-[320px] flex flex-col w-full">
+          <div className="flex-1 flex flex-col items-center justify-center">
             <QuoteCard />
           </div>
           {/* Carousel Card */}
-          <div className="h-[320px] flex flex-col w-full">
+          <div className="flex-1 flex flex-col items-center justify-center">
             <CarouselCard />
           </div>
-        </div>
-
-        {/* Right: Chatbot placeholder */}
-        <div
-          className="hidden lg:flex w-24 h-48 bg-gray-200 rounded-lg items-center justify-center"
-          aria-hidden="true"
-        >
-          <span className="text-3xl">🤖</span>
         </div>
       </section>
     </div>

@@ -1,0 +1,44 @@
+[
+    {
+        "name": "Maria",
+        "role": "Purchasing Manager",
+        "location": "Little Lemon Restaurant",
+        "message": "I love selecting the freshest organic ingredients for our customers and kitchen!",
+        "photo": "assets/testimonials/maria_market.jpg"
+    },
+    {
+        "name": "Luca",
+        "role": "Head Chef",
+        "location": "Kitchen",
+        "message": "Cooking with Mediterranean flavors reminds me of home.",
+        "photo": "assets/testimonials/luca_kitchen.jpg"
+    },
+    {
+        "name": "Samir",
+        "role": "Pastry Chef",
+        "location": "Little Lemon Cafe",
+        "message": "Helping guests find new creations in our store is always a pleasure.",
+        "photo": "assets/testimonials/samir_pastries.jpg"
+    },
+    {
+        "name": "Patty, Lisa and Ramon",
+        "role": "Sous Chefs",
+        "location": "Kitchen",
+        "message": "Every day is full of surprises. We turn them into delicious meals.",
+        "photo": "assets/testimonials/team_kitchen.jpg"
+    },
+    {
+        "name": "Martin",
+        "role": "Store Manager",
+        "location": "Little Lemon Store",
+        "message": "Our store has become a favorite for cooking enthusiasts. Check out our monthly food and wine tastings.",
+        "photo": "assets/testimonials/martin_store.jpg"
+    },
+      {
+        "name": "Miguel",
+        "role": "Junior Chef",
+        "location": "Kitchen",
+        "message": "Great vibes make food taste better.",
+        "photo": "assets/testimonials/miguel_kitchen.jpg"
+    }
+]

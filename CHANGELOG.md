@@ -19,7 +19,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 ---
 
-## [2025-07-06] 2025-07-02 Accessibility statement & a11y refactor round 2
+## [2.2.0] 2025-07-06 Carousel feature and Home layout improvements
+
+- Implemented a fully functional “Meet Our Team” carousel on the Home page, with employee bios and images.
+- Set up robust image paths using public/assets and BASE_URL for production and GitHub Pages compatibility.
+- Refactored the Home page layout: removed animation and chatbot placeholders, made cards more prominent and balanced, and improved overall spacing.
+- Completed final branch cleanup and major git hygiene—local and remote repos are now clean and up to date.
+- Continued accessibility (a11y) polish, keeping all components and new features compliant.
+
+
+## [2.1.2] 2025-07-06 Accessibility statement & a11y refactor round 2
 
 - Added a dedicated **Accessibility Statement** page and footer link for legal/ESG compliance.
 - Refactored navigation forms and all pages for diamond-level accessibility (a11y).

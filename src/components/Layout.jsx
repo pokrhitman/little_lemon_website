@@ -32,12 +32,7 @@ function Layout({ children, user, onLogout }) {
       <Navbar user={user} onLogout={onLogout} />
 
       {/* Main Content Area, focused on route change */}
-      <main
-        id="main-content"
-        ref={mainRef}
-        tabIndex={-1}
-        className="flex-1 flex flex-col w-full outline-none"
-      >
+      <main id="main-content" ref={mainRef} tabIndex={-1} className="flex-1 w-full outline-none">
         {children}
       </main>
 

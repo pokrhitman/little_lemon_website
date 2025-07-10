@@ -17,16 +17,11 @@ import {
 function App() {
   const [user, setUser] = useState(null);
 
-  const handleLogin = userData => {
-    setUser(userData);
-  };
-
-  const handleLogout = () => {
-    setUser(null);
-  };
+  const handleLogin = userData => setUser(userData);
+  const handleLogout = () => setUser(null);
 
   return (
-    <div className="flex flex-col">
+    <div className="min-h-screen flex flex-col">
       <Router basename="/little_lemon_website">
         <Layout user={user} onLogout={handleLogout}>
           <Routes>

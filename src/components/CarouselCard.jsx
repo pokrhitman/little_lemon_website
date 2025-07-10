@@ -61,11 +61,11 @@ function CarouselCard() {
               </span>
             </div>
             {/* Navigation */}
-            <div className="flex gap-6 mt-2 justify-center">
+            <div className="flex flex-row items-center justify-center gap-4 mt-2">
               <button
                 onClick={handlePrev}
                 aria-label="Previous team member"
-                className="rounded-full bg-yellow-200 text-green-900 px-5 py-2 text-2xl font-bold shadow hover:bg-yellow-300 focus:outline-none focus:ring-2 focus:ring-green-900 transition"
+                className="w-10 h-10 rounded-full bg-yellow-200 text-green-900 text-2xl font-bold shadow hover:bg-yellow-300 focus:outline-none focus:ring-2 focus:ring-green-900 transition flex items-center justify-center leading-none pb-[4px]"
               >
                 ‹
               </button>
@@ -75,7 +75,7 @@ function CarouselCard() {
               <button
                 onClick={handleNext}
                 aria-label="Next team member"
-                className="rounded-full bg-yellow-200 text-green-900 px-5 py-2 font-bold shadow hover:bg-yellow-300 focus:outline-none focus:ring-2 focus:ring-green-900 transition"
+                className="w-10 h-10 rounded-full bg-yellow-200 text-green-900 text-2xl font-bold shadow hover:bg-yellow-300 focus:outline-none focus:ring-2 focus:ring-green-900 transition flex items-center justify-center leading-none pb-[4px]"
               >
                 ›
               </button>

@@ -24,7 +24,7 @@ function Desserts() {
   const handleClosePopup = () => setPopupItem(null);
 
   return (
-    <div className="relative flex-1 flex flex-col items-center overflow-hidden w-full">
+    <div className="relative min-h-screen flex-1 flex flex-col items-center overflow-hidden w-full">
       {/* Background Image Layer */}
       <div
         className="absolute inset-0 -z-10 bg-cover bg-center pointer-events-none w-full h-full"
